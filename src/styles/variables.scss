@@ -1,0 +1,54 @@
+$primary-10: #F5E3D6;
+$primary-48: hsl(36, 60%, 53%);
+$primary-50: #CC8F33;
+$primary-52: hsl(36, 60%, 46%);
+$primary-80: #291D0A;
+
+$neutral-0: #FFFFFF;
+$neutral-10: #E6E6E6;
+$neutral-20: #CCCCCC;
+$neutral-30: #B3B3B3;
+$neutral-40: #999999;
+$neutral-50: #808080;
+$neutral-60: #666666;
+$neutral-70: #4D4D4D;
+$neutral-80: #333333;
+$neutral-86: #242424;
+$neutral-88: #1F1F1F;
+$neutral-90: #1A1A1A;
+
+$colors-list: (
+    'primary': ('10': $primary-10,
+        '50': $primary-50,
+        '80': $primary-80 ),
+    'neutral': ('0': $neutral-0,
+        '10': $neutral-10,
+        '20': $neutral-20,
+        '30': $neutral-30,
+        '40': $neutral-40,
+        '50': $neutral-50,
+        '60': $neutral-60,
+        '70': $neutral-70,
+        '80': $neutral-80,
+        '86': $neutral-86,
+        '88': $neutral-88,
+        '90': $neutral-90 )
+);
+
+$colors: $colors-list;
+
+@each $category, $shades in $colors {
+    @each $shade, $color in $shades {
+        .color-#{$category}-#{$shade} {
+            color: $color;
+        }
+
+        .border-#{$category}-#{$shade} {
+            border: 1px solid $color;
+        }
+
+        .bg-#{$category}-#{$shade} {
+            background-color: $color;
+        }
+    }
+}
