@@ -4,7 +4,7 @@ import Link from "next/link";
 
 export const metadata: Metadata = {
     title: 'Login',
-    description: 'Connect with the World and Share Your Story',
+    description: 'Connect with the World and Share Your Story'
 };
 
 export default function login() {
@@ -16,12 +16,12 @@ export default function login() {
             </header>
             <form className="px-[12px] pt-[24px] pb-[16px]">
                 <div className="form-group mb-[16px]">
-                    <label htmlFor="email" className="color-primary-10 text-[14px] mb-[8px]">Email</label><br />
+                    <label htmlFor="email" className="color-primary-10 text-[14px] block mb-[4px]">Email</label>
                     <input id="email" type="text" className="w-full h-[40px] px-[12px] bg-transparent border-neutral-80 rounded-[4px] focus:outline-none"></input>
                 </div>
 
                 <div className="form-group mb-[32px]">
-                    <label htmlFor="password" className="color-primary-10 text-[14px] mb-[8px]">Password</label><br />
+                    <label htmlFor="password" className="color-primary-10 text-[14px] block mb-[4px]">Password</label>
                     <input id="password" type="text" className="w-full h-[40px] px-[12px] bg-transparent border-neutral-80 rounded-[4px] focus:outline-none"></input>
                 </div>
 

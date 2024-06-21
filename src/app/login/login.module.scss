@@ -1,15 +1,7 @@
 @import '../../styles/variables.scss';
 
 .form_wrapper {
-    input {
-        transition: .2s;
-        border: 1px solid $neutral-80;
 
-        &:focus {
-            border: 1px solid $primary-50;
-            outline: none;
-        }
-    }
 
     button[type="submit"] {
         transition: .4s;

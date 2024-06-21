@@ -10,8 +10,8 @@
   --background-end-rgb: 255, 255, 255;
 }
 
-@media (prefers-color-scheme: dark) {s
-  :root {
+@media (prefers-color-scheme: dark) {
+  s :root {
     --foreground-rgb: 255, 255, 255;
     --background-start-rgb: 0, 0, 0;
     --background-end-rgb: 0, 0, 0;
@@ -29,3 +29,30 @@ body {
   }
 }
 
+input {
+  transition: .2s;
+  border: 1px solid $neutral-80;
+  outline: none;
+  color: $primary-10;
+
+  &:focus {
+    border: 1px solid $primary-50;
+    outline: none;
+  }
+
+  &::placeholder {
+    color: $neutral-70;
+  }
+}
+
+button[type="submit"] {
+  transition: .4s;
+
+  &:hover {
+    background-color: $primary-48;
+  }
+
+  &:active {
+    background-color: $primary-52;
+  }
+}
