@@ -24,7 +24,7 @@ export default function RegisterForm() {
             border: '1px solid #B03B3B',
             padding: '16px',
             color: '#FFE0E0',
-            background: '#1A1A1A',
+            background: '#291D1D',
         }
     };
 

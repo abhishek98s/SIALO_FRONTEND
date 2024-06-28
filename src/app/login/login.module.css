@@ -1,0 +1,189 @@
+.color-primary-10 {
+  color: #F5E3D6;
+}
+
+.border-primary-10 {
+  border: 1px solid #F5E3D6;
+}
+
+.bg-primary-10 {
+  background-color: #F5E3D6;
+}
+
+.color-primary-50 {
+  color: #CC8F33;
+}
+
+.border-primary-50 {
+  border: 1px solid #CC8F33;
+}
+
+.bg-primary-50 {
+  background-color: #CC8F33;
+}
+
+.color-primary-80 {
+  color: #291D0A;
+}
+
+.border-primary-80 {
+  border: 1px solid #291D0A;
+}
+
+.bg-primary-80 {
+  background-color: #291D0A;
+}
+
+.color-neutral-0 {
+  color: #FFFFFF;
+}
+
+.border-neutral-0 {
+  border: 1px solid #FFFFFF;
+}
+
+.bg-neutral-0 {
+  background-color: #FFFFFF;
+}
+
+.color-neutral-10 {
+  color: #E6E6E6;
+}
+
+.border-neutral-10 {
+  border: 1px solid #E6E6E6;
+}
+
+.bg-neutral-10 {
+  background-color: #E6E6E6;
+}
+
+.color-neutral-20 {
+  color: #CCCCCC;
+}
+
+.border-neutral-20 {
+  border: 1px solid #CCCCCC;
+}
+
+.bg-neutral-20 {
+  background-color: #CCCCCC;
+}
+
+.color-neutral-30 {
+  color: #B3B3B3;
+}
+
+.border-neutral-30 {
+  border: 1px solid #B3B3B3;
+}
+
+.bg-neutral-30 {
+  background-color: #B3B3B3;
+}
+
+.color-neutral-40 {
+  color: #999999;
+}
+
+.border-neutral-40 {
+  border: 1px solid #999999;
+}
+
+.bg-neutral-40 {
+  background-color: #999999;
+}
+
+.color-neutral-50 {
+  color: #808080;
+}
+
+.border-neutral-50 {
+  border: 1px solid #808080;
+}
+
+.bg-neutral-50 {
+  background-color: #808080;
+}
+
+.color-neutral-60 {
+  color: #666666;
+}
+
+.border-neutral-60 {
+  border: 1px solid #666666;
+}
+
+.bg-neutral-60 {
+  background-color: #666666;
+}
+
+.color-neutral-70 {
+  color: #4D4D4D;
+}
+
+.border-neutral-70 {
+  border: 1px solid #4D4D4D;
+}
+
+.bg-neutral-70 {
+  background-color: #4D4D4D;
+}
+
+.color-neutral-80 {
+  color: #333333;
+}
+
+.border-neutral-80 {
+  border: 1px solid #333333;
+}
+
+.bg-neutral-80 {
+  background-color: #333333;
+}
+
+.color-neutral-86 {
+  color: #242424;
+}
+
+.border-neutral-86 {
+  border: 1px solid #242424;
+}
+
+.bg-neutral-86 {
+  background-color: #242424;
+}
+
+.color-neutral-88 {
+  color: #1F1F1F;
+}
+
+.border-neutral-88 {
+  border: 1px solid #1F1F1F;
+}
+
+.bg-neutral-88 {
+  background-color: #1F1F1F;
+}
+
+.color-neutral-90 {
+  color: #1A1A1A;
+}
+
+.border-neutral-90 {
+  border: 1px solid #1A1A1A;
+}
+
+.bg-neutral-90 {
+  background-color: #1A1A1A;
+}
+
+.form_wrapper button[type=submit] {
+  transition: 0.4s;
+}
+.form_wrapper button[type=submit]:hover {
+  background-color: hsl(36, 60%, 53%);
+}
+.form_wrapper button[type=submit]:active {
+  background-color: hsl(36, 60%, 46%);
+}/*# sourceMappingURL=login.module.css.map */
