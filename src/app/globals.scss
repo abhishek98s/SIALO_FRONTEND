@@ -32,13 +32,13 @@ body {
 
 input {
   transition: .2s;
-  border: 1px solid $neutral-80;
-  outline: none;
+  outline: 1px solid $neutral-80;
+  border: 1px solid transparent;
   color: $primary-10;
 
   &:focus {
+    outline: 1px solid $primary-50;
     border: 1px solid $primary-50;
-    outline: none;
   }
 
   &::placeholder {
@@ -47,13 +47,14 @@ input {
 }
 
 button[type="submit"] {
+  background-color: $primary-50;
   transition: .4s;
 
   &:hover {
-    background-color: $primary-48;
+    background-color: $primary-60;
   }
 
   &:active {
-    background-color: $primary-52;
+    background-color: $primary-45;
   }
 }

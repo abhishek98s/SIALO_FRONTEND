@@ -1,8 +1,9 @@
-$primary-10: #F5E3D6;
-$primary-48: hsl(36, 60%, 53%);
-$primary-50: #CC8F33;
-$primary-52: hsl(36, 60%, 46%);
-$primary-80: #291D0A;
+$primary-10: #E5F5D6;
+$primary-45: #71A145;
+$primary-50: #A7DC74;
+$primary-60: #A7DC74;
+$primary-70: #4B7A1F;
+$primary-80: #19290A;
 
 $neutral-0: #FFFFFF;
 $neutral-10: #E6E6E6;
@@ -19,7 +20,10 @@ $neutral-90: #1A1A1A;
 
 $colors-list: (
     'primary': ('10': $primary-10,
+        '45': $primary-45,
         '50': $primary-50,
+        '60': $primary-60,
+        '70': $primary-70,
         '80': $primary-80 ),
     'neutral': ('0': $neutral-0,
         '10': $neutral-10,
