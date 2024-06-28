@@ -18,3 +18,19 @@ body {
 .shadow-soft {
     box-shadow: 0px 12px 48px rgba(0, 0, 0, 0.1);
 }
+
+.gradient-white {
+    background: linear-gradient(154.45deg, #494949 12.89%, #4949491a 52.29%, #49494966 91.69%);
+}
+
+.rounded {
+    &-4 {
+        border-radius: 4px;
+        overflow: hidden;
+    }
+
+    &-8 {
+        border-radius: 8px;
+        overflow: hidden;
+    }
+}

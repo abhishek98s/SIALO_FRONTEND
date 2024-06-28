@@ -9,6 +9,22 @@ const nextConfig = {
     sassOptions: {
         includePaths: [path.join(__dirname, 'styles'), 'src/styles/variables.scss'],
     },
+    images: {
+        remotePatterns: [
+            {
+                protocol: 'https',
+                hostname: 'res.cloudinary.com',
+                port: '',
+                pathname: '/dxsqdqnoe/image/upload/**',
+            },
+            {
+                protocol: 'https',
+                hostname: 'sialo.vercel.app',
+                port: '',
+                pathname: '/_next/**',
+            },
+        ],
+    },
 };
 
 export default nextConfig;
