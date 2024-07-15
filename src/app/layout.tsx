@@ -2,6 +2,8 @@ import type { Metadata } from "next";
 import { Inter, Quicksand } from "next/font/google";
 import "./globals.scss";
 
+import Navbar from "@/components/navbar";
+
 const quickSand = Quicksand({
   weight: ['400', '500', '600', '700'],
   style: ['normal'],
@@ -23,6 +25,8 @@ export default function RootLayout({
     <>
       <html>
         <body className={quickSand.className}>
+          <Navbar />
+
           {children}
         </body>
       </html>
