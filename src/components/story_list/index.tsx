@@ -47,7 +47,7 @@ export default function StoriesList() {
 
                         <SplideSlide>
                             <div className="post_story flex w-[90px] h-[120px] gradient-white border-primary-60 rounded-4" >
-                                <Image className="m-auto" src="/icons/add-story.svg" alt={'icon-story'} width={32} height={32} />
+                                <Image className="m-auto max-w-[32px] w-full h-auto" src="/icons/add-story.svg" alt={'icon-story'} width={0} height={0} />
                             </div>
                         </SplideSlide>
 

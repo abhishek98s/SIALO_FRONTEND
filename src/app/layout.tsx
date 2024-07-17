@@ -3,6 +3,8 @@ import { Inter, Quicksand } from "next/font/google";
 import "./globals.scss";
 
 import Navbar from "@/components/navbar";
+import Link from "next/link";
+import Sidebar from "@/components/sidebar";
 
 const quickSand = Quicksand({
   weight: ['400', '500', '600', '700'],
@@ -25,9 +27,14 @@ export default function RootLayout({
     <>
       <html>
         <body className={quickSand.className}>
-          <Navbar />
+          <section>
+            <Sidebar />
 
-          {children}
+            <div className="main">
+              <Navbar />
+              {children}
+            </div>
+          </section>
         </body>
       </html>
     </>

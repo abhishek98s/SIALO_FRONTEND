@@ -8,7 +8,7 @@ export default function UserPostBox() {
             <form className={`border-neutral-86 bg-neutral-90 mb-[16px] px-[12px] pt-[20px] pb-[10px] rounded-4`}>
                 <div className="top flex gap-[12px] mb-[16px]">
                     <Image src="/user.png" alt="user" width={40} height={40} className="rounded-full border-primary-60 max-w-[40px] w-full" />
-                    <input type="text" className="bg-neutral-88 border-neutral-86 px-[12px] py-[8px]" placeholder="Mind writing something?" />
+                    <input type="text" className="bg-neutral-88 border-neutral-86 px-[16px] py-[8px]" placeholder="Mind writing something?" />
                 </div>
 
                 <div className="down">
