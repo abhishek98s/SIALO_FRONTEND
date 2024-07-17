@@ -8,10 +8,15 @@ import UserPostBox from "@/components/user_post_box";
 export default function IndexPage() {
     return (
         <>
-            <div className="container px-[8px] mx-auto">
+            <div className="container mx-auto">
                 <StoriesList />
                 <UserPostBox />
-                <Feed/>
+
+                <section className="feed-list space-y-[16px]">
+                    <Feed />
+                    <Feed />
+                    <Feed />
+                </section>
             </div>
         </>
     );

@@ -31,7 +31,7 @@ export default function StoriesList() {
     return (
         <>
             <section className="stories-list-wrapper my-[16px]">
-                <ul className="stories-list flex gap-[12px]">
+                <ul className="stories-list">
                     <Splide
                         options={{
                             type: 'slide',
