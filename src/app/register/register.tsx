@@ -112,7 +112,7 @@ export default function RegisterForm() {
                             className="w-full text-[16px] h-[48px] px-[12px] bg-transparent border-neutral-80 rounded-[4px] focus:outline-none"></input>
                     </div>
 
-                    <button type="submit" className="mb-[32px] w-full h-[40px] text-[16px] font-bold bg-primary-50 color-primary-80 rounded-[4px]">{!isLoading ? 'Register' : 'Registering...'}</button>
+                    <button type="submit" className="primary-btn mb-[32px] w-full h-[40px] text-[16px] font-bold bg-primary-50 color-primary-80 rounded-[4px]">{!isLoading ? 'Register' : 'Registering...'}</button>
                     <div className="text-end">Already have an account? <Link href="/login" className="color-primary-50 underline underline-offset-2">Login</Link></div>
                 </form>
             </section>

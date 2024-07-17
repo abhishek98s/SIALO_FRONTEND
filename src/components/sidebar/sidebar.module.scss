@@ -1,3 +1,23 @@
-.sidebar_wrapper{
+@import '../../styles/variables.scss';
 
+.sidebar_wrapper {
+
+    li.active {
+        svg {
+            path[fill] {
+                fill: $primary-50;
+                /* or any other color/style */
+            }
+
+            path[stroke] {
+                stroke: $primary-50;
+                /* or any other color/style */
+            }
+        }
+
+        h6 {
+            color: $primary-50;
+            font-weight: 800;
+        }
+    }
 }

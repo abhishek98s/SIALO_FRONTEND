@@ -44,8 +44,8 @@ export default function Feed() {
                 </div>
 
                 <form className="comment-wrapper relative flex-grow">
-                    <input type="text" placeholder="Haver something to say" className="bg-neutral-88 rounded-full border-neutral-86 h-[44px] w-full p-[12px] pl-[16px]" />
-                    <button className={`${style.comment_post_btn} rounded-full w-[40px] h-[40px] flex-center absolute right-[6px] top-1/2 -translate-y-1/2`}>
+                    <input type="text" placeholder="Have something to say" className="bg-neutral-88 rounded-full border-neutral-86 h-[44px] w-full p-[12px] pl-[16px]" />
+                    <button type="submit" className={`${style.comment_post_btn} rounded-full w-[40px] h-[40px] flex-center absolute right-[6px] top-1/2 -translate-y-1/2`}>
                         <Image src={`/icons/icon-send.svg`} alt="icon-comment" width={17} height={17} className="cursor-pointer" />
                     </button>
                 </form>

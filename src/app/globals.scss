@@ -50,16 +50,16 @@ input {
   }
 }
 
-button[type="submit"] {
+.primary-btn {
   background-color: $primary-50;
   transition: .4s;
 
   &:hover {
-    background-color: $primary-60;
+    background-color: $primary-30;
   }
 
   &:active {
-    background-color: $primary-45;
+    background-color: $primary-70;
   }
 }
 
@@ -79,4 +79,24 @@ button[type="submit"] {
   display: flex;
   justify-content: center;
   align-items: center;
+}
+
+::-webkit-scrollbar {
+  width: 6px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  background: $neutral-88;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: $neutral-70;
+  border-radius: 50px;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: $neutral-60;
 }

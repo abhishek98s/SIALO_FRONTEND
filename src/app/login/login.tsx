@@ -53,7 +53,7 @@ export default function Login() {
                     </div>
                 </div>
 
-                <button type="submit" className="mb-[32px] w-full h-[40px] text-[16px] font-bold bg-primary-50 color-primary-80 rounded-[4px] ">Log in</button>
+                <button type="submit" className="primary-btn mb-[32px] w-full h-[40px] text-[16px] font-bold bg-primary-50 color-primary-80 rounded-[4px] ">Log in</button>
 
                 <div className="text-end">Don't have an account? <Link href="/register" className="color-primary-50 underline underline-offset-2">Register</Link></div>
             </form>

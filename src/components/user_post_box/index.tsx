@@ -25,7 +25,7 @@ export default function UserPostBox() {
                             </svg>
                         </Link>
 
-                        <button type="submit" className="ml-auto color-primary-80 bg-primary-60 rounded-4 text-[14px] max-w-[60px] w-full h-[30px] font-bold">Post</button>
+                        <button type="submit" className="primary-btn ml-auto color-primary-80 bg-primary-60 rounded-4 text-[14px] max-w-[60px] w-full h-[30px] font-bold">Post</button>
                     </div>
                 </div>
             </form>
