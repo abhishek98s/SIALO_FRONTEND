@@ -5,9 +5,12 @@
         transition: .4s;
     }
 
-    .more_menu:hover {
-        svg {
-            stroke: $neutral-60;
+    .more_menu {
+
+        &:hover {
+            svg {
+                stroke: $neutral-60;
+            }
         }
     }
 
@@ -54,6 +57,7 @@
         &:focus {
             background-color: $neutral-80;
             right: 2px;
+            outline: 1px solid $primary-70;
         }
     }
 }

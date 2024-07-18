@@ -1,8 +1,12 @@
+import { useState } from "react";
+
 import Image from "next/image";
 import Link from "next/link";
 
 
 export default function UserPostBox() {
+    
+
     return (
         <>
             <form className={`border-neutral-86 bg-neutral-90 mb-[16px] px-[12px] pt-[20px] pb-[10px] rounded-4`}>

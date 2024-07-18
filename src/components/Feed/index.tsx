@@ -14,9 +14,11 @@ export default function Feed() {
         <article className={`${style.feed_wrapper} border-neutral-86 px-[12px] pt-[20px] pb-[8px] bg-neutral-90`}>
             <header className="mb-[12px]">
                 <div className="user-info flex items-center gap-[8px]">
-                    <Image src={`/user.png`} alt='user' width={40} height={40} priority className="max-w-[40px] h-[40px] w-full border-primary-60 rounded-full" />
+                    <Link href={'/'}>
+                        <Image src={`/user.png`} alt='user' width={40} height={40} priority className="max-w-[40px] h-[40px] w-full border-primary-60 rounded-full" />
+                    </Link>
                     <div className="info">
-                        <div className="color-primary-60 text-[14px] font-bold leading-normal">Ruth Reed</div>
+                        <Link href={'/'} className="color-primary-60 text-[14px] font-bold leading-normal">Ruth Reed</Link>
                         <div className="color-primary-10 text-[12px]">May 10, 2024</div>
                     </div>
 
@@ -37,11 +39,11 @@ export default function Feed() {
             </figure>
 
             <div className="interaction-wrapper flex items-center gap-[8px] mb-[32px]">
-                <div onClick={likePost} className={`${style.like} ${isLiked ? style.active : ""} cursor-pointer max-w-[40px] w-full h-[40px] flex-center`}>
+                <button onClick={likePost} className={`${style.like} ${isLiked ? style.active : ""} cursor-pointer max-w-[40px] w-full h-[40px] flex-center`}>
                     <svg width="30" height="27" viewBox="0 0 30 27" fill="none" xmlns="http://www.w3.org/2000/svg">
                         <path d="M26.7851 15.4033L17.3567 24.8333C16.7316 25.4582 15.8839 25.8093 15.0001 25.8093C14.1162 25.8093 13.2685 25.4582 12.6434 24.8333L3.21505 15.405C2.43567 14.6324 1.81656 13.7135 1.39327 12.701C0.969974 11.6885 0.750836 10.6023 0.748433 9.5049C0.74603 8.40749 0.96041 7.3204 1.37926 6.30606C1.79812 5.29171 2.4132 4.37009 3.18919 3.5941C3.96518 2.8181 4.88681 2.20302 5.90115 1.78417C6.91549 1.36532 8.00258 1.15094 9.09999 1.15334C10.1974 1.15574 11.2835 1.37488 12.296 1.79817C13.3085 2.22147 14.2275 2.84058 15.0001 3.61996C16.5693 2.08975 18.6783 1.2394 20.8701 1.25314C23.0619 1.26687 25.16 2.14357 26.71 3.69333C28.26 5.24309 29.137 7.34111 29.151 9.53291C29.1651 11.7247 28.315 13.8338 26.7851 15.4033Z" stroke="#A7DC74" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
                     </svg>
-                </div>
+                </button>
 
                 <form className="comment-wrapper relative flex-grow">
                     <input type="text" placeholder="Have something to say" className="bg-neutral-88 rounded-full border-neutral-86 h-[44px] w-full p-[12px] pl-[16px]" />

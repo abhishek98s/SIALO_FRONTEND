@@ -14,8 +14,8 @@ export default function Navbar() {
 
             <ul>
                 <li className="icon-box-32 bg-neutral-86 rounded-full">
-                    <Link href="/" className="icon-box-32">
-                        <Image src='/icons/profile.svg' alt="icon-user" width={0} height={0} className="max-w-[32px] w-full"/>
+                    <Link href="/" className="icon-box-32 block rounded-full">
+                        <Image src='/icons/profile.svg' alt="icon-user" width={0} height={0} className="rounded-full max-w-[32px] w-full"/>
                     </Link>
                 </li>
             </ul>

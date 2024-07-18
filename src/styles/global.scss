@@ -7,6 +7,8 @@
 // or only core styles
 @import '@splidejs/react-splide/css/core';
 
+@import './variables.scss';
+
 body {
     background-color: $neutral-88;
 }
@@ -35,11 +37,40 @@ body {
 .rounded {
     &-4 {
         border-radius: 4px;
-        overflow: hidden;
     }
 
     &-8 {
         border-radius: 8px;
-        overflow: hidden;
+    }
+}
+
+.customModal {
+    background: $neutral-90 !important;
+    max-width: 300px !important;
+    width: 100%;
+    border-radius: 8px;
+    border: 1px solid $neutral-86 !important;
+    padding: 20px 12px !important;
+
+    .react-responsive-modal-closeButton {
+        svg path {
+            fill: $error-50;
+        }
+    }
+}
+
+.heading-line{
+    position: relative;
+
+    &::before{
+        content: '';
+        position: absolute;
+        display: block;
+        width: 60px;
+        height: 2px;
+        border-radius: 4px;
+        background-color: $primary-60;
+        top: calc(100% + 12px);
+        left: 0;
     }
 }
