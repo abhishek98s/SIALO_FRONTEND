@@ -24,7 +24,7 @@ export default function RootLayout({
 }) {
   return (
     <>
-      <html>
+       <html>
         <body className={quickSand.className}>
           {children}
         </body>
