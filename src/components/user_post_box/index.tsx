@@ -22,10 +22,9 @@ export default function UserPostBox() {
             toast.error('Image type should be .jpg, .png or .jpeg', { duration: toast_duration })
         };
 
-        const fileURL = URL.createObjectURL(file);
-
         switch (value.name) {
             case 'image_select':
+                const fileURL = URL.createObjectURL(file);
                 setImage_file(file);
                 setUser_inputted_image_url(fileURL);
                 break;
