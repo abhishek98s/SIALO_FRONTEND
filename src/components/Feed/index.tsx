@@ -69,7 +69,7 @@ export default function Feed() {
                     <div className="comment flex gap-[8px] mb-[20px]">
                         <Image src={`/user.png`} alt='user' width={40} height={40} priority className="max-w-[30px] h-[30px] w-full border-primary-60 rounded-full" />
                         <div className="comment-info">
-                            <h6 className="color-neutral-40 mb-[4px] text-[14px]">Arlene Ferguson</h6>
+                            <h6 className="color-neutral-40 mb-[2px] text-[14px]">Arlene Ferguson</h6>
                             <p className="color-neutral-20 leading-[1.3] text-[14px]">From the rolling hills of a countryside landscape to the majestic peaks of a mountain range, nature's view can take your breath away. </p>
                         </div>
                     </div>

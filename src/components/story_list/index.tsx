@@ -48,7 +48,6 @@ export default function StoriesList() {
                     center
                     container={storyRef.current}
                     classNames={{
-                        overlay: 'customOverlay',
                         modal: 'customModal',
                     }}
                 >
@@ -70,7 +69,7 @@ export default function StoriesList() {
                     </div>
                 </Modal>
 
-                <ul className="stories-list">
+                <ul className="stories-list px-[12px]">
                     <Splide
                         options={{
                             type: 'slide',

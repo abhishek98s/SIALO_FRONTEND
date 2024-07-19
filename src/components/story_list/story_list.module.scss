@@ -1,6 +1,7 @@
 @import '../../styles/variables.scss';
 
 .stories_list_wrapper {
+
     a,
     .post_story_btn {
         transition: .4s;
@@ -12,13 +13,9 @@
             box-shadow: 0 8px 16px -6px $primary-50;
         }
     }
-
 }
 
-.image_choose_wrapper{
-    border: 2px dashed $primary-45;
-    border: 2px dashed #4B7A1F;
+.image_choose_wrapper {
+    border: 2px dashed $primary-70;
     border-radius: 4px;
-
 }
-
