@@ -43,7 +43,7 @@ export default function UserPostBox() {
 
     const onNewPosted = (e: any) => {
         e.preventDefault();
-        toast('Post added', { duration: toast_duration });
+        toast.success('Post added', { duration: toast_duration });
     };
 
     return (

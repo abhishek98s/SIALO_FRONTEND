@@ -47,7 +47,7 @@ export default function RegisterForm() {
             const { name, email, password } = form_obj;
 
             if (!name || !email || !password) {
-                toast("All fields are required", {
+                toast.error("All fields are required", {
                     duration: toast_duration
                 });
                 return
@@ -59,7 +59,7 @@ export default function RegisterForm() {
             })
 
 
-            toast(err_msg, {
+            toast.error(err_msg, {
                 duration: toast_duration
             });
         } finally {
