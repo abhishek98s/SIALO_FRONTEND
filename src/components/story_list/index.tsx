@@ -5,11 +5,11 @@ import Image from "next/image";
 import 'react-responsive-modal/styles.css';
 import { Modal } from 'react-responsive-modal';
 import { Splide, SplideSlide } from '@splidejs/react-splide';
+import toast, { Toaster } from 'react-hot-toast';
 
 import Story from "@/components/story";
 import { IStory } from "@/model";
 import styles from './story_list.module.scss';
-import Link from "next/link";
 
 
 export default function StoriesList() {
@@ -19,6 +19,26 @@ export default function StoriesList() {
 
     const onOpenmodal = () => setOpen(true);
     const onCloseModal = () => setOpen(false);
+    const onStoryPost = () => {
+        toast('Story Posted', { duration: 1000 });
+        onCloseModal();
+    };
+
+    const toast_option = {
+        className: 'toast-wrapper',
+        style: {
+            border: '1px solid #A7DC74',
+            padding: '12px 21px',
+            color: '#A7DC74',
+            background: '#1A1A1A',
+            fontSize: '14px',
+            width: '176px',
+            borderRadius: '4px',
+            marginBottom: '96px',
+            zIndex: '9',
+            boxShadow: '0px 8px 55px rgba(0, 0, 0, 0.56)',
+        }
+    };
 
     const stories: IStory[] = [{
         id: 1,
@@ -42,7 +62,12 @@ export default function StoriesList() {
     },]
     return (
         <>
-            <section className={`${styles.stories_list_wrapper} my-[16px]`}>
+            <section className={`${styles.stories_list_wrapper} my-[16px] overflow-y-scroll`}>
+                <Toaster
+                    position="bottom-center"
+                    reverseOrder={false}
+                    toastOptions={toast_option}
+                />
                 <Modal open={open}
                     onClose={onCloseModal}
                     center
@@ -64,12 +89,12 @@ export default function StoriesList() {
                     </div>
 
                     <div className="action-wrapper text-[14px]">
-                        <button className="rounded-4 bg-primary-60 color-primary-80 font-bold px-[20px] py-[6px] mr-[12px]">Post</button>
-                        <button className="rounded-4 color-neutral-60 font-bold px-[20px] py-[6px]">Cancel</button>
+                        <button className="primary-btn rounded-4 bg-primary-60 color-primary-80 font-bold px-[20px] py-[6px] mr-[12px]" onClick={onStoryPost}>Post</button>
+                        <button className="secondary-btn rounded-4 color-neutral-60 font-bold px-[20px] py-[6px]" onClick={onCloseModal}>Cancel</button>
                     </div>
                 </Modal>
 
-                <ul className="stories-list px-[12px]">
+                <ul className="stories-list ">
                     <Splide
                         options={{
                             type: 'slide',
@@ -83,33 +108,35 @@ export default function StoriesList() {
                         }}
                     >
 
-                        <button className={`${styles.post_story_btn} mr-[12px]`} onClick={onOpenmodal}>
-                            <SplideSlide>
+                        <SplideSlide>
+                            <button className={`${styles.post_story_btn} mr-[12px]`} onClick={onOpenmodal}>
                                 <div className={`post_story-btn flex w-[90px] h-[120px] gradient-white border-primary-60 rounded-4`} >
                                     <Image className="m-auto max-w-[32px] w-full h-auto" src="/icons/add-story.svg" alt={'icon-story'} width={0} height={0} />
                                 </div>
-                            </SplideSlide>
-                        </button>
+                            </button>
+                        </SplideSlide>
 
 
                         {stories.map((story) => {
                             return (
-                                <Link href={`/`} className="my-1 mr-[12px]">
-                                    <SplideSlide key={story.id}>
-                                        <Story story={story} />
-                                    </SplideSlide>
-                                </Link>
+                                <SplideSlide key={story.id}>
+                                    <Story story={story} />
+                                </SplideSlide>)
+                        })}
+
+                        {stories.map((story) => {
+                            return (
+                                <SplideSlide key={story.id}>
+                                    <Story story={story} />
+                                </SplideSlide>
                             )
                         })}
 
                         {stories.map((story) => {
                             return (
-                                <Link href={`/`} className="my-1 mr-[12px]">
-                                    <SplideSlide key={story.id}>
-                                        <Story story={story} />
-                                    </SplideSlide>
-                                </Link>
-
+                                <SplideSlide key={story.id}>
+                                    <Story story={story} />
+                                </SplideSlide>
                             )
                         })}
 

@@ -1,28 +1,24 @@
-@import '@splidejs/react-splide/css';
-
-// or other themes
-@import '@splidejs/react-splide/css/skyblue';
-@import '@splidejs/react-splide/css/sea-green';
-
-// or only core styles
-@import '@splidejs/react-splide/css/core';
-
 @import './variables.scss';
 
-body {
-    background-color: $neutral-88;
-}
-
-.image-center {
+.flex-center {
     display: flex;
     justify-content: center;
     align-items: center;
+}
+
+.transition-4 {
+    transition: .4s;
 }
 
 .icon-box {
     &-32 {
         width: 32px;
         height: 32px;
+    }
+
+    &-40 {
+        width: 40px;
+        height: 40px;
     }
 }
 
@@ -59,10 +55,10 @@ body {
     }
 }
 
-.heading-line{
+.heading-line {
     position: relative;
 
-    &::before{
+    &::before {
         content: '';
         position: absolute;
         display: block;

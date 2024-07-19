@@ -1,84 +1,19 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@import '@splidejs/react-splide/css';
+@import '@splidejs/react-splide/css/skyblue';
+@import '@splidejs/react-splide/css/sea-green';
+@import '@splidejs/react-splide/css/core';
+
 @import '../styles/variables.scss';
 @import '../styles/global.scss';
-
 
 :root {
   --foreground-rgb: 0, 0, 0;
   --background-start-rgb: 214, 219, 220;
   --background-end-rgb: 255, 255, 255;
-}
-
-@media (prefers-color-scheme: dark) {
-  s :root {
-    --foreground-rgb: 255, 255, 255;
-    --background-start-rgb: 0, 0, 0;
-    --background-end-rgb: 0, 0, 0;
-  }
-}
-
-body {
-  color: $neutral-0;
-  background: $neutral-90;
-}
-
-@layer utilities {
-  .text-balance {
-    text-wrap: balance;
-  }
-}
-
-input {
-  transition: .2s;
-  outline: 1px solid $neutral-80;
-  border: 1px solid transparent;
-  color: $primary-10;
-  border-radius: 20px;
-  padding-left: 16px;
-  width: 100%;
-  height: 40px;
-
-  &:focus {
-    outline: 1px solid $primary-70;
-    border: 1px solid transparent;
-  }
-
-  &::placeholder {
-    color: $neutral-50;
-  }
-}
-
-.primary-btn {
-  background-color: $primary-50;
-  transition: .4s;
-
-  &:hover {
-    background-color: $primary-30;
-  }
-
-  &:active {
-    background-color: $primary-70;
-  }
-}
-
-.splide {
-  padding: 0;
-
-  &:active {
-    cursor: grab;
-  }
-
-  .splide__slide {
-    width: 92px !important;
-  }
-}
-
-.flex-center {
-  display: flex;
-  justify-content: center;
-  align-items: center;
 }
 
 ::-webkit-scrollbar {
@@ -101,3 +36,86 @@ input {
   background: $neutral-60;
 }
 
+@media (prefers-color-scheme: dark) {
+  s :root {
+    --foreground-rgb: 255, 255, 255;
+    --background-start-rgb: 0, 0, 0;
+    --background-end-rgb: 0, 0, 0;
+  }
+}
+
+html {
+  overflow-y: scroll;
+}
+
+body {
+  color: $neutral-0;
+  background: $neutral-90;
+  background-color: $neutral-88;
+}
+
+@layer utilities {
+  .text-balance {
+    text-wrap: balance;
+  }
+}
+
+input {
+  transition: .2s;
+  outline: 1px solid $neutral-80;
+  border: 1px solid transparent;
+  color: $primary-10;
+  border-radius: 20px;
+  padding-left: 16px;
+  width: 100%;
+  height: 40px;
+
+  &:focus {
+    outline: 1px solid $primary-70;
+    border: 1px solid $primary-70;
+  }
+
+  &::placeholder {
+    color: $neutral-50;
+  }
+}
+
+.primary-btn {
+  background-color: $primary-50;
+  transition: .4s;
+
+  &:hover {
+    background-color: $primary-65;
+  }
+
+  &:active {
+    background-color: $primary-70;
+  }
+}
+
+.secondary-btn {
+  background-color: transparent;
+  transition: .4s;
+  color: $neutral-40;
+  font-weight: 600;
+
+  &:hover {
+    background-color: $neutral-86;
+  }
+
+  &:active {
+    background-color: $neutral-90;
+  }
+}
+
+.splide {
+  padding: 0;
+
+  &:active {
+    cursor: grab;
+  }
+
+  .splide__slide {
+    width: 92px !important;
+  }
+}

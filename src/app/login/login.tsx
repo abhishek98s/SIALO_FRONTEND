@@ -47,7 +47,7 @@ export default function Login() {
                             onChange={handleChange}
                             name="password"
                             className="w-full h-[40px] px-[12px] bg-transparent border-neutral-80 rounded-[4px] focus:outline-none"></input>
-                        <figure onClick={() => show_password()} className="image-center absolute right-0 top-[50%] translate-y-[-50%] cursor-pointer w-[40px] h-[40px]">
+                        <figure onClick={() => show_password()} className="flex-center absolute right-0 top-[50%] translate-y-[-50%] cursor-pointer w-[40px] h-[40px]">
                             <Image className="" src={is_password_shown ? "/icons/eye-show.svg" : "/icons/eye-close.svg"} width="20" height="16" alt="password-toggler"></Image>
                         </figure>
                     </div>

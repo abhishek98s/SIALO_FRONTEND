@@ -1,0 +1,13 @@
+@import '../../styles/variables.scss';
+
+a.stories_wrapper {
+
+    transition: .4s;
+    outline: 1px solid transparent;
+
+
+    &:focus {
+        outline: 1px solid transparent;
+        box-shadow: 0 8px 16px -6px $primary-50;
+    }
+}

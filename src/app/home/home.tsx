@@ -1,23 +1,26 @@
-"use client";
+"use client"
 
 import Feed from "@/components/Feed";
 import StoriesList from "@/components/story_list";
 import UserPostBox from "@/components/user_post_box";
+import HomeLayout from "./layout";
 
 
 export default function IndexPage() {
     return (
         <>
-            <div className="container mx-auto">
-                <StoriesList />
-                <UserPostBox />
+            <HomeLayout>
+                <div className="container max-w-[500px] mx-auto">
+                    <StoriesList />
+                    <UserPostBox />
 
-                <section className="feed-list space-y-[16px] pb-[85px]">
-                    <Feed />
-                    <Feed />
-                    <Feed />
-                </section>
-            </div>
+                    <section className="feed-list space-y-[16px] pb-[85px]">
+                        <Feed />
+                        <Feed />
+                        <Feed />
+                    </section>
+                </div>
+            </HomeLayout>
         </>
     );
 }

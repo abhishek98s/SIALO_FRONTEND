@@ -2,12 +2,12 @@
 
 import { useState } from 'react';
 import Link from 'next/link';
-
-import styles from './register.module.scss';
-import toast, { Toaster } from 'react-hot-toast';
-import { register_schema } from '@/utils/obj_schema';
 import Image from 'next/image';
 
+import toast, { Toaster } from 'react-hot-toast';
+import { register_schema } from '@/utils/obj_schema';
+
+import styles from './register.module.scss';
 
 interface IError {
     for: string | number,
@@ -23,9 +23,11 @@ export default function RegisterForm() {
         className: 'toast-wrapper',
         style: {
             border: '1px solid #B03B3B',
-            padding: '16px',
+            padding: '12px',
             color: '#FFE0E0',
             background: '#291D1D',
+            fontSize: '14px',
+            boxShadow: '0px 8px 55px rgba(0, 0, 0, 0.56)',
         }
     };
 
@@ -57,7 +59,7 @@ export default function RegisterForm() {
 
             if (!name || !email || !password) {
                 toast("All fields are required", {
-                    duration: 11000
+                    duration: 1000
                 });
                 return
             }
@@ -69,7 +71,7 @@ export default function RegisterForm() {
 
 
             toast(err_msg, {
-                duration: 6000
+                duration: 1000
             });
         } finally {
             setIsLoading(false);
