@@ -10,6 +10,7 @@ import toast, { Toaster } from 'react-hot-toast';
 import Story from "@/components/story";
 import { IStory } from "@/model";
 import styles from './story_list.module.scss';
+import { toast_duration, toast_error_option, toast_sucess_option } from "@/utils/toast";
 
 
 export default function StoriesList() {
@@ -20,24 +21,8 @@ export default function StoriesList() {
     const onOpenmodal = () => setOpen(true);
     const onCloseModal = () => setOpen(false);
     const onStoryPost = () => {
-        toast('Story Posted', { duration: 1000 });
+        toast.success('Story Posted', { duration: toast_duration });
         onCloseModal();
-    };
-
-    const toast_option = {
-        className: 'toast-wrapper',
-        style: {
-            border: '1px solid #A7DC74',
-            padding: '12px 21px',
-            color: '#A7DC74',
-            background: '#1A1A1A',
-            fontSize: '14px',
-            width: '176px',
-            borderRadius: '4px',
-            marginBottom: '96px',
-            zIndex: '9',
-            boxShadow: '0px 8px 55px rgba(0, 0, 0, 0.56)',
-        }
     };
 
     const stories: IStory[] = [{
@@ -66,7 +51,10 @@ export default function StoriesList() {
                 <Toaster
                     position="bottom-center"
                     reverseOrder={false}
-                    toastOptions={toast_option}
+                    toastOptions={{
+                        success: { ...toast_sucess_option },
+                        error: { ...toast_error_option }
+                    }}
                 />
                 <Modal open={open}
                     onClose={onCloseModal}
@@ -79,13 +67,13 @@ export default function StoriesList() {
                     <h2 className="heading-line text-[16px] font-bold color-primary-10 mb-[36px]">Post a story</h2>
 
                     <div className={`${styles.image_choose_wrapper} relative rounded-4 h-[126px] mb-[16px]`}>
-                        <input type="file" className="absolute top-0 left-0 right-0 bottom-0 z-10 h-full w-full opacity-0 cursor-pointer" />
-                        <div className="absolute top-0 left-0 right-0 bottom-0 z-1 bg-neutral-90 border-dotted border-spacing-1 border-1 flex flex-col items-center justify-center">
+                        <input id="story_image" type="file" className="absolute top-0 left-0 right-0 bottom-0 z-1 h-full w-full cursor-pointer focus-visible:outline-sky-100 outline" />
+                        <label htmlFor="story_image" className="absolute top-0 left-0 right-0 bottom-0 z-10 bg-neutral-90 border-dotted border-spacing-1 border-1 flex flex-col items-center justify-center">
                             <figure className="mb-[8px]">
-                                <Image src="/add-image.png" alt="add-image" width={40} height={40} />
+                                <Image src="/add-image.png" alt="add-image" width={40} height={40} priority />
                             </figure>
                             <span className="text-[14px] color-primary-45">Click to add image</span>
-                        </div>
+                        </label>
                     </div>
 
                     <div className="action-wrapper text-[14px]">
@@ -94,7 +82,7 @@ export default function StoriesList() {
                     </div>
                 </Modal>
 
-                <ul className="stories-list ">
+                <ul className="stories-list px-[12px]">
                     <Splide
                         options={{
                             type: 'slide',
@@ -139,7 +127,6 @@ export default function StoriesList() {
                                 </SplideSlide>
                             )
                         })}
-
                     </Splide>
                 </ul>
             </section>

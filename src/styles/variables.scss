@@ -61,5 +61,15 @@ $colors: $colors-list;
         .bg-#{$category}-#{$shade} {
             background-color: $color;
         }
+
+        .focus-visible-#{$category}-#{$shade}:focus-visible {
+            outline-offset: 2px;
+            outline: 1px solid $color;
+        }
+
+        .focus-within-#{$category}-#{$shade}:focus-within {
+            outline-offset: 2px;
+            outline: 1px solid $color;
+        }
     }
 }

@@ -6,7 +6,7 @@ a.stories_wrapper {
     outline: 1px solid transparent;
 
 
-    &:focus {
+    &:focus-visible {
         outline: 1px solid transparent;
         box-shadow: 0 8px 16px -6px $primary-50;
     }

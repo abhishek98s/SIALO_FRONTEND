@@ -70,7 +70,7 @@ input {
   width: 100%;
   height: 40px;
 
-  &:focus {
+  &:focus-visible {
     outline: 1px solid $primary-70;
     border: 1px solid $primary-70;
   }
@@ -83,9 +83,17 @@ input {
 .primary-btn {
   background-color: $primary-50;
   transition: .4s;
+  outline-offset: 2px;
+  outline: 1px solid transparent;
 
   &:hover {
     background-color: $primary-65;
+  }
+
+  &:focus-visible {
+    transition: none;
+    outline-offset: 2px;
+    outline: 1px solid $primary-45;
   }
 
   &:active {
@@ -101,6 +109,12 @@ input {
 
   &:hover {
     background-color: $neutral-86;
+  }
+
+  &:focus-visible {
+    transition: none;
+    outline-offset: 2px;
+    outline: 1px solid $neutral-70;
   }
 
   &:active {

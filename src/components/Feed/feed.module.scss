@@ -52,9 +52,14 @@
 
     .comment_post_btn {
         transition: .2s;
+        outline: 1px solid transparent;
 
-        &:hover,
-        &:focus {
+        &:hover {
+            background-color: $neutral-80;
+            right: 2px;
+        }
+
+        &:focus-visible {
             background-color: $neutral-80;
             right: 2px;
             outline: 1px solid $primary-70;

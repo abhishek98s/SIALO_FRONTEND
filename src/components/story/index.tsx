@@ -13,7 +13,7 @@ export default function ({ story }: StoryProps) {
     return (
         <Link href={`/`} className={`${styles.stories_wrapper} block w-full mb-1 mr-[12px]`}>
             <div className="story h-[120px] border-neutral-86">
-                <Image src={story.img} alt='story.img' width={90} height={125} priority className="max-w-[90px] w-auto h-auto rounded-4" />
+                <Image src={story.img} alt='story.img' width={90} height={120} priority className="rounded-4" />
             </div>
         </Link>
     )

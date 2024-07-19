@@ -5,9 +5,10 @@ import Link from 'next/link';
 import Image from 'next/image';
 
 import toast, { Toaster } from 'react-hot-toast';
-import { register_schema } from '@/utils/obj_schema';
+import { register_schema } from '@/utils/validation';
 
 import styles from './register.module.scss';
+import { toast_duration, toast_error_option, toast_sucess_option } from '@/utils/toast';
 
 interface IError {
     for: string | number,
@@ -18,18 +19,6 @@ export default function RegisterForm() {
     const [form_obj, set_form_obj] = useState({ name: '', email: '', password: '' })
     const [form_error, set_form_error] = useState<IError[]>([]);
     const [isLoading, setIsLoading] = useState(false);
-
-    const toast_option = {
-        className: 'toast-wrapper',
-        style: {
-            border: '1px solid #B03B3B',
-            padding: '12px',
-            color: '#FFE0E0',
-            background: '#291D1D',
-            fontSize: '14px',
-            boxShadow: '0px 8px 55px rgba(0, 0, 0, 0.56)',
-        }
-    };
 
     function handleChange(e: React.ChangeEvent<HTMLInputElement>) {
         set_form_obj((prev_form_obj) => ({ ...prev_form_obj, [e.target.name]: e.target.value }));
@@ -59,7 +48,7 @@ export default function RegisterForm() {
 
             if (!name || !email || !password) {
                 toast("All fields are required", {
-                    duration: 1000
+                    duration: toast_duration
                 });
                 return
             }
@@ -71,7 +60,7 @@ export default function RegisterForm() {
 
 
             toast(err_msg, {
-                duration: 1000
+                duration: toast_duration
             });
         } finally {
             setIsLoading(false);
@@ -83,7 +72,10 @@ export default function RegisterForm() {
             <Toaster
                 position="top-center"
                 reverseOrder={false}
-                toastOptions={toast_option}
+                toastOptions={{
+                    success: { ...toast_sucess_option },
+                    error: { ...toast_error_option }
+                }}
             />
             <section className={`${styles.form_wrapper} + w-full max-w-[400px] absolute top-[50%] left-[50%] translate-x-[-50%] translate-y-[-50%]`}>
                 <header className="mb-[40px]">

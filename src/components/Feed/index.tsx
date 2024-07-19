@@ -18,7 +18,7 @@ export default function Feed() {
                         <Image src={`/user.png`} alt='user' width={40} height={40} priority className="max-w-[40px] h-[40px] w-full border-primary-60 rounded-full" />
                     </Link>
                     <div className="info">
-                        <Link href={'/'} className="color-primary-60 text-[14px] font-bold leading-normal">Ruth Reed</Link>
+                        <Link href={'/'} className="color-primary-60 text-[14px] font-bold leading-normal hover:underline underline-offset-1">Ruth Reed</Link>
                         <div className="color-primary-10 text-[12px]">May 10, 2024</div>
                     </div>
 
