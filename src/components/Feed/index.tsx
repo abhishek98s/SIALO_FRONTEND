@@ -11,7 +11,7 @@ export default function Feed() {
         setIsLiked(!isLiked);
     }
     return (
-        <article className={`${style.feed_wrapper} border-neutral-86 px-[12px] pt-[20px] pb-[8px] bg-neutral-90`}>
+        <article className={`${style.feed_wrapper} border-neutral-86 px-[12px] pt-[20px] pb-[8px] bg-neutral-90 rounded-8`}>
             <header className="mb-[12px]">
                 <div className="user-info flex items-center gap-[8px]">
                     <Link href={'/'}>
