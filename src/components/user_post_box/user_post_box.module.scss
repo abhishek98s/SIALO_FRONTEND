@@ -1,21 +1,59 @@
+@import '../../styles/variables.scss';
+
 .middle {
     animation: top_down .4s ease-in;
 }
 
-@keyframes top_down {
-    0% {
-        height: 0px;
-        opacity: 0;
-        visibility: hidden;
-        overflow: hidden;
-        margin-bottom: 0;
-    }    
-    
-    100% {
-        opacity: 1;
-        height: 60px;
-        visibility: visible;
-        overflow: visible;
-        margin-bottom: 16px;
+
+.ratio {
+    &_4_3 {
+        width: 640px;
+        height: 480px;
+    }
+
+    &_16_9 {
+        width: 853px;
+        height: 480px;
+    }
+
+    &_9_16 {
+        width: 480px;
+        height: 640px;
+    }
+}
+
+.camera_actions {
+    background: linear-gradient(0deg, #1a1a1ab3, #1a1a1ab3), #0000;
+
+    .take_photo_btn {
+        transition: .2s;
+
+        &:hover,
+        &:focus-visible {
+            padding: 4px;
+        }
+
+        &:active {
+            padding: 10px;
+        }
+    }
+
+
+    @keyframes top_down {
+        0% {
+            height: 0px;
+            opacity: 0;
+            visibility: hidden;
+            overflow: hidden;
+            margin-bottom: 0;
+        }
+
+        100% {
+            opacity: 1;
+            height: 60px;
+            visibility: visible;
+            overflow: visible;
+            margin-bottom: 16px;
+        }
     }
 }

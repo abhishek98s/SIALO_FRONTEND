@@ -47,6 +47,20 @@
     }
 }
 
+.react-responsive-modal-closeButton {
+    border-radius: 100px;
+
+    svg path {
+        fill: $error-50;
+    }
+
+    &:focus-visible {
+        outline: 1px solid $neutral-70;
+        outline-offset: 4px;
+        border-radius: 100px;
+    }
+}
+
 .customModal {
     background: $neutral-90 !important;
     max-width: 300px !important;
@@ -55,18 +69,32 @@
     border: 1px solid $neutral-86 !important;
     padding: 20px 12px !important;
 
-    .react-responsive-modal-closeButton {
-        border-radius: 100px;
+}
 
-        svg path {
-            fill: $error-50;
-        }
+.camera_model {
+    height: 100vh;
+    margin: 0 !important;
+    padding: 0 !important;
+    position: fixed !important;
+    z-index: 20000 !important;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: $neutral-90 !important;
 
-        &:focus-visible {
-            outline: 1px solid $neutral-70;
-            outline-offset: 4px;
-            border-radius: 100px;
-        }
+    &.animate {
+        animation: bottom_to_top .5s forwards !important;
+    }
+}
+
+@keyframes bottom_to_top {
+    from {
+        transform: translateY(100vh);
+    }
+
+    to {
+        transform: translateY(0);
     }
 }
 
