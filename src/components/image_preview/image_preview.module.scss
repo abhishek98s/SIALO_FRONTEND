@@ -1,0 +1,23 @@
+@import '../../styles/variables.scss';
+
+.middle {
+    animation: top_down .4s ease-in;
+}
+
+@keyframes top_down {
+    0% {
+        height: 0px;
+        opacity: 0;
+        visibility: hidden;
+        overflow: hidden;
+        margin-bottom: 0;
+    }
+
+    100% {
+        opacity: 1;
+        height: 60px;
+        visibility: visible;
+        overflow: visible;
+        margin-bottom: 16px;
+    }
+}

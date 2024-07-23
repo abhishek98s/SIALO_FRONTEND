@@ -1,0 +1,16 @@
+.camera_actions {
+    background: linear-gradient(0deg, #1a1a1ab3, #1a1a1ab3), #0000;
+
+    .take_photo_btn {
+        transition: .2s;
+
+        &:hover,
+        &:focus-visible {
+            padding: 4px;
+        }
+
+        &:active {
+            padding: 10px;
+        }
+    }
+}
