@@ -43,8 +43,8 @@ export default function StoriesList() {
     {
         id: 4,
         img: '/story-5.png',
-        name: 'Dial'
-    },]
+        name: 'Dial',
+    }]
     return (
         <>
             <section className={`${styles.stories_list_wrapper} my-[16px] overflow-y-scroll`}>
@@ -54,7 +54,7 @@ export default function StoriesList() {
                     toastOptions={{
                         className: 'toast_notification',
                         success: { ...toast_sucess_option },
-                        error: { ...toast_error_option }
+                        error: { ...toast_error_option },
                     }}
                 />
                 <Modal open={open}

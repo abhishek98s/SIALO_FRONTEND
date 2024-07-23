@@ -82,7 +82,7 @@ export const CameraModel: React.FC<Props> = ({ user_inputted_image_url, setUser_
         confirmTakenPhoto: () => {
             setIsCameraModalopen(false)
             cameraAction.stopCamera()
-        }
+        },
     }
 
     return (

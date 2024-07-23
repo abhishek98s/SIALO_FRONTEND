@@ -72,7 +72,7 @@ export default function Feed() {
                     </Link>
                 </div>
             </header>
-            <p className="text-[14px] mb-[12px]">Nature's view, a stunning display of color and beauty that can rejuvenate your soul</p>
+            <p className="text-[14px] mb-[12px]">Nature&aposs view, a stunning display of color and beauty that can rejuvenate your soul</p>
 
             <figure className="relative w-full h-auto border-neutral-86 mb-[16px]">
                 <Image src={`/post-image.png`} alt='post-image'

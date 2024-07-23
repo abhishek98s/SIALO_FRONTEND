@@ -1,17 +1,16 @@
 {
   "extends": "next/core-web-vitals",
-  "quotes": [
-    "error",
-    "single"
-  ],
-  "comma-dangle": [
-    "error",
-    {
-      "arrays": "always-multiline",
-      "objects": "always-multiline",
-      "imports": "always-multiline",
-      "exports": "always-multiline",
-      "functions": "always-multiline"
-    }
-  ]
+  "rules": {
+    "comma-dangle": [
+      "error",
+      {
+        "arrays": "always-multiline",
+        "objects": "always-multiline",
+        "imports": "always-multiline",
+        "exports": "always-multiline",
+        "functions": "never"
+      }
+    ],
+    "eol-last": "error"
+  }
 }

@@ -2,7 +2,7 @@ import { Metadata } from "next"
 import Login from "./login"
 
 export const metadata:Metadata = {
-    title: 'Sialo | Login'
+    title: 'Sialo | Login',
 }
 
 export default function LoginPage() {

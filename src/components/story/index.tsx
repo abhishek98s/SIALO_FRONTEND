@@ -9,7 +9,7 @@ interface StoryProps {
     story: IStory;
 }
 
-export default function ({ story }: StoryProps) {
+export default function Story({ story }: StoryProps) {
     return (
         <Link href={`/`} className={`${styles.stories_wrapper} block w-full mb-1 mr-[12px]`}>
             <div className="story h-[120px] border-neutral-86">

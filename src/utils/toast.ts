@@ -17,9 +17,9 @@ export const toast_error_option = {
         border: '1px solid #B03B3B',
         color: '#FFE0E0',
         background: '#291D1D',
-        ...common_style
+        ...common_style,
     },
-    duration: toast_duration
+    duration: toast_duration,
 };
 
 export const toast_sucess_option = {
@@ -28,9 +28,9 @@ export const toast_sucess_option = {
         border: '1px solid #A7DC74',
         color: '#A7DC74',
         background: '#1A1A1A',
-        ...common_style
+        ...common_style,
     },
-    duration: toast_duration
+    duration: toast_duration,
 };
 
 export const toast_info_option = {
@@ -39,7 +39,7 @@ export const toast_info_option = {
         border: '1px solid #B03B3B',
         color: '#FFE0E0',
         background: '#291D1D',
-        ...common_style
+        ...common_style,
     },
-    duration: toast_duration
+    duration: toast_duration,
 }

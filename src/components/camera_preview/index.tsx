@@ -148,7 +148,7 @@ export const Camera_Preview: React.FC<Camera_preview_props> = ({ mediaStream, as
                         <div className={`${styles.shot_photo_btn} w-full h-full bg-neutral-0 rounded-full cursor-pointer`}></div>
                     </button>
 
-                    <span className="color-primary-50 font-bold text-[18px]">Let's take a photo</span>
+                    <span className="color-primary-50 font-bold text-[18px]">Let&aposs take a photo</span>
                 </div>
             </section>
         </>

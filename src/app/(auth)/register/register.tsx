@@ -70,7 +70,7 @@ export default function RegisterForm() {
                 reverseOrder={false}
                 toastOptions={{
                     success: { ...toast_sucess_option },
-                    error: { ...toast_error_option }
+                    error: { ...toast_error_option },
                 }}
             />
             <section className={`${styles.form_wrapper} + w-full max-w-[400px] absolute top-[50%] left-[50%] translate-x-[-50%] translate-y-[-50%]`}>
