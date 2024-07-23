@@ -2,13 +2,54 @@ import Image from "next/image";
 import Link from "next/link";
 
 import style from './feed.module.scss';
-import { useState } from "react";
+import { ReactElement, useState } from "react";
+import { Comment } from "../comment";
+import toast from "react-hot-toast";
+import { toast_error_option, toast_sucess_option } from "@/utils/toast";
+
+type IComment = {
+    name: string,
+    comment_info: string,
+    img: string,
+}
 
 export default function Feed() {
     const [isLiked, setIsLiked] = useState(false);
+    const [comment, setComment] = useState<string | null>(null);
+
+    const comments = [
+        {
+            name: 'Arlene Ferguson',
+            comment_info: 'From the rolling hills of a countryside landscape to the majestic peaks of a mountain range, nature\'s view can take your breath away.',
+            img: '/user.png',
+        },
+        {
+            name: 'Arlene Ferguson',
+            comment_info: 'From the rolling hills of a countryside landscape to the majestic peaks of a mountain range, nature\'s view can take your breath away.',
+            img: '/user.png',
+        },
+    ]
 
     function likePost() {
         setIsLiked(!isLiked);
+    }
+
+    const handleChange = (e: any) => {
+        console.log('asdasd')
+
+        const value = e.target.value;
+        setComment(value)
+    }
+
+    const submitComment = (e: any) => {
+        console.log('asdasd')
+        e.preventDefault();
+
+        if (!comment) {
+            toast.error('comment is rquired', toast_error_option);
+            return
+        }
+        toast.success('Comment Posted', toast_sucess_option);
     }
     return (
         <article className={`${style.feed_wrapper} border-neutral-86 px-[12px] pt-[20px] pb-[8px] bg-neutral-90 rounded-8`}>
@@ -45,9 +86,13 @@ export default function Feed() {
                     </svg>
                 </button>
 
-                <form className="comment-wrapper relative flex-grow">
-                    <input type="text" placeholder="Have something to say" className="bg-neutral-88 rounded-full border-neutral-86 h-[44px] w-full p-[12px] pl-[16px]" />
-                    <button type="submit" className={`${style.comment_post_btn} rounded-full w-[40px] h-[40px] flex-center absolute right-[6px] top-1/2 -translate-y-1/2`}>
+                <form className="comment-wrapper relative flex-grow" onSubmit={submitComment}>
+                    <input type="text" placeholder="Have something to say"
+                        onChange={handleChange}
+                        className="bg-neutral-88 rounded-full border-neutral-86 h-[44px] w-full p-[12px] pl-[16px]" />
+                    <button
+                        onClick={submitComment}
+                        type="submit" className={`${style.comment_post_btn} rounded-full w-[40px] h-[40px] flex-center absolute right-[6px] top-1/2 -translate-y-1/2`}>
                         <Image src={`/icons/icon-send.svg`} alt="icon-comment" width={17} height={17} className="cursor-pointer" />
                     </button>
                 </form>
@@ -57,23 +102,9 @@ export default function Feed() {
                 <h3 className="color-primary-50 text-[14px] font-bold mb-[12px]">Comments</h3>
 
                 <div className="comment-list">
-
-                    <div className="comment flex gap-[8px] mb-[20px]">
-                        <Image src={`/user.png`} alt='user' width={40} height={40} priority className="max-w-[30px] h-[30px] w-full border-primary-60 rounded-full" />
-                        <div className="comment-info">
-                            <h6 className="color-neutral-40 mb-[4px] text-[14px]">Arlene Ferguson</h6>
-                            <p className="color-neutral-20 leading-[1.3] text-[14px]">From the rolling hills of a countryside landscape to the majestic peaks of a mountain range, nature's view can take your breath away. </p>
-                        </div>
-                    </div>
-
-                    <div className="comment flex gap-[8px] mb-[20px]">
-                        <Image src={`/user.png`} alt='user' width={40} height={40} priority className="max-w-[30px] h-[30px] w-full border-primary-60 rounded-full" />
-                        <div className="comment-info">
-                            <h6 className="color-neutral-40 mb-[2px] text-[14px]">Arlene Ferguson</h6>
-                            <p className="color-neutral-20 leading-[1.3] text-[14px]">From the rolling hills of a countryside landscape to the majestic peaks of a mountain range, nature's view can take your breath away. </p>
-                        </div>
-                    </div>
-
+                    {comments.map((comment, index) => (
+                        <Comment comment={comment} key={index} />
+                    ))}
                 </div>
             </div>
         </article>
