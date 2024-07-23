@@ -3,13 +3,13 @@ const common_style = {
     fontSize: '14px',
     minWidth: '176px',
     maxWidth: '400px',
-    marginBottom: '96px',
+    bottom: '96px',
     borderRadius: '4px',
     boxShadow: '0px 8px 55px rgba(0, 0, 0, 0.56)',
-    zIndex: '9',
+    zindex: '9',
 }
 
-export const toast_duration = 3000
+export const toast_duration = 1000
 
 export const toast_error_option = {
     className: 'toast-sucess-wrapper',
@@ -18,7 +18,8 @@ export const toast_error_option = {
         color: '#FFE0E0',
         background: '#291D1D',
         ...common_style
-    }
+    },
+    duration: toast_duration
 };
 
 export const toast_sucess_option = {
@@ -28,5 +29,17 @@ export const toast_sucess_option = {
         color: '#A7DC74',
         background: '#1A1A1A',
         ...common_style
-    }
+    },
+    duration: toast_duration
 };
+
+export const toast_info_option = {
+    icon: '❗',
+    style: {
+        border: '1px solid #B03B3B',
+        color: '#FFE0E0',
+        background: '#291D1D',
+        ...common_style
+    },
+    duration: toast_duration
+}

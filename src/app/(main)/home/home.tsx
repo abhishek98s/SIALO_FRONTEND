@@ -1,6 +1,6 @@
 "use client"
 
-import Feed from "@/components/Feed";
+import Feed from "@/components/feed";
 import StoriesList from "@/components/story_list";
 import UserPostBox from "@/components/user_post_box";
 import HomeLayout from "../layout";

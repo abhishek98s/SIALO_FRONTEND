@@ -1,34 +1,58 @@
 'use client';
 
-import { CanvasHTMLAttributes, useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import Image from "next/image";
-import Link from "next/link";
 
-import { Camera } from "react-camera-pro";
+
+// --
 import toast, { Toaster } from 'react-hot-toast';
 
 import styles from './user_post_box.module.scss';
-import { toast_duration, toast_error_option } from "@/utils/toast";
+import { toast_error_option, toast_info_option, toast_sucess_option } from "@/utils/toast";
 import { isImage } from "@/utils/file";
 import Modal from "react-responsive-modal";
 
-type AspectRatio = '4:3' | '16:9' | '9:16';
+
+// --
+type AspectRatio = '3:4' | '1:1' | '9:16';
 
 export default function UserPostBox() {
+
+    // for camera model 
+    //
     const [isCameraModalopen, setIsCameraModalopen] = useState(false);
+
+    // for video stream
+    // --
     const [mediaStream, setMediaStream] = useState<MediaStream | null>(null);
 
+    // for image file
     const [image_file, setImage_file] = useState<File | null>(null);
-    const [user_inputted_image_url, setUser_inputted_image_url] = useState<string | null>('');
+
+    // for displaying the image
+    // --
+    const [user_inputted_image_url, setUser_inputted_image_url] = useState<string | null>(null);
+
+    // for caption of the post
+    const [caption, setCaption] = useState<string | null>(null);
+
+    // for available camera
     const [iscameraAvailable, setIscameraAvailable] = useState(false);
 
-    const [aspectRatio, setAspectRatio] = useState<AspectRatio>('9:16');
-
-
-
+    // for camera permisiion state
+    // -- 
+    const [isCameraAccessGranted, setIsCameraAccessGranted] = useState(false);
     const cameraModalRef = useRef(null);
+
+    // --
     const videoRef = useRef<HTMLVideoElement | null>(null);
     const canvasRef = useRef<HTMLCanvasElement>(null);
+    const [aspectRatio, setAspectRatio] = useState<AspectRatio | null>('3:4');
+    const [videoRatio, setVideoRatio] = useState({
+        width: 500,
+        height: 375,
+    });
+
 
     useEffect(() => {
         const handleCameraPermission = async () => {
@@ -39,11 +63,54 @@ export default function UserPostBox() {
             }
         };
 
+        const handleRequestPermission = async () => {
+            navigator.permissions.query({ name: 'camera' })
+                .then(permission => {
+                    if (permission.state === 'granted') {
+                        setIsCameraAccessGranted(true);
+
+                    } else if (permission.state === 'denied') {
+                        setIsCameraAccessGranted(false);
+                    }
+                })
+                .catch(error => {
+                    setIsCameraAccessGranted(false);
+                });
+        };
+
         handleCameraPermission();
+        handleRequestPermission();
     }, [])
 
+    // the code below set the height of the image based on the aspect ratio
     useEffect(() => {
+        if (videoRef.current) {
+            let desiredWidth, desiredHeight;
+            switch (aspectRatio) {
+                case '9:16':
+                    desiredWidth = 500;
+                    desiredHeight = (desiredWidth * 9) / 16;
+                    break;
+                case '3:4':
+                    desiredWidth = 500;
+                    desiredHeight = (desiredWidth * 3) / 4;
+                    break;
+                case '1:1':
+                    desiredWidth = 500;
+                    desiredHeight = (desiredWidth * 1) / 1;
+                    break;
+                default:
+                    desiredWidth = 500;
+                    desiredHeight = (desiredWidth * 9) / 16;
+            }
 
+            videoRef.current.width = desiredWidth;
+            videoRef.current.height = desiredHeight;
+            setVideoRatio({ width: desiredWidth, height: desiredHeight })
+        }
+    }, [, aspectRatio]);
+
+    useEffect(() => {
         return () => {
             if (mediaStream) {
                 mediaStream.getTracks().forEach(track => track.stop());
@@ -51,6 +118,8 @@ export default function UserPostBox() {
         };
     }, [mediaStream]);
 
+
+    // For showing the video to the video tag
     useEffect(() => {
         if (mediaStream && videoRef.current) {
             videoRef.current.srcObject = mediaStream;
@@ -58,101 +127,188 @@ export default function UserPostBox() {
     }, [mediaStream]);
 
 
-
     const cameraAction = {
+        /* The above code is a TypeScript React function named `startCamera` that is using the `async`
+        keyword to define an asynchronous function. Inside the function, it is attempting to access
+        the user's camera using `navigator.mediaDevices.getUserMedia({ video: true })` to get a video
+        stream. If successful, it sets the obtained media stream using `setMediaStream(stream)`. If
+        there is an error during the process, it logs the error message to the console using
+        `console.error('Error accessing the camera:', error)`. */
         startCamera: async () => {
             try {
-                const stream = await navigator.mediaDevices.getUserMedia({ video: true });
+                const stream = await navigator.mediaDevices.getUserMedia({
+                    video: {
+                        width: { ideal: 1280 },
+                        height: { ideal: 720 },
+                    },
+                });
                 setMediaStream(stream);
-
             } catch (error) {
-                console.error('Error accessing the camera:', error);
+                toast.error('Error accessing the camera!',
+                    toast_info_option
+                );
             }
         },
+        /* The above code is a TypeScript React function named `stopCamera`. It checks if a
+        `mediaStream` variable exists, and if it does, it stops all tracks of the media stream using
+        `getTracks()` and `track.stop()`. It then sets the `mediaStream` variable to `null` and
+        closes a camera modal by setting `isCameraModalOpen` to `false`. This function is used to
+        stop the camera stream in a React component. */
         stopCamera: () => {
             if (mediaStream) {
                 mediaStream.getTracks().forEach(track => track.stop());
                 setMediaStream(null);
-
-                setIsCameraModalopen(false)
             }
         },
+
+        /* The above code is a TypeScript React function called `takePhoto` that is used to capture a
+        photo from a video element and display it on a canvas. Here is a breakdown of what the code is
+        doing: */
         takePhoto: () => {
             if (videoRef.current && canvasRef.current) {
                 const canvas = canvasRef.current;
                 const video = videoRef.current;
 
-                canvas.width = video.videoWidth;
-                canvas.height = video.videoHeight;
+                let desiredWidth, desiredHeight;
+                switch (aspectRatio) {
+                    case '9:16':
+                        desiredWidth = 500;
+                        desiredHeight = (desiredWidth * 9) / 16;
+                        break;
+                    case '3:4':
+                        desiredWidth = 500;
+                        desiredHeight = (desiredWidth * 3) / 4;
+                        break;
+                    case '1:1':
+                        desiredWidth = 500;
+                        desiredHeight = (desiredWidth * 1) / 1;
+                        break;
+                    default:
+                        desiredWidth = 500;
+                        desiredHeight = (desiredWidth * 9) / 16;
+                }
+                canvas.width = video.width;
+                canvas.height = video.height;
 
-                const context: CanvasRenderingContext2D | null = canvas.getContext('2d');
+                // Calculate the scaling factor to fit the video within the canvas
+                const scaleX = canvas.width / video.videoWidth;
+                const scaleY = canvas.height / video.videoHeight;
+                const scale = Math.max(scaleX, scaleY);
 
-                // Flip the image horizontally
+                // Draw the video frame on the canvas, scaling and cropping as needed
+
+                const context = canvas.getContext('2d');
                 context?.translate(canvas.width, 0);
                 context?.scale(-1, 1);
+                context?.drawImage(
+                    video,
+                    (video.videoWidth - canvas.width / scale) / 2,
+                    (video.videoHeight - canvas.height / scale) / 2,
+                    canvas.width / scale,
+                    canvas.height / scale,
+                    0,
+                    0,
+                    canvas.width,
+                    canvas.height
+                );
 
-                context?.drawImage(video, 0, 0, canvas.width, canvas.height);
 
                 const photoDataUrl = canvas.toDataURL('image/png');
                 setUser_inputted_image_url(photoDataUrl);
             }
         },
+        /* The above code is a TypeScript React function called `toggleAspectRatio` that takes a parameter
+        `ratio` of type `AspectRatio` and sets the aspect ratio state to the provided `ratio` value. */
         toggleAspectRatio: (ratio: AspectRatio) => {
-            setAspectRatio(aspectRatio === '4:3' ? '16:9' : '4:3');
+            setAspectRatio(ratio);
+        },
+
+        // discard the taken photo and takes back to the camera
+        discardClickedPhoto: () => {
+            setUser_inputted_image_url(null);
+        },
+
+        // close the model
+        confirmTakenPhoto: () => {
+            setIsCameraModalopen(false)
         }
     }
 
-
+    //--
     const CameraModel = {
+        /* The above code is a TypeScript React function that is triggered when a user tries to open the
+        camera. It first checks if camera access has been granted. If camera access is not granted, it
+        displays a toast message indicating that camera access is required. If camera access is granted, it
+        sets the state to open the camera modal and then starts the camera action. */
         open: () => {
+            if (!isCameraAccessGranted) {
+                toast.error('Camera access required!',
+                    toast_info_option
+                );
+                return
+            }
+            setUser_inputted_image_url(null)
             setIsCameraModalopen(true)
-            cameraAction.startCamera()
+            cameraAction.startCamera();
         },
+        /* The above code is a TypeScript React function that is closing a camera modal. It is calling the
+        `setIsCameraModalopen` function with `false` as an argument to close the modal, and then calling
+        `cameraAction.stopCamera()` to stop the camera. */
         close: () => {
             setIsCameraModalopen(false)
+            setUser_inputted_image_url(null);
             cameraAction.stopCamera();
         },
     }
 
-
-
-
     const clearImage = () => setUser_inputted_image_url(null);
 
-    const onPostSubmit = (e: any) => {
-        e.preventDefault();
-        toast.success('Post added', { duration: toast_duration });
-    };
-
-    const saveFile = (e: any) => {
+    const handleChange = (e: any) => {
         const value = e.target as HTMLInputElement;
 
-        const file = value.files![0];
-
-        if (!file || !isImage(file)) {
-            toast.error('Image type should be .jpg, .png or .jpeg', { duration: toast_duration })
-        };
+        const file = value.files ? value.files![0] : null;
 
         switch (value.name) {
+
+
+            /* The below code check if the file is present or not
+                get the file absolute url. if file is not present or image is not .jpg, .png or .jpeg
+                error is notificed. File is set in the image_file state url is set to display the image 
+            */
             case 'image_select':
-                const fileURL = URL.createObjectURL(file);
+                if (!file || !isImage(file)) {
+                    toast.error('Image type should be .jpg, .png or .jpeg', toast_error_option)
+                };
+                const fileURL = URL.createObjectURL(file!);
                 setImage_file(file);
                 setUser_inputted_image_url(fileURL);
                 break;
 
-            case 'camera_select':
-                cameraAction.takePhoto();
-                break;
 
+            /* set the caption of the post to the state */
+            case 'input_caption':
+                const caption = e.target.value;
+                setCaption(caption)
+                break;
             default:
                 break;
         }
     }
 
 
+    const onPostSubmit = (e: any) => {
+        e.preventDefault();
+
+        if (!user_inputted_image_url || !caption) {
+            toast.error('Image and caption is required', toast_error_option);
+            return
+        }
+
+        toast.success('Post added', toast_sucess_option);
+    };
+
     return (
         <>
-
             <Modal open={isCameraModalopen}
                 onClose={CameraModel.close}
                 center
@@ -161,31 +317,56 @@ export default function UserPostBox() {
                     modal: `camera_model ${isCameraModalopen ? 'animate' : 'animate-none'}`,
                 }}
             >
+
                 <canvas ref={canvasRef} className="hidden"></canvas>
                 <video ref={videoRef}
-                    className={`${(aspectRatio === '4:3') ? styles.ratio_4_3 : (aspectRatio === '16:9') ? styles.ratio_16_9 : styles.ratio_9_16} object-cover`}
-                    style={{ transform: 'scaleX(-1)' }} autoPlay muted></video>
+                    width={videoRatio.width}
+                    height={videoRatio.height}
+                    className={`h-[${videoRatio.height}px]`}
+                    style={{ transform: 'scaleX(-1)', maxWidth: '100%', opacity: '0.1', objectFit: 'cover', height: videoRatio.height + 'px', transition: '.2s' }} autoPlay muted></video>
+
+                <section className={`${styles.ratio_wrapper} absolute top-[24px] left-[24px] flex gap-[16px]`}>
+                    <button onClick={() => cameraAction.toggleAspectRatio("3:4")}
+                        className={`${aspectRatio === '3:4' ? styles.active : ''}`}>3: 4</button>
+                    <button onClick={() => cameraAction.toggleAspectRatio("9:16")}
+                        className={`${aspectRatio === '9:16' ? styles.active : ''}`}>9: 16</button>
+                    <button onClick={() => cameraAction.toggleAspectRatio("1:1")}
+                        className={`${aspectRatio === '1:1' ? styles.active : ''}`}>1: 1</button>
+                </section >
+
                 <section className={`${styles.camera_actions} absolute left-0 bottom-0 right-0 py-[40px]`}>
                     <div className={`${styles.take_photo_btn_wrapper} flex flex-col items-center gap-[16px]`}>
-                        <div className={`${styles.take_photo_btn} w-[62px] h-[62px] bg-primary-45 rounded-full flex-center p-[8px]`} onClick={cameraAction.takePhoto}>
+                        <button className={`${styles.take_photo_btn} focus-visible-neutral-70 outline-neutral-90 w-[62px] h-[62px] bg-primary-45 rounded-full flex-center p-[8px]`} onClick={cameraAction.takePhoto}>
                             <div className={`${styles.shot_photo_btn} w-full h-full bg-neutral-0 rounded-full cursor-pointer`}></div>
-                        </div>
+                        </button>
 
                         <span className="color-primary-50 font-bold text-[18px]">Let's take a photo</span>
                     </div>
                 </section>
 
-                {isCameraModalopen && user_inputted_image_url && <section className={`${styles.confirm_photo} confirm_photo absolute top-0 left-0 right-0 bottom-0 h-full w-full`}>
-                    <img src={user_inputted_image_url} className="w-full" />
-                </section>}
-            </Modal>
+                {
+                    isCameraModalopen && user_inputted_image_url && <section className={`${styles.confirm_photo} confirm_photo absolute top-0 left-0 right-0 bottom-0 bg-neutral-90 h-full w-full`}>
+                        <div>
+                            <img src={user_inputted_image_url} className="w-full opacity-10" />
+                            <div className={`${styles.camera_actions} absolute left-0 bottom-0 right-0 py-[40px] px-[24px] flex gap-[12px]`}>
+                                <button
+                                    onClick={cameraAction.confirmTakenPhoto}
+                                    className="primary-btn w-full h-[48px] font-bold color-primary-80 text-[16px] inline-flex justify-center items-center">Confirm</button>
+                                <button
+                                    onClick={cameraAction.discardClickedPhoto}
+                                    className="error-btn w-full h-[48px] font-bold bg-error-80 border-error-50 color-neutral-0 text-[16px] inline-flex justify-center items-center">Discard</button>
+                            </div>
+                        </div>
+                    </section>}
+            </Modal >
             <form
                 onSubmit={onPostSubmit}
                 className={`${styles.user_post_wrapper} transition-4 order-neutral-86 bg-neutral-90 mb-[16px] px-[12px] pt-[20px] pb-[10px] rounded-4`}>
                 <div className="top flex gap-[12px] mb-[16px]">
                     <Image src="/user.png" alt="user" width={40} height={40} className="rounded-full border-primary-60 max-w-[40px] w-full" />
-                    <input type="text" className="bg-neutral-88 border-neutral-86 px-[16px] py-[8px]" placeholder="Mind writing something?" />
+                    <input type="text" className="bg-neutral-88 border-neutral-86 px-[16px] py-[8px]" onChange={handleChange} name="input_caption" placeholder="Mind writing something?" />
                 </div>
+
 
                 {user_inputted_image_url && <div className={`${styles.middle} relative rounded-4 border-neutral-40 w-[60px] h-[60px] mb-[16px]`}>
                     <Image className="rounded-4 object-cover h-full w-full" src={user_inputted_image_url} width={60} height={60} alt={image_file ? image_file.name : ''} />
@@ -208,7 +389,7 @@ export default function UserPostBox() {
 
                         <div className="relative w-[40px] h-[40px] flex-center ">
                             <input type="file"
-                                onChangeCapture={saveFile}
+                                onChangeCapture={handleChange}
                                 className={`${styles.image_input} absolute z-0 border-neutral-90 outline-none`} id="image-input" accept=".png,.jpg,.jpeg" name="image_select" />
                             <label htmlFor="image-input" className="absolute z-5 rounded-full w-full h-full flex-center cursor-pointer bg-neutral-90">
                                 <svg width="14" height="14" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">

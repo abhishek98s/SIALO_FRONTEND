@@ -85,6 +85,8 @@ input {
   transition: .4s;
   outline-offset: 2px;
   outline: 1px solid transparent;
+  border-radius: 4px;
+  font-weight: 800;
 
   &:hover {
     background-color: $primary-65;
@@ -109,6 +111,31 @@ input {
 
   &:hover {
     background-color: $neutral-86;
+  }
+
+  &:focus-visible {
+    transition: none;
+    outline-offset: 2px;
+    outline: 1px solid $neutral-70;
+  }
+
+  &:active {
+    background-color: $neutral-90;
+  }
+}
+
+.error-btn {
+  background-color: $error-80;
+  border: 1px solid $error-50;
+  color: $neutral-0;
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 4px;
+  transition: .4s;
+
+  &:hover {
+    background-color: transparent;
   }
 
   &:focus-visible {

@@ -72,15 +72,11 @@
 }
 
 .camera_model {
+    max-width: 500px !important;
+    width: fit-content;
     height: 100vh;
     margin: 0 !important;
     padding: 0 !important;
-    position: fixed !important;
-    z-index: 20000 !important;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
     background: $neutral-90 !important;
 
     &.animate {
@@ -112,4 +108,9 @@
         top: calc(100% + 12px);
         left: 0;
     }
+}
+
+.toast_notification {
+    z-index: 0;
+    position: relative;
 }

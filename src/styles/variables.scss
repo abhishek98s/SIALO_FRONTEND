@@ -1,6 +1,6 @@
 $error-10: #FFEBEB;
-$error-80: #291D1D;
 $error-50: #B03B3B;
+$error-80: #291D1D;
 
 $primary-10: #E5F5D6;
 $primary-30: #C0FF85;
@@ -25,6 +25,9 @@ $neutral-88: #1F1F1F;
 $neutral-90: #1A1A1A;
 
 $colors-list: (
+    'error': ('10': $error-10,
+        '50': $error-50,
+        '80': $error-80 ),
     'primary': ('10': $primary-10,
         '45': $primary-45,
         '50': $primary-50,
