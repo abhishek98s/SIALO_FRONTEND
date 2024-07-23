@@ -1,6 +1,7 @@
 @import '../../styles/variables.scss';
 
 .sidebar_wrapper {
+    z-index: 100;
 
     li.active {
         svg {

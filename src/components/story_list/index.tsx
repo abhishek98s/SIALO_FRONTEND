@@ -21,7 +21,7 @@ export default function StoriesList() {
     const onOpenmodal = () => setOpen(true);
     const onCloseModal = () => setOpen(false);
     const onStoryPost = () => {
-        toast.success('Story Posted', { duration: toast_duration });
+        toast.success('Story Posted', toast_sucess_option);
         onCloseModal();
     };
 
@@ -52,6 +52,7 @@ export default function StoriesList() {
                     position="bottom-center"
                     reverseOrder={false}
                     toastOptions={{
+                        className: 'toast_notification',
                         success: { ...toast_sucess_option },
                         error: { ...toast_error_option }
                     }}

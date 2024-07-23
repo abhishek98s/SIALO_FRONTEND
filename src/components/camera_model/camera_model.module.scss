@@ -1,29 +1,5 @@
 @import '../../styles/variables.scss';
 
-.middle {
-    animation: top_down .4s ease-in;
-}
-
-@keyframes top_down {
-    0% {
-        height: 0px;
-        opacity: 0;
-        visibility: hidden;
-        overflow: hidden;
-        margin-bottom: 0;
-    }
-
-    100% {
-        opacity: 1;
-        height: 60px;
-        visibility: visible;
-        overflow: visible;
-        margin-bottom: 16px;
-    }
-}
-
-
-// --
 .ratio_wrapper {
     button {
         width: 64px;
@@ -44,6 +20,7 @@
         }
     }
 }
+
 .camera_actions {
     background: linear-gradient(0deg, #1a1a1ab3, #1a1a1ab3), #0000;
 

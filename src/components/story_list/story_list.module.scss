@@ -2,6 +2,10 @@
 
 .stories_list_wrapper {
 
+    &>div:nth-child(1){
+        margin-bottom: 70px;
+        z-index: 90 !important;
+    }
     a,
     .post_story_btn {
         transition: .4s;
