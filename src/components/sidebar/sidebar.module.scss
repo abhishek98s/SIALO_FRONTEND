@@ -1,7 +1,7 @@
 @import '../../styles/variables.scss';
 
 .sidebar_wrapper {
-    z-index: 100;
+    z-index: 99.1;
 
     li.active {
         svg {
@@ -19,6 +19,58 @@
         h6 {
             color: $primary-50;
             font-weight: 800;
+        }
+    }
+}
+
+@media screen and (min-width: 800px) {
+    .sidebar_wrapper {
+        width: 50px;
+        height: auto;
+        top: 0;
+        left: 0;
+        padding: 0;
+        overflow: hidden;
+        right: unset;
+        bottom: unset;
+        padding-top: 90px;
+        background: transparent;
+        border: none;
+
+        ul {
+            gap: 24px;
+            flex-direction: column;
+
+            li {
+                width: 300px;
+                display: flex;
+                gap: 8px;
+                align-items: center;
+                transition: .4s;
+
+                &:hover {
+                    background-color: $neutral-86;
+                }
+
+                div {
+                    max-width: 50px;
+                    height: 50px;
+                    margin: 0;
+                }
+            }
+        }
+    }
+}
+
+@media screen and (min-width: 1024px) {
+    .sidebar_wrapper {
+        width: 230px;
+        height: 100vh;
+        background: $neutral-90;
+        border-right: 1px solid $neutral-86;
+
+        ul {
+            gap: 8px;
         }
     }
 }

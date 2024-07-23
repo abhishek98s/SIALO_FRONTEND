@@ -14,7 +14,7 @@ export default function IndexPage() {
                     <StoriesList />
                     <UserPostBox />
 
-                    <section className="feed-list space-y-[16px] pb-[85px]">
+                    <section className="feed-list space-y-[16px] pb-[85px] max-lg:pb-[12px]">
                         <Feed />
                         <Feed />
                         <Feed />

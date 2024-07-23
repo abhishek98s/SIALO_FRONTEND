@@ -5,7 +5,7 @@ import styles from './sidebar.module.scss';
 export default function Sidebar() {
     return (
         <div className={`${styles.sidebar_wrapper} sidebar h-[85px] fixed bottom-0 left-0 right-0 z-10 bg-neutral-90 border-neutral-86 px-[22px] pt-[12px] pb-[16px]`}>
-            <ul className="flex justify-between">
+            <ul className="flex justify-between max-w-[500px] mx-auto">
                 <Link href={'/'}>
                     <li className={`${styles.active} w-[60px]`}>
                         <div className="max-w-[40px] w-full h-[40px] flex-center mx-auto">

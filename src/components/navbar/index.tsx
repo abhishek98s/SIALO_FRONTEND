@@ -5,7 +5,7 @@ import styles from './navbar.module.scss';
 
 export default function Navbar() {
     return (
-        <nav className={`${styles.navbar} + navbar flex justify-between items-center p-[16px_12px] bg-neutral-90 shadow-soft`}>
+        <nav className={`${styles.navbar} + fixed z-10 left-0 right-0 top-0 navbar flex justify-between items-center p-[16px_12px] bg-neutral-90 shadow-soft`}>
             <div>
                 <Link href="/">
                     <Image src={`/logo.svg`} alt="sialo_logo" width={0} height={0} className="max-w-[80px] w-full" />

@@ -12,7 +12,7 @@ export default function MainLayout({
     <>
       <section>
         <Sidebar />
-        <div className="main">
+        <div className="main pt-[70px]">
           <Navbar />
           {children}
         </div>
