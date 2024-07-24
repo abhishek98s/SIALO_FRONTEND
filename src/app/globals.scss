@@ -50,14 +50,25 @@ html {
 
 body {
   color: $neutral-0;
-  background: $neutral-90;
-  background-color: $neutral-88;
+  background: $neutral-88;
 }
 
 @layer utilities {
   .text-balance {
     text-wrap: balance;
   }
+}
+
+.txt-focus {
+  &:focus-visible {
+    text-decoration: underline;
+    outline: none;
+  }
+}
+
+.custom-container {
+  max-width: 400px;
+  padding-inline: 8px;
 }
 
 input {
@@ -87,6 +98,10 @@ input {
   outline: 1px solid transparent;
   border-radius: 4px;
   font-weight: 800;
+  color: $primary-80;
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
 
   &:hover {
     background-color: $primary-65;
@@ -156,7 +171,16 @@ input {
     cursor: grab;
   }
 
+}
+
+.stories-list {
   .splide__slide {
     width: 92px !important;
+  }
+}
+
+.people-list {
+  .splide__slide {
+    width: 180px !important;
   }
 }

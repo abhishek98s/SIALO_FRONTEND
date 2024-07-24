@@ -14,7 +14,10 @@ export default function MainLayout({
         <Sidebar />
         <div className="main pt-[70px]">
           <Navbar />
-          {children}
+
+          <div className="px-[4px] lg:pl-[230px]">
+            {children}
+          </div>
         </div>
       </section>
     </>

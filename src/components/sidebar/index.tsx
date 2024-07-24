@@ -18,7 +18,7 @@ export default function Sidebar() {
                     </li>
                 </Link>
 
-                <Link href={'/'}>
+                <Link href={'/search'}>
                     <li className={`w-[60px]`}>
                         <div className="max-w-[40px] w-full h-[40px] flex-center mx-auto">
                             <svg width="21" height="21" viewBox="0 0 21 21" fill="none" xmlns="http://www.w3.org/2000/svg">
