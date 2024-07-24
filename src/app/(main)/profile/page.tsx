@@ -2,6 +2,7 @@ import Image from "next/image";
 import Link from "next/link";
 
 import styles from './profile.module.scss';
+import Feed from "@/components/feed";
 
 export default function ProfilePage() {
 
@@ -28,6 +29,11 @@ export default function ProfilePage() {
                         </div>
                     </div>
 
+                    <div role="feed_information">
+                        <Feed />
+                        <Feed />
+                        <Feed />
+                    </div>
                 </div>
             </section>
         </>
