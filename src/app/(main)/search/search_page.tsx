@@ -7,7 +7,7 @@ export default function SearchPage() {
 
     return (
         <>
-            <section className="search-page pt-[56px]  w-full px-[8px] mx-auto pb-[102px] lg:pb-[56px] lg:px-[24px]">
+            <section className="search-page pt-[56px] lg:pl-[230px] w-full px-[8px] mx-auto pb-[102px] lg:pb-[56px] lg:px-[24px]">
                 <div className="search-box relative max-w-[450px] w-full h-[40px] mx-auto mb-[40px] lg:mb-[56px]">
                     <input type="text" className="w-full h-full rounded-full border-neutral-80 bg-neutral-86" />
 
