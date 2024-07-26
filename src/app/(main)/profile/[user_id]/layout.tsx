@@ -18,7 +18,7 @@ export default function RootLayout({
 
     return (
         <>
-            <div className="pl-[230px]">
+            <div className="lg:pl-[230px]">
                 <section className="search-page max-w-[910px] w-full mx-auto">
                     <Image src={`/banner.png`} width={900} height={250} alt={`banner`} className="w-full h-[200px] lg:h-auto rounded-b-[12px] border-neutral-80 object-cover object-center" />
 
