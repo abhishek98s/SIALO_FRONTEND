@@ -15,7 +15,7 @@ export default function MainLayout({
         <div className="main pt-[70px] pb-[90px] lg:pb-[20px]">
           <Navbar />
 
-          <div className="px-[4px]">
+          <div className="pl-[230px] px-[4px]">
             <div className="max-w-[910px] mx-auto">
               {children}
             </div>

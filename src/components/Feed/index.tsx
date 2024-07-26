@@ -35,14 +35,11 @@ export default function Feed() {
     }
 
     const handleChange = (e: any) => {
-        console.log('asdasd')
-
         const value = e.target.value;
         setComment(value)
     }
 
     const submitComment = (e: any) => {
-        console.log('asdasd')
         e.preventDefault();
 
         if (!comment) {
