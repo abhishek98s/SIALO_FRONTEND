@@ -12,7 +12,7 @@ export default function MainLayout({
     <>
       <section>
         <Sidebar />
-        <div className="main pt-[70px]">
+        <div className="main pt-[70px] pb-[90px] lg:pb-[20px]">
           <Navbar />
 
           <div className="px-[4px] lg:pl-[230px]">

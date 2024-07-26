@@ -1,4 +1,4 @@
-@import '../../../styles/variables.scss';
+@import '../../../../styles/variables.scss';
 
 .profile_header {
     .nav {
@@ -17,8 +17,10 @@
             transform: translate(-50%);
         }
 
-        &:hover {
+        &:hover,
+        &:focus-visible {
             color: $primary-60;
+            outline: none;
 
             &::before {
                 width: 100%;
