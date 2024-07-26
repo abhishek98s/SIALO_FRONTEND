@@ -18,7 +18,7 @@ export default function RootLayout({
     console.log(currentPath)
     return (
         <>
-            <section className="search-page max-w-[910px] w-full mx-auto">
+            <section className="search-page w-full mx-auto">
                 <Image src={`/banner.png`} width={900} height={250} alt={`banner`} className="w-full h-[200px] lg:h-auto rounded-b-[12px] border-neutral-80 object-cover object-center" />
 
                 <div className="relative px-[0px] lg:px-[32px] -mt-[50px]">
@@ -35,7 +35,7 @@ export default function RootLayout({
                         <div className="nav-wrapper flex gap-[16px]">
                             <Link href={`/profile/${2}/feed`} className={`${styles.nav} ${currentPath == 'feed' ? styles.active : ''} relative block text-[14px] text-center w-[60px] h-[34px]`}>Feed</Link>
                             <Link href={`/profile/${2}/friends`} className={`${styles.nav} ${currentPath == 'friends' ? styles.active : ''} relative block text-[14px] text-center w-[60px] h-[34px]`}>Friends</Link>
-                            <Link href={`/`} className={`${styles.nav} ${currentPath == 'Photos' ? styles.active : ''} relative block text-[14px] text-center w-[60px] h-[34px]`}>Photos</Link>
+                            <Link href={`/profile/${2}/photos`} className={`${styles.nav} ${currentPath == 'photos' ? styles.active : ''} relative block text-[14px] text-center w-[60px] h-[34px]`}>Photos</Link>
                         </div>
                     </div>
 
