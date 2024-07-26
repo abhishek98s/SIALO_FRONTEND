@@ -15,7 +15,7 @@ export default function RootLayout({
     const pathname = usePathname();
     const length = pathname.split('/').length;
     const currentPath = pathname.split('/')[length - 1];
-    console.log(currentPath)
+
     return (
         <>
             <section className="search-page w-full mx-auto">
