@@ -55,11 +55,11 @@ export default function Feed() {
         <article className={`${style.feed_wrapper} border-neutral-86 px-[12px] pt-[20px] pb-[8px] bg-neutral-90 rounded-8`}>
             <header className="mb-[12px]">
                 <div className="user-info flex items-center gap-[8px]">
-                    <Link href={'/'}>
+                    <Link href={'/profile/2/feed'} className="block rounded-full focus-visible-primary-45">
                         <Image src={`/user.png`} alt='user' width={40} height={40} priority className="max-w-[40px] h-[40px] w-full border-primary-60 rounded-full" />
                     </Link>
                     <div className="info">
-                        <Link href={'/'} className="color-primary-60 text-[14px] font-bold leading-normal hover:underline underline-offset-1">Ruth Reed</Link>
+                        <Link href={'/profile/2/feed'} className=" txt-focus color-primary-60 text-[14px] font-bold leading-normal hover:underline underline-offset-1">Ruth Reed</Link>
                         <div className="color-primary-10 text-[12px]">May 10, 2024</div>
                     </div>
 

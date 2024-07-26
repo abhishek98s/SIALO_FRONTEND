@@ -14,11 +14,11 @@ export const Comment: React.FC<Comment_Propes> = ({ comment }) => {
     return (
         <>
             <div className="comment flex gap-[8px] mb-[20px]">
-                <Link href={`/`} className="max-w-[30px] h-[30px] w-full block">
+                <Link href={`/`} className="max-w-[30px] rounded-full focus-visible-primary-45 h-[30px] w-full block">
                     <Image src={comment.img} alt='user' width={40} height={40} priority className="w-full border-primary-60 rounded-full" />
                 </Link>
                 <div className="comment-info">
-                    <Link href={`/`}>
+                    <Link href={`/`} className="txt-focus">
                         <h6 className="color-neutral-40 mb-[4px] text-[14px]">{comment.name}</h6>
                     </Link>
 

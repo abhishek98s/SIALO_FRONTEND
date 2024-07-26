@@ -24,7 +24,7 @@ export default function ImageListPreview() {
                 </figure>
             </div>
 
-            <Link href={`/profile/photos`} className="text-center txt-focus block text-[14px] mx-auto color-primary-60">view more</Link>
+            <Link href={`/profile/2/photos`} className="text-center txt-focus block text-[14px] mx-auto color-primary-60">view more</Link>
         </div>
     )
 }
