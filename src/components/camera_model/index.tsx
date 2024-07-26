@@ -53,7 +53,7 @@ export const CameraModel: React.FC<Props> = ({ user_inputted_image_url, setUser_
                 );
             }
         },
-        
+
         /* The above code is a TypeScript React function named `stopCamera`. It checks if a
         `mediaStream` variable exists, and if it does, it stops all tracks of the media stream using
         `getTracks()` and `track.stop()`. It then sets the `mediaStream` variable to `null` and
