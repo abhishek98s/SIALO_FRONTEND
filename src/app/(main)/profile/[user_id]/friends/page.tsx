@@ -122,7 +122,7 @@ export default function Friends() {
     return (
         <>
             <div className="friends-list-wrapper w-full">
-                <div className="lg:grid grid-cols-4">
+                <div className="lg:grid grid-cols-4 gap-[4px]">
                     {friends_list.map((friend: IFriend, index: number) => (
                         <Friend friend={friend} key={index} />
                     ))}

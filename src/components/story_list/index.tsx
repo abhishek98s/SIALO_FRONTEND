@@ -130,7 +130,7 @@ export default function StoriesList() {
                     </div>
                 </Modal>
 
-                <ul className="stories-list px-[12px]">
+                <ul className="stories-list px-[12px] lg:px-[0px]">
                     <Splide
                         options={{
                             type: 'slide',
