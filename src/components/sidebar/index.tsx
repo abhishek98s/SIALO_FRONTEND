@@ -37,7 +37,7 @@ export default function Sidebar() {
                     </li>
                 </Link>
 
-                <Link href={'/'}>
+                <Link href={'/settings'}>
                     <li className={`${currentPath == 'settings' ? styles.active : ''} w-[60px]`}>
                         <div className="max-w-[40px] w-full h-[40px] flex-center mx-auto">
                             <svg width="23" height="24" viewBox="0 0 23 24" fill="none" xmlns="http://www.w3.org/2000/svg">
