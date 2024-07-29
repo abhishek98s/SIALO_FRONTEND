@@ -15,12 +15,18 @@ import { toast_error_option, toast_sucess_option } from "@/utils/toast";
 import { isImage } from "@/utils/file";
 import { ImagePreview } from "../image_preview";
 
+import { useSelector } from "react-redux";
+
 
 export default function StoriesList() {
     const [open, setOpen] = useState(false);
     const [file, setFile] = useState<File | null>(null);
     const [image, setImage] = useState<string>('');
     const storyRef = useRef(null);
+
+    const { user, isAuthenticated } = useSelector((state) => state.auth);
+    console.log(isAuthenticated)
+
 
 
     const stories: IStory[] = [
