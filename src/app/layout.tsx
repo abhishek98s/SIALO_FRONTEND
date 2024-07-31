@@ -1,12 +1,10 @@
 'use client';
 
-import type { Metadata } from "next";
 import { Inter, Quicksand } from "next/font/google";
 import "./globals.scss";
 
-import { Provider } from 'react-redux';
-import { PersistGate } from 'redux-persist/integration/react';
-import { store, persistor } from '../redux/store';
+import Providers from "@/lib/store.provider";
+import { PersistGate } from 'redux-persist/integration/react'
 
 const quickSand = Quicksand({
   weight: ['400', '500', '600', '700'],
@@ -25,11 +23,9 @@ export default function RootLayout({
     <>
       <html className={quickSand.className}>
         <body>
-          <Provider store={store}>
-            <PersistGate loading={null} persistor={persistor}>
-              {children}
-            </PersistGate>
-          </Provider>
+          <Providers>
+            {children}
+          </Providers>
         </body>
       </html>
     </>
