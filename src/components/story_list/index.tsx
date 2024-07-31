@@ -9,12 +9,11 @@ import { Splide, SplideSlide } from '@splidejs/react-splide';
 import toast, { Toaster } from 'react-hot-toast';
 
 import Story from "@/components/story";
-import { IStory } from "@/model";
 import styles from './story_list.module.scss';
 import { toast_error_option, toast_sucess_option } from "@/utils/toast";
 import { isImage } from "@/utils/file";
 import { ImagePreview } from "../image_preview";
-
+import { IStory } from "@/types/home";
 
 
 export default function StoriesList() {

@@ -10,11 +10,7 @@ import { useAppSelector } from "@/lib/hooks";
 import { useDispatch } from "react-redux";
 import { openDropdown, toggleDropdown } from "@/lib/features/dropdown/dropdown.slice";
 
-type IComment = {
-    name: string,
-    comment_info: string,
-    img: string,
-}
+
 
 export default function Feed() {
     const [isLiked, setIsLiked] = useState(false);
