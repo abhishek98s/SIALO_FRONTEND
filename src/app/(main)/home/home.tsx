@@ -4,8 +4,13 @@ import Feed from "@/components/feed";
 import StoriesList from "@/components/story_list";
 import UserPostBox from "@/components/user_post_box";
 import HomeLayout from "../layout";
+import { useAppDispatch, useAppSelector } from "@/lib/hooks";
 
 export default function IndexPage() {
+    const counter = useAppSelector((state) => state.counter.value); // Return Root State Slices
+    const dispatch = useAppDispatch(); // Action Dispatcher
+    
+    
     return (
         <>
             <HomeLayout>
