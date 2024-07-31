@@ -1,8 +1,3 @@
-import { combineReducers, configureStore } from '@reduxjs/toolkit'
-import counterSlice from './features/counter/counter.slice';
-import authSlice from './features/auth/auth.slice';
-
-
 import {
     persistStore,
     persistReducer,
@@ -13,26 +8,25 @@ import {
     PURGE,
     REGISTER,
 } from 'redux-persist'
-import storage from 'redux-persist/lib/storage'
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import { combineReducers, configureStore } from '@reduxjs/toolkit'
 
-
-
-
-
+import authSlice from './features/auth/auth.slice';
+import dropdownSlice from './features/dropdown/dropdown.slice';
 
 const rootReducers = combineReducers({
-    counter: counterSlice, // Connecting default exported Slice reducertyept
+    dropdown: dropdownSlice,
     auth: authSlice,
 });
 
 const persistConfig = {
     key: 'root',
     version: 1,
-    storage,
+    storage: AsyncStorage,
+    blacklist: ['dropdown'],
 }
 
 const persistedReducer = persistReducer(persistConfig, rootReducers);
-
 
 const store = configureStore({
     reducer: persistedReducer,
@@ -41,11 +35,10 @@ const store = configureStore({
             serializableCheck: {
                 ignoredActions: [FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER],
             },
-            
-        }),
-        
-});
 
+        }),
+
+});
 
 let persistor = persistStore(store)
 
