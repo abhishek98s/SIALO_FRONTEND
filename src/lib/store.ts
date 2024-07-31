@@ -11,12 +11,14 @@ import {
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { combineReducers, configureStore } from '@reduxjs/toolkit'
 
-import authSlice from './features/auth/auth.slice';
-import dropdownSlice from './features/dropdown/dropdown.slice';
+import authSlice from './features/auth.slice';
+import dropdownSlice from './features/dropdown.slice';
+import feedSlice from './features/feed.slice';
 
 const rootReducers = combineReducers({
     dropdown: dropdownSlice,
     auth: authSlice,
+    feed: feedSlice,
 });
 
 const persistConfig = {

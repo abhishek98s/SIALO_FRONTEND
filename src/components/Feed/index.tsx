@@ -8,7 +8,7 @@ import toast from "react-hot-toast";
 import { toast_error_option, toast_sucess_option } from "@/utils/toast";
 import { useAppSelector } from "@/lib/hooks";
 import { useDispatch } from "react-redux";
-import { openDropdown, toggleDropdown } from "@/lib/features/dropdown/dropdown.slice";
+import { openDropdown, toggleDropdown } from "@/lib/features/dropdown.slice";
 
 
 

@@ -26,7 +26,5 @@ export const counterSlice = createSlice({
     },
 })
 
-// Action creators are generated for each case reducer function
 export const { openDropdown, closeDropdown, toggleDropdown } = counterSlice.actions
-
-export default counterSlice.reducer; // EXPORT Slice reducer
+export default counterSlice.reducer;
