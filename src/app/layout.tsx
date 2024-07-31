@@ -3,8 +3,10 @@
 import { Inter, Quicksand } from "next/font/google";
 import "./globals.scss";
 
-import Providers from "@/lib/store.provider";
-import { PersistGate } from 'redux-persist/integration/react'
+import dynamic from 'next/dynamic'; 
+const Providers = dynamic(() => import('@/lib/store.provider'), { ssr: false });
+
+
 
 const quickSand = Quicksand({
   weight: ['400', '500', '600', '700'],

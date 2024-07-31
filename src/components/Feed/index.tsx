@@ -6,6 +6,9 @@ import { ReactElement, useState } from "react";
 import { Comment } from "../comment";
 import toast from "react-hot-toast";
 import { toast_error_option, toast_sucess_option } from "@/utils/toast";
+import { useAppSelector } from "@/lib/hooks";
+import { useDispatch } from "react-redux";
+import { openDropdown, toggleDropdown } from "@/lib/features/dropdown/dropdown.slice";
 
 type IComment = {
     name: string,
@@ -16,6 +19,9 @@ type IComment = {
 export default function Feed() {
     const [isLiked, setIsLiked] = useState(false);
     const [comment, setComment] = useState<string | null>(null);
+
+    const openDropdowns = useAppSelector((state) => state.dropdown.openDropdowns)
+    const dispatch = useDispatch();
 
     const comments = [
         {
@@ -39,6 +45,10 @@ export default function Feed() {
         setComment(value)
     }
 
+    const toggleMenu = () => {
+        dispatch(toggleDropdown('menu_box'))
+    }
+
     const submitComment = (e: any) => {
         e.preventDefault();
 
@@ -60,13 +70,23 @@ export default function Feed() {
                         <div className="color-primary-10 text-[12px]">May 10, 2024</div>
                     </div>
 
-                    <Link href=":" className={`${style.more_menu} flex-center ml-auto max-w-[40px] w-full h-[40px] flex-center`}>
-                        <svg className={`transition-all`} width="16" height="4" viewBox="0 0 16 4" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <rect x="0.5" y="0.5" width="3" height="3" rx="1.5" fill="#666666" />
-                            <rect x="6.5" y="0.5" width="3" height="3" rx="1.5" fill="#666666" />
-                            <rect x="12.5" y="0.5" width="3" height="3" rx="1.5" fill="#666666" />
-                        </svg>
-                    </Link>
+                    <div className={`relative ml-auto w-[40px]`}>
+                        <button
+                            onClick={toggleMenu}
+                            className={`${style.more_menu} focus-visible-primary-45 rounded-4 flex-center max-w-[40px] w-full h-[40px] flex-center`}>
+                            <svg className={`transition-all`} width="16" height="4" viewBox="0 0 16 4" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <rect x="0.5" y="0.5" width="3" height="3" rx="1.5" fill="#666666" />
+                                <rect x="6.5" y="0.5" width="3" height="3" rx="1.5" fill="#666666" />
+                                <rect x="12.5" y="0.5" width="3" height="3" rx="1.5" fill="#666666" />
+                            </svg>
+                        </button>
+                        {openDropdowns.includes('menu_box') &&
+                            <div className={`absolute top-full right-0 bg-neutral-86 border-neutral-80 px-[4px] py-[8px] rounded-8`}>
+                                <ul className="w-[108px]">
+                                    <li><button className="w-full text-left text-[14px] p-[6px] rounded-4 color-primary-10 bg-neutral-80 focus-visible-primary-45">Delete</button></li>
+                                </ul>
+                            </div>}
+                    </div>
                 </div>
             </header>
             <p className="text-[14px] mb-[12px]">Nature&aposs view, a stunning display of color and beauty that can rejuvenate your soul</p>
