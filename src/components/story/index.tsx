@@ -1,9 +1,8 @@
 import Image from "next/image";
-
-import { IStory } from "@/model";
 import Link from "next/link";
 
 import styles from './story.module.scss';
+import { IStory } from "@/types/home";
 
 interface StoryProps {
     story: IStory;
