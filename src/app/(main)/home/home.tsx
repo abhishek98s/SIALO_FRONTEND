@@ -8,13 +8,12 @@ import { useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { setFeed } from "@/lib/features/feed.slice";
 import { feed_arr } from "@/seed_data/feed..seed";
-import { useAppSelector } from "@/lib/hooks";
+import { useAppDispatch, useAppSelector } from "@/lib/hooks";
 import { Feed } from "@/components/feed";
 
 export default function IndexPage() {
     const feed_list: IFeed[] = useAppSelector((state) => state.feed.feed_list);
-    const dispatch = useDispatch();
-    console.log(feed_list)
+    const dispatch = useAppDispatch();
 
     useEffect(() => {
         const getFeed = () => {
