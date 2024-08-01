@@ -32,7 +32,7 @@ export default function IndexPage() {
                     <StoriesList />
                     <UserPostBox />
 
-                    <section className="feed-list space-y-[16px] pb-[85px] lg:pb-[12px]">
+                    <section className="feed-list space-y-[16px]">
                         {feed_list.map((feed, index) => (
                             <Feed feed_data={feed} key={index} />
                         ))}

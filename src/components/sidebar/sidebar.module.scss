@@ -2,6 +2,7 @@
 
 .sidebar_wrapper {
     z-index: 99.1;
+    border-top: 1px solid $neutral-80;
 
     li.active {
         svg {
