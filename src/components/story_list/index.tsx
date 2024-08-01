@@ -1,7 +1,6 @@
 "use client";
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import Image from "next/image";
-import { StaticImport } from "next/dist/shared/lib/get-img-props";
 
 import 'react-responsive-modal/styles.css';
 import { Modal } from 'react-responsive-modal';
@@ -13,7 +12,11 @@ import styles from './story_list.module.scss';
 import { toast_error_option, toast_sucess_option } from "@/utils/toast";
 import { isImage } from "@/utils/file";
 import { ImagePreview } from "../image_preview";
-import { IStory } from "@/types/home";
+import { IStory } from "@/types/home.types.";
+import { useDispatch } from "react-redux";
+import { setStory } from "@/lib/features/story.slice";
+import { stories_arr } from "@/seed_data/story.seed";
+import { useAppSelector } from "@/lib/hooks";
 
 
 export default function StoriesList() {
@@ -22,28 +25,14 @@ export default function StoriesList() {
     const [image, setImage] = useState<string>('');
     const storyRef = useRef(null);
 
-    const stories: IStory[] = [
-        {
-            id: 1,
-            img: '/story-2.png',
-            name: 'Dial',
-        },
-        {
-            id: 2,
-            img: '/story-3.png',
-            name: 'Dial',
-        },
-        {
-            id: 3,
-            img: '/story-4.png',
-            name: 'Dial',
-        },
-        {
-            id: 4,
-            img: '/story-5.png',
-            name: 'Dial',
-        },
-    ]
+    const dispatch = useDispatch();
+    const story_list = useAppSelector((state) => state.story.story_list)
+    useEffect(() => {
+        const getStories = () => {
+            dispatch(setStory(stories_arr))
+        }
+        getStories();
+    },[])
 
     const clearImage = () => {
         setImage('')
@@ -151,28 +140,11 @@ export default function StoriesList() {
                             </button>
                         </SplideSlide>
 
-
-                        {stories.map((story) => {
+                        {story_list.map((story) => {
                             return (
                                 <SplideSlide key={story.id}>
                                     <Story story={story} />
                                 </SplideSlide>)
-                        })}
-
-                        {stories.map((story) => {
-                            return (
-                                <SplideSlide key={story.id}>
-                                    <Story story={story} />
-                                </SplideSlide>
-                            )
-                        })}
-
-                        {stories.map((story) => {
-                            return (
-                                <SplideSlide key={story.id}>
-                                    <Story story={story} />
-                                </SplideSlide>
-                            )
                         })}
                     </Splide>
                 </ul>

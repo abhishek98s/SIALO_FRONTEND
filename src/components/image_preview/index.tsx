@@ -4,11 +4,11 @@ import React, { Component } from 'react'
 import styles from './image_preview.module.scss';
 
 
-type Props = {
+type ImageProps = {
     user_inputted_image_url: string;
     clearImage: () => void;
 }
-export const ImagePreview: React.FC<Props> = ({ user_inputted_image_url, clearImage }) => {
+export const ImagePreview: React.FC<ImageProps> = ({ user_inputted_image_url, clearImage }) => {
     return (
         <div className={`${styles.middle} relative rounded-4 border-neutral-40 w-[60px] h-[60px] mb-[16px]`}>
             <Image className="rounded-4 object-cover h-full w-full" src={user_inputted_image_url} width={60} height={60} alt={`image`} />

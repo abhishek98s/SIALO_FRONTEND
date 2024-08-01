@@ -14,6 +14,14 @@
         }
     }
 
+    .menu_box_wrapper li {
+        transition: .4s;
+
+        &:hover {
+            background-color: $neutral-80;
+        }
+    }
+
     .like {
         svg {
             transition: .6s;

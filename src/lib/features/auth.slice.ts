@@ -5,7 +5,7 @@ const initialState = {
     isAuthenticated: false,
 }
 
-export const counterSlice = createSlice({
+export const authSlice = createSlice({
     name: 'auth',
     initialState,
     reducers: {
@@ -21,7 +21,7 @@ export const counterSlice = createSlice({
 })
 
 // Action creators are generated for each case reducer function
-export const { setUser, logout } = counterSlice.actions
+export const { setUser, logout } = authSlice.actions
 
-export default counterSlice.reducer; // EXPORT Slice reducer
+export default authSlice.reducer; // EXPORT Slice reducer
 

@@ -4,7 +4,7 @@ const initialState = {
     openDropdowns: <string[]>[],
 };
 
-export const counterSlice = createSlice({
+export const dropdownSlice = createSlice({
     name: 'dropdown',
     initialState,
     reducers: {
@@ -26,7 +26,5 @@ export const counterSlice = createSlice({
     },
 })
 
-// Action creators are generated for each case reducer function
-export const { openDropdown, closeDropdown, toggleDropdown } = counterSlice.actions
-
-export default counterSlice.reducer; // EXPORT Slice reducer
+export const { openDropdown, closeDropdown, toggleDropdown } = dropdownSlice.actions
+export default dropdownSlice.reducer;

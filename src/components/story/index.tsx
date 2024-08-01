@@ -2,7 +2,7 @@ import Image from "next/image";
 import Link from "next/link";
 
 import styles from './story.module.scss';
-import { IStory } from "@/types/home";
+import { IStory } from "@/types/home.types.";
 
 interface StoryProps {
     story: IStory;
