@@ -1,11 +1,11 @@
-import { IComment, IFeed } from '@/types/home';
+import { IComment, IFeed } from '@/types/home.types.';
 import { createSlice } from '@reduxjs/toolkit'
 
 const initialState = {
     feed_list: <IFeed[]>[],
 };
 
-export const counterSlice = createSlice({
+export const feedSlice = createSlice({
     name: 'feed',
     initialState,
     reducers: {
@@ -26,5 +26,5 @@ export const counterSlice = createSlice({
     },
 })
 
-export const { setFeed, deleteFeedById } = counterSlice.actions
-export default counterSlice.reducer;
+export const { setFeed, deleteFeedById } = feedSlice.actions
+export default feedSlice.reducer;

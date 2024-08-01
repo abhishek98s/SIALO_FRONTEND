@@ -11,13 +11,15 @@ import {
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { combineReducers, configureStore } from '@reduxjs/toolkit'
 
-import authSlice from './features/auth.slice';
 import dropdownSlice from './features/dropdown.slice';
+import authSlice from './features/auth.slice';
+import storySlice from './features/story.slice';
 import feedSlice from './features/feed.slice';
 
 const rootReducers = combineReducers({
     dropdown: dropdownSlice,
     auth: authSlice,
+    story: storySlice,
     feed: feedSlice,
 });
 
@@ -25,7 +27,7 @@ const persistConfig = {
     key: 'root',
     version: 1,
     storage: AsyncStorage,
-    blacklist: ['dropdown'],
+    blacklist: ["dropdown", "story", "feed"],
 }
 
 const persistedReducer = persistReducer(persistConfig, rootReducers);

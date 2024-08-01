@@ -1,13 +1,10 @@
+import { IComment } from "@/types/home.types.";
 import Image from "next/image";
 import Link from "next/link";
 import React from "react";
 
 type Comment_Propes = {
-    comment: {
-        name: string;
-        comment_info: string;
-        img: string;
-    }
+    comment: IComment,
 }
 
 export const Comment: React.FC<Comment_Propes> = ({ comment }) => {
@@ -15,7 +12,7 @@ export const Comment: React.FC<Comment_Propes> = ({ comment }) => {
         <>
             <div className="comment flex gap-[8px] mb-[20px]">
                 <Link href={`/`} className="max-w-[30px] rounded-full focus-visible-primary-45 h-[30px] w-full block">
-                    <Image src={comment.img} alt='user' width={40} height={40} priority className="w-full border-primary-60 rounded-full" />
+                    <Image src={comment.user_image} alt='user' width={40} height={40} priority className="w-full border-primary-60 rounded-full" />
                 </Link>
                 <div className="comment-info">
                     <Link href={`/`} className="txt-focus">

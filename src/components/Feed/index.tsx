@@ -2,35 +2,27 @@ import Image from "next/image";
 import Link from "next/link";
 
 import style from './feed.module.scss';
-import { ReactElement, useState } from "react";
+import { useState } from "react";
 import { Comment } from "../comment";
 import toast from "react-hot-toast";
 import { toast_error_option, toast_sucess_option } from "@/utils/toast";
 import { useAppSelector } from "@/lib/hooks";
 import { useDispatch } from "react-redux";
 import { openDropdown, toggleDropdown } from "@/lib/features/dropdown.slice";
+import { IFeed } from "@/types/home.types.";
 
 
+type FeedProps = {
+    feed_data: IFeed;
+}
 
-export default function Feed() {
+export const Feed: React.FC<FeedProps> = ({ feed_data }) => {
+
     const [isLiked, setIsLiked] = useState(false);
     const [comment, setComment] = useState<string | null>(null);
 
     const openDropdowns = useAppSelector((state) => state.dropdown.openDropdowns)
     const dispatch = useDispatch();
-
-    const comments = [
-        {
-            name: 'Arlene Ferguson',
-            comment_info: 'From the rolling hills of a countryside landscape to the majestic peaks of a mountain range, nature\'s view can take your breath away.',
-            img: '/user.png',
-        },
-        {
-            name: 'Arlene Ferguson',
-            comment_info: 'From the rolling hills of a countryside landscape to the majestic peaks of a mountain range, nature\'s view can take your breath away.',
-            img: '/user.png',
-        },
-    ]
 
     function likePost() {
         setIsLiked(!isLiked);
@@ -58,12 +50,12 @@ export default function Feed() {
         <article className={`${style.feed_wrapper} border-neutral-86 px-[12px] pt-[20px] pb-[8px] bg-neutral-90 rounded-8`}>
             <header className="mb-[12px]">
                 <div className="user-info flex items-center gap-[8px]">
-                    <Link href={'/profile/2/feed'} className="block rounded-full focus-visible-primary-45">
-                        <Image src={`/user.png`} alt='user' width={40} height={40} priority className="max-w-[40px] h-[40px] w-full border-primary-60 rounded-full" />
+                    <Link href={`/profile/${feed_data.id}/feed`} className="block rounded-full focus-visible-primary-45">
+                        <Image src={`${feed_data.user_image}`} alt='user' width={40} height={40} priority className="max-w-[40px] h-[40px] w-full border-primary-60 rounded-full" />
                     </Link>
                     <div className="info">
-                        <Link href={'/profile/2/feed'} className=" txt-focus color-primary-60 text-[14px] font-bold leading-normal hover:underline underline-offset-1">Ruth Reed</Link>
-                        <div className="color-primary-10 text-[12px]">May 10, 2024</div>
+                        <Link href={`/profile/${feed_data.id}/feed`} className=" txt-focus color-primary-60 text-[14px] font-bold leading-normal hover:underline underline-offset-1">{feed_data.user_name}</Link>
+                        <div className="color-primary-10 text-[12px]">{feed_data.date}</div>
                     </div>
 
                     <div className={`relative ml-auto w-[40px]`}>
@@ -85,10 +77,10 @@ export default function Feed() {
                     </div>
                 </div>
             </header>
-            <p className="text-[14px] mb-[12px]">Nature&aposs view, a stunning display of color and beauty that can rejuvenate your soul</p>
+            <p className="text-[14px] mb-[12px]">{feed_data.description}</p>
 
             <figure className="relative w-full h-auto border-neutral-86 mb-[16px]">
-                <Image src={`/post-image.png`} alt='post-image'
+                <Image src={`${feed_data.post_image}`} alt='post-image'
                     width={0} height={0} className="w-full h-auto" sizes="100vw" />
             </figure>
 
@@ -115,7 +107,7 @@ export default function Feed() {
                 <h3 className="color-primary-50 text-[14px] font-bold mb-[12px]">Comments</h3>
 
                 <div className="comment-list">
-                    {comments.map((comment, index) => (
+                    {feed_data.comments.map((comment, index) => (
                         <Comment comment={comment} key={index} />
                     ))}
                 </div>
