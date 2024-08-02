@@ -1,129 +1,32 @@
+'use client';
+
 import { Friend } from "@/components/friend";
-import { IFriend } from "@/types/profile";
+import { setFriends } from "@/lib/features/friends.slice";
+import { useAppDispatch, useAppSelector } from "@/lib/hooks";
+import { friends_arr } from "@/seed_data/friends.seed";
+import { IFriend } from "@/types/profiles.types";
+import { useEffect } from "react";
+import { useDispatch } from "react-redux";
 
 
 export default function Friends() {
-    const friends_list: IFriend[] = [
-        {
-            name: 'Gustavo Bergson',
-            image: '/user.png',
-        },
 
-        {
-            name: 'Anika Bator',
-            image: '/user-2.png',
-        },
+    const user_friends_list: IFriend[] = useAppSelector((state) => state.friend.friend_list);
+    const dispatch = useDispatch();
 
-        {
-            name: 'Livia Ekstrom Bothman',
-            image: '/user-3.png',
-        },
+    useEffect(() => {
+        const getFeed = () => {
+            dispatch(setFriends(friends_arr))
+        }
 
-        {
-            name: 'Giana Kenter',
-            image: '/user-4.png',
-        },
-        {
-            name: 'Gustavo Bergson',
-            image: '/user.png',
-        },
+        getFeed();
+    }, [dispatch])
 
-        {
-            name: 'Anika Bator',
-            image: '/user-2.png',
-        },
-
-        {
-            name: 'Livia Ekstrom Bothman',
-            image: '/user-3.png',
-        },
-
-        {
-            name: 'Giana Kenter',
-            image: '/user-4.png',
-        },
-        {
-            name: 'Gustavo Bergson',
-            image: '/user.png',
-        },
-
-        {
-            name: 'Anika Bator',
-            image: '/user-2.png',
-        },
-
-        {
-            name: 'Livia Ekstrom Bothman',
-            image: '/user-3.png',
-        },
-
-        {
-            name: 'Giana Kenter',
-            image: '/user-4.png',
-        },
-        {
-            name: 'Gustavo Bergson',
-            image: '/user.png',
-        },
-
-        {
-            name: 'Anika Bator',
-            image: '/user-2.png',
-        },
-
-        {
-            name: 'Livia Ekstrom Bothman',
-            image: '/user-3.png',
-        },
-
-        {
-            name: 'Giana Kenter',
-            image: '/user-4.png',
-        },
-        {
-            name: 'Gustavo Bergson',
-            image: '/user.png',
-        },
-
-        {
-            name: 'Anika Bator',
-            image: '/user-2.png',
-        },
-
-        {
-            name: 'Livia Ekstrom Bothman',
-            image: '/user-3.png',
-        },
-
-        {
-            name: 'Giana Kenter',
-            image: '/user-4.png',
-        },
-        {
-            name: 'Gustavo Bergson',
-            image: '/user.png',
-        },
-
-        {
-            name: 'Anika Bator',
-            image: '/user-2.png',
-        },
-
-        {
-            name: 'Livia Ekstrom Bothman',
-            image: '/user-3.png',
-        },
-
-        {
-            name: 'Giana Kenter',
-            image: '/user-4.png',
-        },
-    ]
     return (
         <>
             <div className="friends-list-wrapper w-full">
                 <div className="lg:grid grid-cols-4 gap-[4px]">
-                    {friends_list.map((friend: IFriend, index: number) => (
+                    {user_friends_list.map((friend: IFriend, index: number) => (
                         <Friend friend={friend} key={index} />
                     ))}
                 </div>
