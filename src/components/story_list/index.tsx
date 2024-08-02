@@ -18,6 +18,11 @@ import { setStory } from "@/lib/features/story.slice";
 import { stories_arr } from "@/seed_data/story.seed";
 import { useAppSelector } from "@/lib/hooks";
 
+import 'photoswipe/dist/photoswipe.css'
+
+import { Gallery, Item } from 'react-photoswipe-gallery'
+
+
 
 export default function StoriesList() {
     const [open, setOpen] = useState(false);
@@ -32,7 +37,7 @@ export default function StoriesList() {
             dispatch(setStory(stories_arr))
         }
         getStories();
-    },[])
+    }, [])
 
     const clearImage = () => {
         setImage('')
@@ -139,16 +144,26 @@ export default function StoriesList() {
                                 </div>
                             </button>
                         </SplideSlide>
-
-                        {story_list.map((story) => {
-                            return (
-                                <SplideSlide key={story.id}>
-                                    <Story story={story} />
-                                </SplideSlide>)
-                        })}
+                        <Gallery>
+                            {story_list.map((story) => {
+                                return (
+                                    <SplideSlide key={story.id}>
+                                        <Item
+                                            original={story.img}
+                                            thumbnail={story.img}
+                                            width="400"
+                                            height="550"
+                                        >
+                                            {({ ref, open }) => (
+                                                <Story img_ref={ref} open={open} story={story} />
+                                            )}
+                                        </Item>
+                                    </SplideSlide>)
+                            })}
+                        </Gallery>
                     </Splide>
                 </ul>
-            </section>
+            </section >
         </>
     );
 }

@@ -10,6 +10,7 @@ import { useAppSelector } from "@/lib/hooks";
 import { useDispatch } from "react-redux";
 import { openDropdown, toggleDropdown } from "@/lib/features/dropdown.slice";
 import { IFeed } from "@/types/home.types.";
+import { Gallery, Item } from "react-photoswipe-gallery";
 
 
 type FeedProps = {
@@ -79,10 +80,20 @@ export const Feed: React.FC<FeedProps> = ({ feed_data }) => {
             </header>
             <p className="text-[14px] mb-[12px]">{feed_data.description}</p>
 
-            <figure className="relative w-full h-auto border-neutral-86 mb-[16px]">
-                <Image src={`${feed_data.post_image}`} alt='post-image'
-                    width={0} height={0} className="w-full rounded-4 h-auto" sizes="100vw" />
-            </figure>
+            <Gallery>
+                <figure className="feed-wrapper relative w-full h-auto border-neutral-86 mb-[16px]">
+                    <Item
+                        original={feed_data.post_image}
+                        thumbnail={feed_data.post_image}
+                        width="1024"
+                        height="768">
+                        {({ ref, open }) => (
+                            <Image style={{ top: '100px' }} ref={ref} onClick={open} src={`${feed_data.post_image}`} alt='post-image'
+                                width={0} height={0} className="w-full rounded-4 h-auto" sizes="100vw" />
+                        )}
+                    </Item>
+                </figure>
+            </Gallery>
 
             <div className="interaction-wrapper flex items-center gap-[8px]">
                 <button onClick={likePost} className={`${style.like} ${isLiked ? style.active : ""} cursor-pointer max-w-[40px] w-full h-[40px] flex-center`}>
@@ -112,6 +123,6 @@ export const Feed: React.FC<FeedProps> = ({ feed_data }) => {
                     ))}
                 </div>
             </div>
-        </article>
+        </article >
     )
 }
