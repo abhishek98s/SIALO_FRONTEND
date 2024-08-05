@@ -25,6 +25,9 @@ const nextConfig = {
             },
         ],
     },
+    env: {
+        SECRET_KEY: 'sialo_frontend',
+    },
 };
 
 export default nextConfig;

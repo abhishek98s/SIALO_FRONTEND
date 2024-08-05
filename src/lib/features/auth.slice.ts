@@ -1,7 +1,8 @@
+import { IUser } from '@/types/auth.types';
 import { createSlice } from '@reduxjs/toolkit'
 
 const initialState = {
-    user: null,
+    user: <IUser | null>null,
     isAuthenticated: false,
 }
 
