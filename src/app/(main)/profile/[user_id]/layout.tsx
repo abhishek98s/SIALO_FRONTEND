@@ -6,6 +6,9 @@ import Link from "next/link";
 import styles from './profile.module.scss';
 
 import { usePathname } from 'next/navigation';
+import 'photoswipe/dist/photoswipe.css'
+import { Gallery, Item } from "react-photoswipe-gallery";
+
 
 export default function RootLayout({
     children,
@@ -25,7 +28,19 @@ export default function RootLayout({
                     <div className="relative px-[0px] lg:px-[32px] -mt-[50px]">
                         <div className={`${styles.profile_header} mb-[10px] lg:mb-[20px] bg-neutral-90 border-neutral-86 rounded-[8px] px-[16px] pt-[20px]`}>
                             <div className="flex items-center gap-[12px]" role="header">
-                                <Image src={`/user.png`} width={60} height={60} alt={`user`} className="rounded-full border-primary-60" />
+                                <Gallery>
+                                    <Item
+                                        original={`/user.png`}
+                                        thumbnail={`/user.png`}
+                                        width="400"
+                                        height="550"
+                                    >
+                                        {({ ref, open }) => (
+                                            <Image ref={ref} onClick={open} src={`/user.png`} width={60} height={60} alt={`user`} className="rounded-full border-primary-60" />
+                                        )}
+                                    </Item>
+                                </Gallery>
+
                                 <h2 className="text-[24px] font-bold color-primary-60">Tyler Houston</h2>
 
                                 <button className="primary-btn ml-auto max-w-[92px] w-full h-[32px] text-[14px] font-bold">Add Friend</button>
