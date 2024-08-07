@@ -5,10 +5,20 @@ import Image from "next/image";
 import { useState } from "react";
 
 import styles from './login.module.scss';
+import toast from "react-hot-toast";
+import { toast_error_option } from "@/utils/toast";
+import axios from "axios";
+import { useAppDispatch } from "@/lib/hooks";
+import { setToken, setUser } from "@/lib/features/auth.slice";
+import { useRouter } from "next/navigation";
+import { decodeToken } from "@/utils/auth";
 
 export default function Login() {
     const [is_password_shown, set_is_password_shown] = useState(false);
     const [form_obj, set_form_obj] = useState({ email: '', password: '' })
+
+    const dispatch = useAppDispatch();
+    const router = useRouter();
 
     function show_password() {
         return set_is_password_shown(!is_password_shown);
@@ -18,9 +28,33 @@ export default function Login() {
         set_form_obj((prev_form_obj) => ({ ...prev_form_obj, [e.target.name]: e.target.value }));
     }
 
-    function onSubmit(e: React.FormEvent<HTMLFormElement>) {
-        e.preventDefault();
-        console.log(form_obj)
+    async function onSubmit(e: React.FormEvent<HTMLFormElement>) {
+        try {
+            e.preventDefault();
+
+            if (!form_obj.email || !form_obj.password) {
+                toast.error('Email and password is required', toast_error_option)
+                return;
+            }
+
+            const response = await axios.post('/api/auth/', form_obj)
+
+            if (!response.data) {
+                throw new Error();
+            }
+
+            const token = response.data.token;
+            dispatch(setToken(token))
+
+            const user = decodeToken(token)
+            const { username, id, email } = user;
+
+            dispatch(setUser({ username, id, email }))
+
+            router.push('/')
+        } catch (error) {
+            toast.error('Invalid Credentials', toast_error_option);
+        }
     }
 
     return (

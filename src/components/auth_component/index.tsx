@@ -1,23 +1,26 @@
+'use client'
+
 import { useAppSelector } from "@/lib/hooks";
-import { validateToken } from "@/utils/auth";
+import { isTokenExpired, validateToken } from "@/utils/auth";
 import { useRouter } from "next/navigation"
 import { useEffect } from "react";
 
 export const AuthComponent = ({ children }: { children: React.ReactNode }) => {
     const router = useRouter();
-    const user = useAppSelector((state) => state.auth.user);
-    const isAuthenticated = useAppSelector((state) => state.auth.isAuthenticated);
+    const user = useAppSelector((state) => state.auth);
+    const { isAuthenticated, token } = user;
 
 
 
     useEffect(() => {
-        if (!user || !user.token) {
+        if (!user || !token) {
             router.push('/login')
             return
         }
 
-        const isTokenValid = validateToken(user.token);
-
+        if (isTokenExpired(token)) {
+            router.push('/login')
+        };
 
     }, [])
 

@@ -117,7 +117,6 @@ export default function UserPostBox() {
             case 'input_caption':
                 const value = e.target.value;
                 setCaption(value)
-                console.log(caption)
                 break;
             default:
                 break;
