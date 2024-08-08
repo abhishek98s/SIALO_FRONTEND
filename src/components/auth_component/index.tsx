@@ -32,7 +32,7 @@ export const AuthComponent = ({ children }: { children: React.ReactNode }) => {
 
     return (
         <>
-            {isloaded && isAuthenticated && children}
+            {isAuthenticated && children}
         </>
     )
 }

@@ -11,16 +11,18 @@ export default function MainLayout({
 }) {
   return (
     <>
-      <section>
-        <Sidebar />
-        <div className="main pt-[70px] pb-[90px] lg:pb-[20px]">
-          <Navbar />
+      <AuthComponent>
+        <section>
+          <Sidebar />
+          <div className="main pt-[70px] pb-[90px] lg:pb-[20px]">
+            <Navbar />
 
-          <div className="px-[4px]">
-            {children}
+            <div className="px-[4px]">
+              {children}
+            </div>
           </div>
-        </div>
-      </section>
+        </section>
+      </AuthComponent>
     </>
   )
 }

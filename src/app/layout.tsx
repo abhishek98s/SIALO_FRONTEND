@@ -4,7 +4,6 @@ import { Inter, Quicksand } from "next/font/google";
 import "./globals.scss";
 
 import dynamic from 'next/dynamic';
-import { AuthComponent } from "@/components/auth_component";
 const Providers = dynamic(() => import('@/lib/store.provider'), { ssr: false });
 
 
@@ -27,9 +26,7 @@ export default function RootLayout({
       <html className={quickSand.className}>
         <body>
           <Providers>
-            <AuthComponent>
               {children}
-            </AuthComponent>
           </Providers>
         </body>
       </html>
