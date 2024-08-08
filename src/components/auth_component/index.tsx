@@ -3,31 +3,36 @@
 import { useAppSelector } from "@/lib/hooks";
 import { isTokenExpired, validateToken } from "@/utils/auth";
 import { useRouter } from "next/navigation"
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
+
 
 export const AuthComponent = ({ children }: { children: React.ReactNode }) => {
     const router = useRouter();
     const user = useAppSelector((state) => state.auth);
     const { isAuthenticated, token } = user;
-
-
+    const [isloaded, setisLoaded] = useState(false);
 
     useEffect(() => {
-        if (!user || !token) {
-            router.push('/login')
-            return
+        const runInitialy = () => {
+
+            if (!user || !token) {
+                router.push('/login')
+                return
+            }
+
+            if (isTokenExpired(token)) {
+                router.push('/login')
+            };
+
+            router.push('/')
+            setisLoaded(true);
         }
-
-        if (isTokenExpired(token)) {
-            router.push('/login')
-        };
-
+        runInitialy()
     }, [])
 
     return (
         <>
-            {isAuthenticated && children}
+            {isloaded && isAuthenticated && children}
         </>
     )
 }
-
