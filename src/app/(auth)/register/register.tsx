@@ -18,7 +18,7 @@ interface IError {
 }
 
 export default function RegisterForm() {
-    const [form_obj, set_form_obj] = useState({ username: '', email: '', password: '' })
+    const [form_obj, set_form_obj] = useState({ name: '', email: '', password: '' })
     const [form_error, set_form_error] = useState<IError[]>([]);
     const [isLoading, setIsLoading] = useState(false);
 
@@ -57,9 +57,9 @@ export default function RegisterForm() {
             toast.success('User Registered', toast_sucess_option);
             router.push('/login');
         } catch (error) {
-            const { username, email, password } = form_obj;
+            const { name, email, password } = form_obj;
 
-            if (!username || !email || !password) {
+            if (!name || !email || !password) {
                 toast.error("All fields are required", toast_error_option);
                 return
             }
@@ -96,7 +96,7 @@ export default function RegisterForm() {
                 <form className="px-[12px] pt-[24px] pb-[16px]" onSubmit={onSubmit}>
                     <div className="form-group mb-[28px]">
                         <label htmlFor="name" className="color-primary-10 text-[14px] block mb-[4px]">Name</label>
-                        <input id="name" name="username" type="text" placeholder='John Wick'
+                        <input id="name" name="name" type="text" placeholder='John Wick'
                             onChange={handleChange}
                             className="w-full text-[16px] h-[48px] px-[12px] bg-transparent border-neutral-80 rounded-[4px] focus:outline-none"></input>
                     </div>
