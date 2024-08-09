@@ -2,24 +2,28 @@
 import { useEffect, useRef, useState } from "react";
 import Image from "next/image";
 
+// Dor Model
 import 'react-responsive-modal/styles.css';
 import { Modal } from 'react-responsive-modal';
+
 import { Splide, SplideSlide } from '@splidejs/react-splide';
 import toast, { Toaster } from 'react-hot-toast';
 
-import Story from "@/components/story";
-import styles from './story_list.module.scss';
-import { toast_error_option, toast_sucess_option } from "@/utils/toast";
-import { isImage } from "@/utils/file";
-import { ImagePreview } from "../image_preview";
-import { IStory } from "@/types/home.types.";
-import { useDispatch } from "react-redux";
+import { useAppDispatch, useAppSelector } from "@/lib/hooks";
 import { setStory } from "@/lib/features/story.slice";
+
+import Story from "@/components/story";
+import { StoryModal } from "@/components/story_model";
+import { ImagePreview } from "@/components/image_preview";
+
+import styles from './story_list.module.scss';
+
+import { isImage } from "@/utils/file";
+import { toast_error_option, toast_sucess_option } from "@/utils/toast";
 import { stories_arr } from "@/seed_data/story.seed";
-import { useAppSelector } from "@/lib/hooks";
 
+// for the gallary or pop up image
 import 'photoswipe/dist/photoswipe.css'
-
 import { Gallery, Item } from 'react-photoswipe-gallery'
 
 
@@ -30,8 +34,9 @@ export default function StoriesList() {
     const [image, setImage] = useState<string>('');
     const storyRef = useRef(null);
 
-    const dispatch = useDispatch();
+    const dispatch = useAppDispatch();
     const story_list = useAppSelector((state) => state.story.story_list)
+
     useEffect(() => {
         const getStories = () => {
             dispatch(setStory(stories_arr))
@@ -86,42 +91,8 @@ export default function StoriesList() {
                         error: { ...toast_error_option },
                     }}
                 />
-                <Modal open={open}
-                    onClose={onCloseModal}
-                    center
-                    container={storyRef.current}
-                    classNames={{
-                        modal: 'customModal',
-                    }}
-                >
-                    <h2 className="heading-line text-[16px] font-bold color-primary-10 mb-[36px]">Post a story</h2>
 
-                    {image &&
-                        <ImagePreview user_inputted_image_url={image}
-                            clearImage={clearImage} />
-                    }
-
-                    {!image &&
-
-                        <div className={`${styles.image_choose_wrapper} relative rounded-4 h-[126px] mb-[16px]`}>
-                            <input
-                                onChange={handleChange}
-                                id="story_image"
-                                accept=".png,.jpg,.jpeg"
-                                type="file" className="absolute top-0 left-0 right-0 bottom-0 z-1 h-full w-full cursor-pointer focus-visible:outline-sky-100 outline" />
-                            <label htmlFor="story_image" className="absolute top-0 left-0 right-0 bottom-0 z-10 bg-neutral-90 border-dotted border-spacing-1 border-1 flex flex-col items-center justify-center cursor-pointer">
-                                <figure className="mb-[8px]">
-                                    <Image src="/add-image.png" alt="add-image" width={40} height={40} priority />
-                                </figure>
-                                <span className="text-[14px] color-primary-45">Click to add image</span>
-                            </label>
-                        </div>}
-
-                    <div className="action-wrapper text-[14px]">
-                        <button className="primary-btn rounded-4 bg-primary-60 color-primary-80 font-bold px-[20px] py-[6px] mr-[12px]" onClick={onStoryPost}>Post</button>
-                        <button className="secondary-btn rounded-4 color-neutral-60 font-bold px-[20px] py-[6px]" onClick={onCloseModal}>Cancel</button>
-                    </div>
-                </Modal>
+                <StoryModal open={open} onCloseModal={onCloseModal} storyRef={storyRef} image={image} clearImage={clearImage} handleChange={handleChange} onStoryPost={onStoryPost} />
 
                 <ul className="stories-list px-[12px] lg:px-[0px]">
                     <Splide
