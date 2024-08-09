@@ -37,7 +37,7 @@ export default function Login() {
                 return;
             }
 
-            const response = await axios.post('/api/auth/', form_obj)
+            const response = await axios.post('/api/auth/login', form_obj)
 
             if (!response.data) {
                 throw new Error();
