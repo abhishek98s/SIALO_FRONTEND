@@ -3,12 +3,14 @@
 import { useState } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
+import router, { useRouter } from 'next/navigation'
 
 import toast, { Toaster } from 'react-hot-toast';
 import { register_schema } from '@/utils/validation';
 
 import styles from './register.module.scss';
 import { toast_duration, toast_error_option, toast_sucess_option } from '@/utils/toast';
+import axios from 'axios';
 
 interface IError {
     for: string | number,
@@ -16,21 +18,24 @@ interface IError {
 }
 
 export default function RegisterForm() {
-    const [form_obj, set_form_obj] = useState({ name: '', email: '', password: '' })
+    const [form_obj, set_form_obj] = useState({ username: '', email: '', password: '' })
     const [form_error, set_form_error] = useState<IError[]>([]);
     const [isLoading, setIsLoading] = useState(false);
+
+    const router = useRouter();
 
     function handleChange(e: React.ChangeEvent<HTMLInputElement>) {
         set_form_obj((prev_form_obj) => ({ ...prev_form_obj, [e.target.name]: e.target.value }));
     }
 
-    function onSubmit(e: React.FormEvent<HTMLFormElement>) {
+    async function onSubmit(e: React.FormEvent<HTMLFormElement>) {
         e.preventDefault();
 
         try {
             setIsLoading(true);
 
             const response = register_schema.safeParse(form_obj);
+            console.log(form_obj);
 
             if (!response.success) {
                 let errArr: IError[] = [];
@@ -43,10 +48,18 @@ export default function RegisterForm() {
                 set_form_error(errArr)
                 throw err
             }
-        } catch (error) {
-            const { name, email, password } = form_obj;
 
-            if (!name || !email || !password) {
+            const api_response = await axios.post('/api/auth/register', form_obj);
+
+            if (!api_response.data) {
+                toast.error(api_response.data.message, toast_error_option);
+            }
+            toast.success('User Registered', toast_sucess_option);
+            router.push('/login');
+        } catch (error) {
+            const { username, email, password } = form_obj;
+
+            if (!username || !email || !password) {
                 toast.error("All fields are required", toast_error_option);
                 return
             }
@@ -83,7 +96,7 @@ export default function RegisterForm() {
                 <form className="px-[12px] pt-[24px] pb-[16px]" onSubmit={onSubmit}>
                     <div className="form-group mb-[28px]">
                         <label htmlFor="name" className="color-primary-10 text-[14px] block mb-[4px]">Name</label>
-                        <input id="name" name="name" type="text" placeholder='John Wick'
+                        <input id="name" name="username" type="text" placeholder='John Wick'
                             onChange={handleChange}
                             className="w-full text-[16px] h-[48px] px-[12px] bg-transparent border-neutral-80 rounded-[4px] focus:outline-none"></input>
                     </div>
