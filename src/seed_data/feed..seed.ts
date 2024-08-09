@@ -10,11 +10,13 @@ export const feed_arr: IFeed[] = [
         post_image: "/dark-souls-screenshot.png",
         comments: [
             {
+                id: 1,
                 name: "NoScope90",
                 user_image: "/user-4.png",
                 comment_info: "Nice! I'm still trying to beat it for the first time",
             },
             {
+                id: 1,
                 name: "PvPGuru",
                 user_image: "/user-3.png",
                 comment_info: "Dark Souls is a classic. Have you tried Sekiro?",
@@ -30,6 +32,7 @@ export const feed_arr: IFeed[] = [
         post_image: "/gaming-pc-build.png",
         comments: [
             {
+                id: 1,
                 name: "GameOn23",
                 user_image: "/user-5.png",
                 comment_info: "Nice build! You should totally check out Overwatch or Rainbow Six Siege",
@@ -45,11 +48,13 @@ export const feed_arr: IFeed[] = [
         post_image: "/ps5-unboxing.png",
         comments: [
             {
+                id: 1,
                 name: "GameOn23",
                 user_image: "/user-5.png",
                 comment_info: "Yeah, I've been playing it nonstop! The graphics are insane",
             },
             {
+                id: 2,
                 name: "NoScope90",
                 user_image: "/user-2.png",
                 comment_info: "I'm still waiting for my PS5 to arrive. Can't wait to try it out!",
@@ -65,11 +70,13 @@ export const feed_arr: IFeed[] = [
         post_image: "/last-of-us-part-2-screenshot.png",
         comments: [
             {
+                id: 1,
                 name: "PvPGuru",
                 user_image: "/user-3.png",
                 comment_info: "Yeah, I finished it last week. That ending though...",
             },
             {
+                id: 2,
                 name: "NoScope90",
                 user_image: "/user-2.png",
                 comment_info: "I'm still on my first playthrough. Don't spoil it for me!",
@@ -85,11 +92,13 @@ export const feed_arr: IFeed[] = [
         post_image: "/cyberpunk-2077-screenshot.png",
         comments: [
             {
+                id: 1,
                 name: "GameOn23",
                 user_image: "/user-5.png",
                 comment_info: "Yeah, I've been playing it nonstop! The open world is so immersive",
             },
             {
+                id: 1,
                 name: "PvPGuru",
                 user_image: "/user-3.png",
                 comment_info: "I'm still waiting for the bugs to get fixed. Heard it's a bit glitchy",
