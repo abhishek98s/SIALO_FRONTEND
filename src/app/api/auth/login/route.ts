@@ -11,7 +11,7 @@ export async function POST(req: NextRequest, res: NextResponse) {
 
         const { email, password } = body;
 
-        const response = await axios.post('https://litmark-backend-2.vercel.app/api/auth/login', { email, password });
+        const response = await axios.post('https://sialo-backend-2.vercel.app/api/auth/login', { email, password });
 
         const data = await response.data.data;
 

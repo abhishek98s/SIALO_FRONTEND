@@ -11,7 +11,7 @@ export async function POST(req: NextRequest, res: NextResponse) {
         const body = await bodyClone.json();
         console.log(body)
 
-        const response = await axios.post('https://litmark-backend-2.vercel.app/api/auth/register', body);
+        const response = await axios.post('https://sialo-backend-2.vercel.app/api/auth/register', body);
 
         if (!response.data) throw new Error();
 
