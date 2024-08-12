@@ -14,8 +14,8 @@ interface StoryProps {
 export default function Story({ story, img_ref, open }: StoryProps) {
     return (
         <button onClick={open} className={`${styles.stories_wrapper} block w-full mb-1 mr-[12px]`}>
-            <div className="story h-[120px] border-neutral-86">
-                <Image onClick={open} objectFit="cover" ref={img_ref} src={story.img} alt='story.img' width={90} height={120} priority className="rounded-4" />
+            <div className="story h-[120px] border-neutral-80 rounded-4">
+                <Image onClick={open} objectFit="cover" ref={img_ref} src={story.storyImage} alt='story.img' width={400} height={500} priority className="w-full h-full object-cover rounded-4" />
             </div>
         </button>
     )

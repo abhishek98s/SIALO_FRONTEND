@@ -9,7 +9,6 @@ export async function POST(req: NextRequest, res: NextResponse) {
 
         const bodyClone = await req.clone();
         const body = await bodyClone.json();
-        console.log(body)
 
         const response = await axios.post('https://sialo-backend-2.vercel.app/api/auth/register', body);
 

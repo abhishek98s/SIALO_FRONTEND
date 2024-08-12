@@ -1,7 +1,9 @@
 export interface IStory {
     id: number,
-    img: string,
     name: string,
+    user_id: string,
+    storyImage: string,
+    caption: string,
 }
 
 export interface IComment {
