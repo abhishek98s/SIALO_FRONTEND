@@ -43,7 +43,7 @@ export default function Login() {
                 throw new Error();
             }
 
-            const token = response.data.token;
+            const token = response.data.token.token;
             dispatch(setToken(token))
 
             const user = decodeToken(token)

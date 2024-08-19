@@ -14,7 +14,6 @@ import { setStory } from "@/lib/features/story.slice";
 
 import Story from "@/components/story";
 import { StoryModal } from "@/components/story_model";
-import { ImagePreview } from "@/components/image_preview";
 
 import styles from './story_list.module.scss';
 
@@ -25,6 +24,7 @@ import { stories_arr } from "@/seed_data/story.seed";
 // for the gallary or pop up image
 import 'photoswipe/dist/photoswipe.css'
 import { Gallery, Item } from 'react-photoswipe-gallery'
+import axios from "axios";
 
 
 
@@ -35,11 +35,28 @@ export default function StoriesList() {
     const storyRef = useRef(null);
 
     const dispatch = useAppDispatch();
+    const token = useAppSelector((state) => state.auth.token);
     const story_list = useAppSelector((state) => state.story.story_list)
 
     useEffect(() => {
-        const getStories = () => {
-            dispatch(setStory(stories_arr))
+        const getStories = async () => {
+            try {
+                const response = await axios.get('/api/story', {
+                    headers: {
+                        Authorization: `Bearer ${token}`,
+                    },
+                });
+
+                const { status, data } = response.data;
+                console.log(data)
+
+                if (!status) throw new Error();
+
+                dispatch(setStory(data))
+
+            } catch (error) {
+                toast.error('Error fetching story', toast_error_option);
+            }
         }
         getStories();
     }, [])
@@ -116,12 +133,12 @@ export default function StoriesList() {
                             </button>
                         </SplideSlide>
                         <Gallery>
-                            {story_list.map((story) => {
+                            {story_list.map((story, index) => {
                                 return (
-                                    <SplideSlide key={story.id}>
+                                    <SplideSlide key={index}>
                                         <Item
-                                            original={story.img}
-                                            thumbnail={story.img}
+                                            original={story.storyImage}
+                                            thumbnail={story.storyImage}
                                             width="400"
                                             height="550"
                                         >
