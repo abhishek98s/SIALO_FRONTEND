@@ -30,7 +30,6 @@ import axios from "axios";
 
 export default function StoriesList() {
     const [open, setOpen] = useState(false);
-    const [file, setFile] = useState<File | null>(null);
     const [image, setImage] = useState<string>('');
     const storyRef = useRef(null);
 
@@ -71,29 +70,6 @@ export default function StoriesList() {
         setOpen(false);
         setImage('');
     }
-    const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-        const value = e.target as HTMLInputElement;
-
-        const file = value.files ? value.files![0] : null;
-
-        if (!file || !isImage(file)) {
-            toast.error('Image type should be .jpg, .png or .jpeg', toast_error_option);
-        } else {
-            const fileURL = URL.createObjectURL(file);
-            setFile(file);
-            setImage(fileURL);
-        }
-    }
-
-    const onStoryPost = () => {
-        if (!image) {
-            toast.error('image is required', toast_error_option);
-            return;
-        }
-        toast.success('Story Posted', toast_sucess_option);
-        setImage('');
-        onCloseModal();
-    };
 
 
     return (
@@ -109,7 +85,7 @@ export default function StoriesList() {
                     }}
                 />
 
-                <StoryModal open={open} onCloseModal={onCloseModal} storyRef={storyRef} image={image} clearImage={clearImage} handleChange={handleChange} onStoryPost={onStoryPost} />
+                <StoryModal open={open} onCloseModal={onCloseModal} storyRef={storyRef} image={image} clearImage={clearImage} setImage={setImage} />
 
                 <ul className="stories-list px-[12px] lg:px-[0px]">
                     <Splide

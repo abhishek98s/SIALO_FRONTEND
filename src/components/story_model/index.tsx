@@ -1,12 +1,17 @@
 'use client';
 
-import React, { MutableRefObject } from "react"
+import React, { MutableRefObject, useState } from "react"
 import Modal from "react-responsive-modal"
 import Image from "next/image";
 
 import styles from './story_model.module.scss';
 
 import { ImagePreview } from "../image_preview";
+import { toast_error_option, toast_sucess_option } from "@/utils/toast";
+import { isImage } from "@/utils/file";
+import toast from "react-hot-toast";
+import axios from "axios";
+import { useAppSelector } from "@/lib/hooks";
 
 type StoryModalProps = {
     open: boolean,
@@ -14,11 +19,58 @@ type StoryModalProps = {
     storyRef: MutableRefObject<Element | null>;
     onCloseModal: () => void;
     clearImage: () => void,
-    onStoryPost: () => void,
-    handleChange: (e: React.ChangeEvent<HTMLInputElement>) => void,
+    setImage: any,
 }
 
-export const StoryModal: React.FC<StoryModalProps> = ({ open, onCloseModal, storyRef, image, clearImage, handleChange, onStoryPost }) => {
+export const StoryModal: React.FC<StoryModalProps> = ({ open, onCloseModal, storyRef, image, clearImage, setImage }) => {
+
+    const [file, setFile] = useState<File | null>(null);
+    const [caption, setCaption] = useState<string>('');
+    const token = useAppSelector((state) => state.auth.token);
+
+    const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+        const value = e.target as HTMLInputElement;
+
+        const file = value.files ? value.files![0] : null;
+
+        if (!file || !isImage(file)) {
+            toast.error('Image type should be .jpg, .png or .jpeg', toast_error_option);
+        } else {
+            const fileURL = URL.createObjectURL(file);
+            setFile(file);
+            setImage(fileURL);
+        }
+    }
+
+    const onStoryPost = async () => {
+        try {
+            if (!image) {
+                toast.error('image is required', toast_error_option);
+                return;
+            }
+
+            const form_data = new FormData();
+            form_data.append('caption', caption);
+            form_data.append('sialo_image', file!);
+            const response = await axios.post('/api/story', form_data, {
+                headers: {
+                    Authorization: `Bearer ${token}`,
+                },
+            })
+
+            const { status, data } = response.data;
+
+            if (!status) throw Error('Error posting the story');
+
+            toast.success('Story Posted', toast_sucess_option);
+            onCloseModal();
+            setImage('');
+        } catch (error) {
+            const err_message = (error as Error).message;
+            toast.error(err_message, toast_error_option);
+        }
+    };
+
     return (
         <>
             <Modal open={open}
