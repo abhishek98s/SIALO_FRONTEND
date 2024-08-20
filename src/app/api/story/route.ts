@@ -28,7 +28,7 @@ export async function POST(req: NextRequest, res: NextResponse) {
         const token = req.headers.get('Authorization');
 
         const caption = fromData.get('caption');
-        const sialo_image = fromData.get('sialo_image');
+        const sialo_image = fromData.get('sialo_story_image');
 
         if (!caption || !sialo_image) {
             throw new Error('Caption and image are required');
@@ -36,7 +36,7 @@ export async function POST(req: NextRequest, res: NextResponse) {
 
         const formDataToSend = new FormData();
         formDataToSend.append('caption', caption);
-        formDataToSend.append('sialo_image', sialo_image);
+        formDataToSend.append('sialo_story_image', sialo_image);
 
         const response = await axios.post('https://sialo-backend-2.vercel.app/api/story', formDataToSend, {
             headers: {

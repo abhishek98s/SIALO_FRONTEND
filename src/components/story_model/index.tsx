@@ -51,7 +51,7 @@ export const StoryModal: React.FC<StoryModalProps> = ({ open, onCloseModal, stor
 
             const form_data = new FormData();
             form_data.append('caption', caption);
-            form_data.append('sialo_image', file!);
+            form_data.append('sialo_story_image', file!);
             const response = await axios.post('/api/story', form_data, {
                 headers: {
                     Authorization: `Bearer ${token}`,

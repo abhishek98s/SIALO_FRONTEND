@@ -1,5 +1,6 @@
 export interface IStoryObject {
-    user_id: number,
+    id?: number,
+    user_id: string,
     user_name: string,
     user_image: string,
     stories: IStory[]
