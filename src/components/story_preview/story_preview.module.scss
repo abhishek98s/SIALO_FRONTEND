@@ -1,0 +1,12 @@
+.liner_overlay {
+    background: linear-gradient(180deg, rgba(31, 31, 31, 0.6) 0%, rgba(0, 0, 0, 0) 10.09%),
+}
+
+.icon_button {
+    transition: .4s;
+
+    &:hover,
+    &:focus-visible {
+        background-color: hsla(0, 0%, 100%, 0.20);
+    }
+}
