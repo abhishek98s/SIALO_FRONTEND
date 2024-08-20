@@ -1,8 +1,13 @@
+export interface IStoryObject {
+    user_id: number,
+    user_name: string,
+    user_image: string,
+    stories: IStory[]
+}
+
 export interface IStory {
-    id: number,
-    name: string,
-    user_id: string,
-    storyImage: string,
+    story_id: string,
+    story_image: string,
     caption: string,
 }
 

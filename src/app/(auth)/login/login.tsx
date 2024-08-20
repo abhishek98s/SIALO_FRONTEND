@@ -16,6 +16,7 @@ import { decodeToken } from "@/utils/auth";
 export default function Login() {
     const [is_password_shown, set_is_password_shown] = useState(false);
     const [form_obj, set_form_obj] = useState({ email: '', password: '' })
+    const [isLoading, setIsLoading] = useState(false);
 
     const dispatch = useAppDispatch();
     const router = useRouter();
@@ -31,8 +32,10 @@ export default function Login() {
     async function onSubmit(e: React.FormEvent<HTMLFormElement>) {
         try {
             e.preventDefault();
-
+            setIsLoading(true);
+            
             if (!form_obj.email || !form_obj.password) {
+                setIsLoading(false);
                 toast.error('Email and password is required', toast_error_option)
                 return;
             }
@@ -53,6 +56,7 @@ export default function Login() {
 
             router.push('/')
         } catch (error) {
+            setIsLoading(false);
             toast.error('Invalid Credentials', toast_error_option);
         }
     }
@@ -87,7 +91,7 @@ export default function Login() {
                     </div>
                 </div>
 
-                <button type="submit" className="primary-btn mb-[32px] w-full h-[40px] text-[16px] font-bold bg-primary-50 color-primary-80 rounded-[4px] ">Log in</button>
+                <button type="submit" className="primary-btn mb-[32px] w-full h-[40px] text-[16px] font-bold bg-primary-50 color-primary-80 rounded-[4px] ">{isLoading ? 'logging...' : 'Log in'}</button>
 
                 <div className="text-end">Don&apost have an account? <Link href="/register" className="color-primary-50 underline underline-offset-2">Register</Link></div>
             </form>

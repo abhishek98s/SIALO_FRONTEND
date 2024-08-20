@@ -17,9 +17,7 @@ import { StoryModal } from "@/components/story_model";
 
 import styles from './story_list.module.scss';
 
-import { isImage } from "@/utils/file";
 import { toast_error_option, toast_sucess_option } from "@/utils/toast";
-import { stories_arr } from "@/seed_data/story.seed";
 
 // for the gallary or pop up image
 import 'photoswipe/dist/photoswipe.css'
@@ -113,13 +111,13 @@ export default function StoriesList() {
                                 return (
                                     <SplideSlide key={index}>
                                         <Item
-                                            original={story.storyImage}
-                                            thumbnail={story.storyImage}
+                                            original={story.stories[0].story_image}
+                                            thumbnail={story.stories[0].story_image}
                                             width="400"
                                             height="550"
                                         >
                                             {({ ref, open }) => (
-                                                <Story img_ref={ref} open={open} story={story} />
+                                                <Story img_ref={ref} open={open} story={story.stories[0]} />
                                             )}
                                         </Item>
                                     </SplideSlide>)
