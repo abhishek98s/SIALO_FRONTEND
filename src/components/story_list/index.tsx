@@ -117,7 +117,7 @@ export default function StoriesList() {
                                             height="550"
                                         >
                                             {({ ref, open }) => (
-                                                <Story img_ref={ref} open={open} story={story.stories[0]} />
+                                                <Story img_ref={ref} open={open} story={story} />
                                             )}
                                         </Item>
                                     </SplideSlide>)
