@@ -2,7 +2,7 @@ import Image from "next/image";
 
 import styles from './story_preview.module.scss';
 import { useAppDispatch, useAppSelector } from "@/lib/hooks";
-import { clearCurrentIndex, closeStoryModal, openStoryModal, setNextUserId } from "@/lib/features/story.slice";
+import { clearCurrentIndex, closeStoryModal, populateStories, populateUserProfile, setNextUserId } from "@/lib/features/story.slice";
 import { useCallback, useEffect, useRef, useState } from "react";
 
 export default function StoryPreview() {
@@ -15,6 +15,8 @@ export default function StoryPreview() {
 
     const userStoriesArr = useAppSelector((state) => state.story.stories);
     const nextUserId = useAppSelector((state) => state.story.nextUserId);
+    const currentIndex = useAppSelector((state) => state.story.nextUserId);
+
     const story = userStoriesArr[index];
 
     const StoryModalRef = useRef<HTMLElement>(null);
@@ -24,7 +26,6 @@ export default function StoryPreview() {
     const closeModalCallback = useCallback(() => {
         dispatch(closeStoryModal())
         setindex(0)
-        dispatch(clearCurrentIndex())
     }, [dispatch]);
 
     useEffect(() => {
@@ -47,11 +48,20 @@ export default function StoryPreview() {
 
     const onNextClick = (e: any) => {
         e.stopPropagation();
+        dispatch(setNextUserId(user.userId))
 
         if (index < userStoriesArr.length - 1) {
             setindex(index + 1);
+        } else if (!nextUserId) {
+            dispatch(closeStoryModal())
         } else {
-            story_list.findIndex((story) => story.user_id === nextUserId)
+            const newUserStory = story_list[1];
+            dispatch(populateUserProfile({
+                userId: newUserStory.user_id,
+                userName: newUserStory.user_name,
+                userImage: newUserStory.user_image,
+            }))
+            dispatch(populateStories(newUserStory.stories));
         }
     }
     const onPrevClick = () => {
@@ -62,7 +72,7 @@ export default function StoryPreview() {
 
     return (
         <div className="overlay fixed overflow-hidden z-[9999] flex items-center justify-center top-0 bottom-0 left-0 right-0 bg-black/60">
-            <button ref={prevRef} onClick={onPrevClick} className="opacity-0 lg:opacity-1 absolute z-10 bottom-0 left-0 max-w-[80px] w-full flex-center h-[80%]">
+            <button ref={prevRef} onClick={onPrevClick} className="opacity-0 lg:opacity-100 -translate-y-1/2 absolute z-10 top-1/2 bottom-0 left-0 max-w-[80px] w-full flex-center h-[80%]">
                 <figure>
                     <Image className="h-full object-contain" src="/icons/icon-left.svg" alt="icon-left" width={48} height={48} />
                 </figure>
@@ -100,7 +110,7 @@ export default function StoryPreview() {
                 </div>
             </section>
 
-            <button ref={nextRef} onClick={onNextClick} className="opacity-0 lg:opacity-100 absolute z-10 bottom-0 right-0 max-w-[80px] w-full flex-center h-[80%]">
+            <button ref={nextRef} onClick={onNextClick} className="opacity-0 lg:opacity-100 -translate-y-1/2 absolute z-10 top-1/2 bottom-0 right-0 max-w-[80px] w-full flex-center h-[80%]">
                 <figure>
                     <Image className="h-full object-contain" src="/icons/icon-right.svg" alt="icon-right" width={48} height={48} />
                 </figure>
