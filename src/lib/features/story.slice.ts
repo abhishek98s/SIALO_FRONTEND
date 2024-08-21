@@ -7,9 +7,10 @@ interface IUserProfile {
     userImage: string,
 }
 interface IStoriesArr {
-    storyId: string,
-    storyImage: string,
-    dateInHr: string,
+    caption: string,
+    story_image: string,
+    story_id: string,
+    date?: string,
 }
 
 
@@ -48,8 +49,22 @@ export const storySlice = createSlice({
         populateStories: (state, action: { payload: IStoriesArr[] }) => {
             state.stories = action.payload;
         },
+
+        setCurrentIndex: (state) => {
+            state.story_list.findIndex((story) => story.user_id === state.nextUserId)
+        },
+        setNextUserId: (state, action: { payload: string }) => {
+            const currentIndex = state.story_list.findIndex((story) => story.user_id === action.payload);
+            console.log(currentIndex)
+            if (currentIndex < state.story_list.length - 1) {
+                state.nextUserId = state.story_list[currentIndex + 1].user_id;
+            }
+        },
+        clearCurrentIndex: (state) => {
+            state.currentIndex = 0;
+        },
     },
 })
 
-export const { setStory, addStory, openStoryModal, closeStoryModal, populateUserProfile, populateStories } = storySlice.actions
+export const { setStory, addStory, openStoryModal, closeStoryModal, populateUserProfile, populateStories, setCurrentIndex, setNextUserId, clearCurrentIndex } = storySlice.actions
 export default storySlice.reducer;
