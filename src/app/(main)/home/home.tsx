@@ -11,21 +11,33 @@ import { feed_arr } from "@/seed_data/feed..seed";
 import { useAppDispatch, useAppSelector } from "@/lib/hooks";
 import { Feed } from "@/components/feed";
 import StoryPreview from "@/components/story_preview";
+import axios from "axios";
 
 export default function IndexPage() {
     const feed_list: IFeed[] = useAppSelector((state) => state.feed.feed_list);
     const dispatch = useAppDispatch();
     const isStoryModalOpen = useAppSelector((state) => state.story.isOpen);
+    const token = useAppSelector((state) => state.auth.token);
+
 
     useEffect(() => {
-        const getFeed = () => {
-            dispatch(setFeed(feed_arr))
+        const getFeed = async () => {
+            const response = await axios.get('/api/post', {
+                headers: {
+                    Authorization: `Bearer ${token}`,
+                },
+            })
+
+            const { status, data } = response.data;
+
+            console.log(data);
+            dispatch(setFeed(data))
         }
 
         getFeed();
-    }, [dispatch])
+    }, [dispatch,token])
 
-
+    2
     return (
         <>
             <HomeLayout>

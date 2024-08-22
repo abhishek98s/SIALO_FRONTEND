@@ -3,9 +3,9 @@ import { IFeed } from "@/types/home.types.";
 export const feed_arr: IFeed[] = [
     {
         id: 1,
-        user_name: "GameOn23",
+        name: "GameOn23",
         user_image: "/user-4.png",
-        description: "Just beat Dark Souls for the 5th time! Still one of my favorite games of all time.",
+        caption: "Just beat Dark Souls for the 5th time! Still one of my favorite games of all time.",
         date: "January 1, 2022",
         post_image: "/dark-souls-screenshot.png",
         comments: [
@@ -25,9 +25,9 @@ export const feed_arr: IFeed[] = [
     },
     {
         id: 2,
-        user_name: "NoScope90",
+        name: "NoScope90",
         user_image: "/user-2.png",
-        description: "Just built my new gaming PC and I'm loving the performance! Anyone have any recommendations for good FPS games?",
+        caption: "Just built my new gaming PC and I'm loving the performance! Anyone have any recommendations for good FPS games?",
         date: "May 14, 2021",
         post_image: "/gaming-pc-build.png",
         comments: [
@@ -41,9 +41,9 @@ export const feed_arr: IFeed[] = [
     },
     {
         id: 3,
-        user_name: "PvPGuru",
+        name: "PvPGuru",
         user_image: "/user-3.png",
-        description: "Just got my hands on the new PS5 and I'm loving the graphics! Has anyone else tried the new God of War game?",
+        caption: "Just got my hands on the new PS5 and I'm loving the graphics! Has anyone else tried the new God of War game?",
         date: "November 20, 2020",
         post_image: "/ps5-unboxing.png",
         comments: [
@@ -63,9 +63,9 @@ export const feed_arr: IFeed[] = [
     },
     {
         id: 4,
-        user_name: "GameOn23",
+        name: "GameOn23",
         user_image: "/user-5.png",
-        description: "Just beat The Last of Us Part II and I'm still reeling from the ending! Has anyone else finished it?",
+        caption: "Just beat The Last of Us Part II and I'm still reeling from the ending! Has anyone else finished it?",
         date: "October 25, 2020",
         post_image: "/last-of-us-part-2-screenshot.png",
         comments: [
@@ -85,9 +85,9 @@ export const feed_arr: IFeed[] = [
     },
     {
         id: 5,
-        user_name: "NoScope90",
+        name: "NoScope90",
         user_image: "/user-2.png",
-        description: "Just started playing Cyberpunk 2077 and I'm loving the open world! Has anyone else tried it?",
+        caption: "Just started playing Cyberpunk 2077 and I'm loving the open world! Has anyone else tried it?",
         date: "December 10, 2020",
         post_image: "/cyberpunk-2077-screenshot.png",
         comments: [
