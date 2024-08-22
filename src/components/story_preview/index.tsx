@@ -2,8 +2,11 @@ import Image from "next/image";
 
 import styles from './story_preview.module.scss';
 import { useAppDispatch, useAppSelector } from "@/lib/hooks";
-import { clearCurrentIndex, closeStoryModal, openStoryModal, setNextUserId } from "@/lib/features/story.slice";
+import { clearCurrentIndex, closeStoryModal, populateStories, populateUserProfile, setNextUserId } from "@/lib/features/story.slice";
 import { useCallback, useEffect, useRef, useState } from "react";
+import axios from "axios";
+import toast from "react-hot-toast";
+import { toast_error_option, toast_sucess_option } from "@/utils/toast";
 
 export default function StoryPreview() {
     const dispatch = useAppDispatch();
@@ -11,20 +14,27 @@ export default function StoryPreview() {
     const story_list = useAppSelector((state) => state.story.story_list);
     const isOpen = useAppSelector((state) => state.story.isOpen);
 
+    const userObjectId = useAppSelector((state) => state.auth.user?.id);
+
     const [index, setindex] = useState<number>(0);
+    const [isMenuOpen, setIsMenuOpen] = useState(false);
+    const [isLoading, setIsLoading] = useState(false);
 
     const userStoriesArr = useAppSelector((state) => state.story.stories);
     const nextUserId = useAppSelector((state) => state.story.nextUserId);
+    const currentIndex = useAppSelector((state) => state.story.nextUserId);
+
     const story = userStoriesArr[index];
 
     const StoryModalRef = useRef<HTMLElement>(null);
     const prevRef = useRef<HTMLButtonElement>(null);
     const nextRef = useRef<HTMLButtonElement>(null);
 
+    const token = useAppSelector((state) => state.auth.token);
+
     const closeModalCallback = useCallback(() => {
         dispatch(closeStoryModal())
         setindex(0)
-        dispatch(clearCurrentIndex())
     }, [dispatch]);
 
     useEffect(() => {
@@ -47,11 +57,20 @@ export default function StoryPreview() {
 
     const onNextClick = (e: any) => {
         e.stopPropagation();
+        dispatch(setNextUserId(user.userId))
 
         if (index < userStoriesArr.length - 1) {
             setindex(index + 1);
+        } else if (!nextUserId) {
+            dispatch(closeStoryModal())
         } else {
-            story_list.findIndex((story) => story.user_id === nextUserId)
+            const newUserStory = story_list[1];
+            dispatch(populateUserProfile({
+                userId: newUserStory.user_id,
+                userName: newUserStory.user_name,
+                userImage: newUserStory.user_image,
+            }))
+            dispatch(populateStories(newUserStory.stories));
         }
     }
     const onPrevClick = () => {
@@ -60,9 +79,40 @@ export default function StoryPreview() {
         }
     }
 
+    const onDeleteClick = async () => {
+        try {
+            setIsLoading(true);
+            const response = await axios.delete('/api/story', {
+                headers: {
+                    Authorization: `Bearer ${token}`,
+                },
+                params: {
+                    id: story.story_id, // or any other query parameter you want to send
+                },
+            })
+
+            const { status } = response.data.data;
+
+            if (!status) {
+                toast.error('Error deleting story', toast_error_option);
+            }
+            toast.success('Story Deleted', toast_sucess_option);
+            dispatch(closeStoryModal())
+            setIsLoading(false);
+        } catch (error) {
+            setIsLoading(false);
+            console.log((error as Error).message)
+        }
+
+    }
+
+    const toggleMoreMenu = () => {
+        setIsMenuOpen(!isMenuOpen);
+    }
+
     return (
         <div className="overlay fixed overflow-hidden z-[9999] flex items-center justify-center top-0 bottom-0 left-0 right-0 bg-black/60">
-            <button ref={prevRef} onClick={onPrevClick} className="opacity-0 lg:opacity-1 absolute z-10 bottom-0 left-0 max-w-[80px] w-full flex-center h-[80%]">
+            <button ref={prevRef} onClick={onPrevClick} className="opacity-0 lg:opacity-100 -translate-y-1/2 absolute z-10 top-1/2 bottom-0 left-0 max-w-[80px] w-full flex-center h-[80%]">
                 <figure>
                     <Image className="h-full object-contain" src="/icons/icon-left.svg" alt="icon-left" width={48} height={48} />
                 </figure>
@@ -82,9 +132,19 @@ export default function StoryPreview() {
                     </div>
 
                     <div className="flex">
-                        <button className={`${styles.icon_button} w-[40px] h-[40px] rounded-full overflow-hidden flex-center`}>
-                            <Image src="/icons/icon-more-menu.svg" alt="" width={24} height={24} />
-                        </button>
+                        {userObjectId === user.userId &&
+                            <div className="relative">
+                                <button onClick={toggleMoreMenu} className={`${styles.icon_button} w-[40px] h-[40px] rounded-full overflow-hidden flex-center`}>
+                                    <Image src="/icons/icon-more-menu.svg" alt="" width={24} height={24} />
+                                </button>
+
+                                {isMenuOpen && <div className={`${styles.more_btn_wrapper} absolute top-full right-0 backdrop-blur-[12px] bg-black/30 border-neutral-40 p-[2px] rounded-8`}>
+                                    <ul className="w-[108px]">
+                                        <li><button onClick={onDeleteClick} className="w-full text-left text-[14px] p-[6px] rounded-4 color-neutral-0 focus-visible-primary-45">{isLoading ? 'Delete...' : 'Delete'}</button></li>
+                                    </ul>
+                                </div>}
+                            </div>
+                        }
 
                         <button onClick={closeModalCallback} className={`${styles.icon_button} w-[40px] h-[40px] rounded-full overflow-hidden p-[12px] flex-center`}>
                             <Image src="/icons/icon-close.svg" alt="icon-close" width={24} height={24} />
@@ -100,7 +160,7 @@ export default function StoryPreview() {
                 </div>
             </section>
 
-            <button ref={nextRef} onClick={onNextClick} className="opacity-0 lg:opacity-100 absolute z-10 bottom-0 right-0 max-w-[80px] w-full flex-center h-[80%]">
+            <button ref={nextRef} onClick={onNextClick} className="opacity-0 lg:opacity-100 -translate-y-1/2 absolute z-10 top-1/2 bottom-0 right-0 max-w-[80px] w-full flex-center h-[80%]">
                 <figure>
                     <Image className="h-full object-contain" src="/icons/icon-right.svg" alt="icon-right" width={48} height={48} />
                 </figure>

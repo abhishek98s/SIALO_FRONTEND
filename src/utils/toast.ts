@@ -9,7 +9,7 @@ const common_style = {
     zindex: '9',
 }
 
-export const toast_duration = 1000
+export const toast_duration = 4000
 
 export const toast_error_option = {
     className: 'toast-sucess-wrapper',
