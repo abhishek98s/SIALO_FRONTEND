@@ -8,8 +8,8 @@ import { useEffect, useState } from "react";
 
 export const AuthComponent = ({ children }: { children: React.ReactNode }) => {
     const router = useRouter();
-    const user = useAppSelector((state) => state.auth);
-    const { isAuthenticated, token } = user;
+    const auth = useAppSelector((state) => state.auth);
+    const { isAuthenticated, token, user } = auth;
     const [isloaded, setisLoaded] = useState(false);
 
     useEffect(() => {
@@ -23,8 +23,6 @@ export const AuthComponent = ({ children }: { children: React.ReactNode }) => {
             if (isTokenExpired(token)) {
                 router.push('/login')
             };
-
-            router.push('/')
             setisLoaded(true);
         }
         runInitialy()
