@@ -10,9 +10,10 @@ import toast, { Toaster } from 'react-hot-toast';
 import styles from './user_post_box.module.scss';
 import { toast_error_option, toast_info_option, toast_sucess_option } from "@/utils/toast";
 import { isImage } from "@/utils/file";
-import Modal from "react-responsive-modal";
 import { CameraModel } from "../camera_model";
 import { ImagePreview } from "../image_preview";
+import axios from "axios";
+import { useAppSelector } from "@/lib/hooks";
 
 
 // --
@@ -35,8 +36,10 @@ export default function UserPostBox() {
 
     // for caption of the post
     const [caption, setCaption] = useState<string | null>(null);
+    const [isLoading, setIsLoading] = useState(false);
 
     const [isCameraAccessGranted, setIsCameraAccessGranted] = useState<boolean>(false);
+    const token = useAppSelector((state) => state.auth.token);
 
 
     useEffect(() => {
@@ -99,10 +102,6 @@ export default function UserPostBox() {
         const file = value.files ? value.files![0] : null;
 
         switch (value.name) {
-            /* The below code check if the file is present or not
-                get the file absolute url. if file is not present or image is not .jpg, .png or .jpeg
-                error is notificed. File is set in the image_file state url is set to display the image 
-            */
             case 'image_select':
                 if (!file || !isImage(file)) {
                     toast.error('Image type should be .jpg, .png or .jpeg', toast_error_option);
@@ -113,7 +112,6 @@ export default function UserPostBox() {
                 }
                 break;
 
-            /* set the caption of the post to the state */
             case 'input_caption':
                 const value = e.target.value;
                 setCaption(value)
@@ -123,15 +121,52 @@ export default function UserPostBox() {
         }
     }
 
-    const onPostSubmit = (e: any) => {
-        e.preventDefault();
+    const onPostSubmit = async (e: any) => {
+        try {
+            setIsLoading(true)
+            e.preventDefault();
 
-        if (!user_inputted_image_url || !caption) {
-            toast.error('Image and caption is required', toast_error_option);
-            return
+            if (!user_inputted_image_url || !caption) {
+                setIsLoading(false)
+                toast.error('Image and caption is required', toast_error_option);
+                return
+            }
+
+            let user_file;
+            const form_data = new FormData();
+
+            if (!image_file) {
+                form_data.append('base64_image', user_inputted_image_url);
+            } else {
+                user_file = image_file;
+                form_data.append('sialo_image', user_file);
+            }
+
+            form_data.append('caption', caption);
+
+            const response = await axios.post('api/post', form_data, {
+                headers: {
+                    Authorization: `Bearer ${token}`,
+                },
+            })
+
+            const { status, data } = response.data;
+
+            if (!status) {
+                setIsLoading(false);
+                throw new Error('Error posting the post');
+            }
+            toast.success('Post added', toast_sucess_option);
+        } catch (error) {
+            setIsLoading(false);
+            const err = error as Error;
+            toast.error(err.message, toast_error_option);
+        } finally {
+            setUser_inputted_image_url(null);
+            setCaption('');
+            setImage_file(null);
+            setIsLoading(false);
         }
-
-        toast.success('Post added', toast_sucess_option);
     };
 
     return (
@@ -150,7 +185,7 @@ export default function UserPostBox() {
                 className={`${styles.user_post_wrapper} transition-4 order-neutral-86 bg-neutral-90 border-neutral-80 mb-[16px] px-[12px] pt-[20px] pb-[10px] rounded-4`}>
                 <div className="top flex gap-[12px] mb-[16px]">
                     <Image src="/user.png" alt="user" width={40} height={40} className="rounded-full border-primary-60 max-w-[40px] w-full" />
-                    <input type="text" className="bg-neutral-88 border-neutral-86 px-[16px] py-[8px]" onChange={handleChange} name="input_caption" placeholder="Mind writing something?" />
+                    <input type="text" value={caption!} className="bg-neutral-88 border-neutral-86 px-[16px] py-[8px]" onChange={handleChange} name="input_caption" placeholder="Mind writing something?" />
                 </div>
 
 
@@ -172,7 +207,7 @@ export default function UserPostBox() {
                             <input type="file"
                                 onChangeCapture={handleChange}
                                 name="image_select"
-                                className={`${styles.image_input} absolute z-0 border-neutral-90 outline-none`} id="image-input" accept=".png,.jpg,.jpeg"  />
+                                className={`${styles.image_input} absolute z-0 border-neutral-90 outline-none`} id="image-input" accept=".png,.jpg,.jpeg" />
                             <label htmlFor="image-input" className="absolute z-5 rounded-full w-full h-full flex-center cursor-pointer bg-neutral-90">
                                 <svg width="14" height="14" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
                                     <path d="M11.9 0.5H2.1C1.54305 0.5 1.0089 0.705446 0.615076 1.07114C0.221249 1.43684 0 1.93283 0 2.45V11.55C0 12.0672 0.221249 12.5632 0.615076 12.9289C1.0089 13.2946 1.54305 13.5 2.1 13.5H11.9C12.0151 13.4985 12.1299 13.4876 12.243 13.4675L12.453 13.422H12.502H12.537L12.796 13.331L12.887 13.2855C12.957 13.2465 13.034 13.214 13.104 13.1685C13.1975 13.1046 13.2863 13.0352 13.37 12.9605L13.419 12.902C13.4877 12.8373 13.5509 12.7678 13.608 12.694L13.671 12.6095C13.7199 12.5371 13.762 12.461 13.797 12.382C13.8162 12.3508 13.8326 12.3182 13.846 12.2845C13.881 12.2065 13.902 12.122 13.93 12.0375V11.94C13.9697 11.813 13.9932 11.6821 14 11.55V2.45C14 1.93283 13.7788 1.43684 13.3849 1.07114C12.9911 0.705446 12.457 0.5 11.9 0.5ZM2.1 12.2C1.91435 12.2 1.7363 12.1315 1.60503 12.0096C1.47375 11.8877 1.4 11.7224 1.4 11.55V8.7485L3.703 6.6035C3.76807 6.54258 3.84549 6.49422 3.9308 6.46122C4.0161 6.42822 4.10759 6.41123 4.2 6.41123C4.29241 6.41123 4.3839 6.42822 4.4692 6.46122C4.55451 6.49422 4.63193 6.54258 4.697 6.6035L10.717 12.2H2.1ZM12.6 11.55C12.5993 11.6301 12.5827 11.7095 12.551 11.784C12.535 11.8157 12.5163 11.8461 12.495 11.875C12.4763 11.9025 12.4552 11.9286 12.432 11.953L8.687 8.4755L9.303 7.9035C9.36807 7.84258 9.44549 7.79422 9.5308 7.76122C9.6161 7.72822 9.70759 7.71123 9.8 7.71123C9.89241 7.71123 9.9839 7.72822 10.0692 7.76122C10.1545 7.79422 10.2319 7.84258 10.297 7.9035L12.6 10.0485V11.55ZM12.6 8.209L11.284 7C10.8834 6.64704 10.3522 6.45028 9.8 6.45028C9.24777 6.45028 8.71659 6.64704 8.316 7L7.7 7.572L5.684 5.7C5.2834 5.34704 4.75223 5.15028 4.2 5.15028C3.64777 5.15028 3.1166 5.34704 2.716 5.7L1.4 6.909V2.45C1.4 2.27761 1.47375 2.11228 1.60503 1.99038C1.7363 1.86848 1.91435 1.8 2.1 1.8H11.9C12.0857 1.8 12.2637 1.86848 12.395 1.99038C12.5263 2.11228 12.6 2.27761 12.6 2.45V8.209Z" fill="#71A145" />
@@ -182,7 +217,7 @@ export default function UserPostBox() {
 
                         <button
                             type="submit"
-                            className="primary-btn ml-auto color-primary-80 bg-primary-60 rounded-4 text-[14px] max-w-[60px] w-full h-[30px] font-bold">Post</button>
+                            className="primary-btn ml-auto color-primary-80 bg-primary-60 rounded-4 text-[14px] min-w-[60px] max-w-[80px] w-full h-[30px] font-bold">{isLoading ? 'Posting...' : 'Post'}</button>
                     </div>
                 </div>
             </form>
