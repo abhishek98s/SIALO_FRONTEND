@@ -1,5 +1,6 @@
 import axios from "axios";
 import { NextRequest, NextResponse } from "next/server";
+import { NextApiRequest, NextApiResponse } from 'next';
 
 export async function GET(req: NextRequest, res: NextResponse) {
     try {
@@ -51,6 +52,38 @@ export async function POST(req: NextRequest, res: NextResponse) {
 
         return NextResponse.json({ status: true, data: data }, { status: 201 })
     } catch (error: any) {
+        if (error.response && error.response.data) {
+            const errorMsg = error.response.data.msg;
+            return NextResponse.json({ status: false, message: errorMsg }, { status: error.response.status });
+        } else {
+            return NextResponse.json({ status: false, message: 'Internal Server Error' }, { status: 500 });
+        }
+    }
+}
+
+
+export async function DELETE(req: NextRequest, res: NextResponse) {
+    try {
+
+        const token = req.headers.get('Authorization');
+        const story_id = req.nextUrl.searchParams.get('id');
+
+        const response = await axios.delete(`https://sialo-backend-2.vercel.app/api/story/${story_id}`, {
+            headers: {
+                Authorization: token,
+            },
+        });
+
+        if (!response.status) {
+            throw new Error('Failed to delete story');
+        }
+        console.log("sucess")
+
+        const data = response.data;
+        return NextResponse.json({ status: true, data: data }, { status: 201 })
+    } catch (error: any) {
+
+        console.log((error as Error).message)
         if (error.response && error.response.data) {
             const errorMsg = error.response.data.msg;
             return NextResponse.json({ status: false, message: errorMsg }, { status: error.response.status });

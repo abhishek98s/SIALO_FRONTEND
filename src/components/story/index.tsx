@@ -18,12 +18,13 @@ export default function Story({ story, img_ref, open }: StoryProps) {
 
     const openStory = () => {
         const { user_name: userName, user_id: userId, user_image: userImage, stories } = story;
+
         dispatch(populateUserProfile({ userId, userName, userImage }))
-
-        dispatch(setNextUserId(userId));
         dispatch(populateStories(stories));
-
+        
+        dispatch(setNextUserId(userId));
         dispatch(openStoryModal());
+        
     }
     return (
         <button onClick={openStory} className={`${styles.stories_wrapper} block w-full mb-1 mr-[12px]`}>

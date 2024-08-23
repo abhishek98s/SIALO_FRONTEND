@@ -20,8 +20,8 @@ const initialState = {
 
     userProfile: <IUserProfile>{},
     stories: <IStoriesArr[]>[],
-    currentIndex: 0, // or a separate state variable for current story index
-    nextUserId: <string>'', // for fetching next user stories
+    currentIndex: <number>0, // or a separate state variable for current story index
+    nextUserId: <string | null>null, // for fetching next user stories
 
 };
 
@@ -40,6 +40,8 @@ export const storySlice = createSlice({
         },
         closeStoryModal: (state) => {
             state.isOpen = false;
+            state.nextUserId = null;
+            state.currentIndex = 0;
         },
 
         populateUserProfile: (state, action: { payload: IUserProfile }) => {
@@ -55,9 +57,11 @@ export const storySlice = createSlice({
         },
         setNextUserId: (state, action: { payload: string }) => {
             const currentIndex = state.story_list.findIndex((story) => story.user_id === action.payload);
-            console.log(currentIndex)
             if (currentIndex < state.story_list.length - 1) {
-                state.nextUserId = state.story_list[currentIndex + 1].user_id;
+                const index = state.story_list[currentIndex + 1].user_id;
+                state.nextUserId = index;
+            } else {
+                state.nextUserId = null;
             }
         },
         clearCurrentIndex: (state) => {
