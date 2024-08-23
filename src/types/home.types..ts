@@ -13,20 +13,22 @@ export interface IStory {
 }
 
 export interface IComment {
-    id: number,
-    name: string,
-    user_image: string,
-    comment_info: string,
+    user_id: number,
+    comment_user_picture: string,
+    comment_user_name: string,
+    comment: string,
 }
 
 export interface IFeed {
     id: number,
-    user_name: string,
+    userId: string
+    name: string,
     user_image: string,
-    description: string,
-    date: string,
+    caption: string,
     post_image: string,
-    comments: IComment[]
+    likes: string[],
+    comments: IComment[],
+    createdAt: 'string',
 }
 
 export interface IUserSuggest {

@@ -51,12 +51,12 @@ export const Feed: React.FC<FeedProps> = ({ feed_data }) => {
         <article className={`${style.feed_wrapper} border-neutral-80 px-[8px] pt-[16px] pb-[8px] bg-neutral-90 rounded-8`}>
             <header className="mb-[12px]">
                 <div className="user-info flex items-center gap-[8px]">
-                    <Link href={`/profile/${feed_data.id}/feed`} className="block rounded-full focus-visible-primary-45">
-                        <Image src={`${feed_data.user_image}`} alt='user' width={40} height={40} priority className="max-w-[40px] h-[40px] w-full border-primary-60 rounded-full" />
+                    <Link href={`/profile/${feed_data.userId}/feed`} className="block rounded-full focus-visible-primary-45">
+                        <Image src={feed_data.user_image} alt='user' width={40} height={40} priority className="max-w-[40px] h-[40px] w-full border-primary-60 rounded-full" />
                     </Link>
                     <div className="info">
-                        <Link href={`/profile/${feed_data.id}/feed`} className=" txt-focus color-primary-60 text-[14px] font-bold leading-normal hover:underline underline-offset-1">{feed_data.user_name}</Link>
-                        <div className="color-primary-10 text-[12px]">{feed_data.date}</div>
+                        <Link href={`/profile/${feed_data.userId}/feed`} className=" txt-focus color-primary-60 text-[14px] font-bold leading-normal hover:underline underline-offset-1">{feed_data.name}</Link>
+                        <div className="color-primary-10 text-[12px]">{feed_data.createdAt}</div>
                     </div>
 
                     <div className={`relative ml-auto w-[40px]`}>
@@ -78,7 +78,7 @@ export const Feed: React.FC<FeedProps> = ({ feed_data }) => {
                     </div>
                 </div>
             </header>
-            <p className="text-[14px] mb-[12px]">{feed_data.description}</p>
+            <p className="text-[14px] mb-[12px]">{feed_data.caption}</p>
 
             <Gallery>
                 <figure className="feed-wrapper relative w-full h-auto border-neutral-86 mb-[16px]">

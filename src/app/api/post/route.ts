@@ -2,6 +2,22 @@ import axios from "axios";
 import { NextRequest, NextResponse } from "next/server";
 
 
+export async function GET(req: NextRequest, res: NextResponse) {
+    try {
+        const token = req.headers.get('Authorization');
+        const response = await axios.get('https://sialo-backend-2.vercel.app/api/post', {
+            headers: {
+                Authorization: token,
+            },
+        });
+
+        return NextResponse.json({ ...response.data }, { status: 201 })
+    } catch (error: any) {
+        return handleErrorResponse(error, res);
+    }
+}
+
+
 export async function POST(req: NextRequest, res: NextResponse) {
     try {
         const { formData, token } = await getFormDataAndToken(req);

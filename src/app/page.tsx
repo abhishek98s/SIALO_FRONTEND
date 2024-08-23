@@ -12,7 +12,7 @@ export default function Home() {
   return (
     <>
       <Head>
-        <link rel="preload" as="style" href="/_next/static/css/app/layout.css?1721390888758" />
+        <link rel="preload" href="/_next/static/css/app/layout.css?1721390888758" />
       </Head>
       <IndexPage />
     </>
