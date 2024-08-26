@@ -14,6 +14,7 @@ import { CameraModel } from "../camera_model";
 import { ImagePreview } from "../image_preview";
 import axios from "axios";
 import { useAppSelector } from "@/lib/hooks";
+import { axiosInterceptor } from "@/utils/axois.config";
 
 
 // --
@@ -39,7 +40,6 @@ export default function UserPostBox() {
     const [isLoading, setIsLoading] = useState(false);
 
     const [isCameraAccessGranted, setIsCameraAccessGranted] = useState<boolean>(false);
-    const token = useAppSelector((state) => state.auth.token);
 
 
     useEffect(() => {
@@ -144,11 +144,8 @@ export default function UserPostBox() {
 
             form_data.append('caption', caption);
 
-            const response = await axios.post('api/post', form_data, {
-                headers: {
-                    Authorization: `Bearer ${token}`,
-                },
-            })
+            const axiosInstace = axiosInterceptor();
+            const response = await axiosInstace.post('api/post', form_data);
 
             const { status, data } = response.data;
 
