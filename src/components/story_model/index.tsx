@@ -10,8 +10,7 @@ import { ImagePreview } from "../image_preview";
 import { toast_error_option, toast_sucess_option } from "@/utils/toast";
 import { isImage } from "@/utils/file";
 import toast from "react-hot-toast";
-import axios from "axios";
-import { useAppSelector } from "@/lib/hooks";
+import { axiosInterceptor } from "@/utils/axois.config";
 
 type StoryModalProps = {
     open: boolean,
@@ -27,7 +26,6 @@ export const StoryModal: React.FC<StoryModalProps> = ({ open, onCloseModal, stor
     const [file, setFile] = useState<File | null>(null);
     const [caption, setCaption] = useState<string>('');
     const [isLoading, setIsLoading] = useState(false);
-    const token = useAppSelector((state) => state.auth.token);
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const value = e.target as HTMLInputElement;
@@ -60,11 +58,10 @@ export const StoryModal: React.FC<StoryModalProps> = ({ open, onCloseModal, stor
             const form_data = new FormData();
             form_data.append('caption', caption);
             form_data.append('sialo_story_image', file!);
-            const response = await axios.post('/api/story', form_data, {
-                headers: {
-                    Authorization: `Bearer ${token}`,
-                },
-            })
+
+
+            const axiosInstace = axiosInterceptor();
+            const response = await axiosInstace.post('/api/story', form_data)
 
             const { status, data } = response.data;
 

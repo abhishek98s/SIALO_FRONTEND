@@ -23,7 +23,6 @@ import { toast_error_option, toast_sucess_option } from "@/utils/toast";
 import 'photoswipe/dist/photoswipe.css'
 import { Gallery, Item } from 'react-photoswipe-gallery'
 import axios from "axios";
-import { getLocalStorageItem } from "@/utils/storage";
 import { axiosInterceptor } from "@/utils/axois.config";
 
 
@@ -39,12 +38,10 @@ export default function StoriesList() {
     useEffect(() => {
         const getStories = async () => {
             try {
-                const axiosInstance = axiosInterceptor();
-
-                const response = await axiosInstance.get('/api/story');
+                const axiosInstace = axiosInterceptor();
+                const response = await axiosInstace.get('/api/story');
 
                 const { status, data } = response.data;
-                console.log(data)
 
                 if (!status) throw new Error();
 

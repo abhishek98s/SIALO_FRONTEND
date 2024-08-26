@@ -15,6 +15,7 @@ import axios from "axios";
 import { getLocalStorageItem } from "@/utils/storage";
 import toast from "react-hot-toast";
 import { toast_error_option } from "@/utils/toast";
+import { axiosInterceptor } from "@/utils/axois.config";
 
 export default function IndexPage() {
     const feed_list: IFeed[] = useAppSelector((state) => state.feed.feed_list);
@@ -25,17 +26,13 @@ export default function IndexPage() {
     useEffect(() => {
         const getFeed = async () => {
             try {
-                const token = getLocalStorageItem('jwtToken');
-                const response = await axios.get('/api/post', {
-                    headers: {
-                        Authorization: `Bearer ${token}`,
-                    },
-                })
+                const axiosInstace = axiosInterceptor();
+                const response = await axiosInstace.get('/api/post')
 
                 const { status, data } = response.data;
 
                 if (!status) throw new Error();
-                
+
                 dispatch(setFeed(data))
             } catch (error) {
                 toast.error('Error receiving the post', toast_error_option);
