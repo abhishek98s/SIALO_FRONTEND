@@ -13,9 +13,11 @@ export async function POST(req: NextRequest, res: NextResponse) {
 
         const response = await axios.post('https://sialo-backend-2.vercel.app/api/auth/login', { email, password });
 
-        const data = await response.data.data;
+        const { status, data } = await response.data;
 
-        return NextResponse.json({ token: data }, { status: 201 });
+        if (!status) throw new Error();
+
+        return NextResponse.json({ status: true, data: data }, { status: 201 });
     } catch (error) {
         console.log((error as Error).message)
         return NextResponse.json({ error: 'Registration failed' }, { status: 500 });

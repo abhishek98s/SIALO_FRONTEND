@@ -9,7 +9,7 @@ import toast from "react-hot-toast";
 import { toast_error_option } from "@/utils/toast";
 import axios from "axios";
 import { useAppDispatch } from "@/lib/hooks";
-import { setToken, setUser } from "@/lib/features/auth.slice";
+import { setUser } from "@/lib/features/auth.slice";
 import { useRouter } from "next/navigation";
 import { decodeToken } from "@/utils/auth";
 
@@ -33,7 +33,7 @@ export default function Login() {
         try {
             e.preventDefault();
             setIsLoading(true);
-            
+
             if (!form_obj.email || !form_obj.password) {
                 setIsLoading(false);
                 toast.error('Email and password is required', toast_error_option)
@@ -42,22 +42,23 @@ export default function Login() {
 
             const response = await axios.post('/api/auth/login', form_obj)
 
-            if (!response.data) {
-                throw new Error();
-            }
+            const { status, data } = response.data;
 
-            const token = response.data.token.token;
-            dispatch(setToken(token))
+            if (!status) throw new Error();
+
+            const token = data.token;
+            localStorage.setItem('jwtToken', token);
 
             const user = decodeToken(token)
-            const { username, id, email } = user;
+            const { id, image, name } = user;
 
-            dispatch(setUser({ username, id, email }))
+            dispatch(setUser({ id, image, name }))
 
             router.push('/')
         } catch (error) {
-            setIsLoading(false);
             toast.error('Invalid Credentials', toast_error_option);
+        } finally {
+            setIsLoading(false);
         }
     }
 
