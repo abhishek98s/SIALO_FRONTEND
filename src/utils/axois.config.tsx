@@ -1,22 +1,24 @@
-import { useAppSelector } from '@/lib/hooks';
-import axios from 'axios';
+import axios, { AxiosInstance } from 'axios';
+import { getLocalStorageItem } from './storage';
 
-const useToken = () => {
-    // Use the useAppSelector hook to access the token from the Redux store
-    const token = useAppSelector((state) => state.auth.token);
-    return token;
-};
+export const axiosInterceptor = (): AxiosInstance => {
+    const token = getLocalStorageItem('jwtToken');
+    console.log(token)
 
-const AxiosInterceptor = () => {
-    const token = useToken();
+    if (!token) {
+        throw new Error('No token found in local storage');
+    }
 
-    const axiosInstance = axios.create({
-        headers: {
-            Authorization: `Bearer ${token}`,
-        },
+    const axiosInstance = axios.create();
+
+    axiosInstance.interceptors.request.use((config) => {
+        config.headers = config.headers || {};
+        config.headers.Authorization = `Bearer ${token}`;
+        return config;
     });
 
     return axiosInstance;
 };
 
-export default AxiosInterceptor;
+
+

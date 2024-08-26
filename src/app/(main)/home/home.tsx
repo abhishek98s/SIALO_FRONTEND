@@ -12,32 +12,39 @@ import { useAppDispatch, useAppSelector } from "@/lib/hooks";
 import { Feed } from "@/components/feed";
 import StoryPreview from "@/components/story_preview";
 import axios from "axios";
+import { getLocalStorageItem } from "@/utils/storage";
+import toast from "react-hot-toast";
+import { toast_error_option } from "@/utils/toast";
 
 export default function IndexPage() {
     const feed_list: IFeed[] = useAppSelector((state) => state.feed.feed_list);
     const dispatch = useAppDispatch();
     const isStoryModalOpen = useAppSelector((state) => state.story.isOpen);
-    const token = useAppSelector((state) => state.auth.token);
 
 
     useEffect(() => {
         const getFeed = async () => {
-            const response = await axios.get('/api/post', {
-                headers: {
-                    Authorization: `Bearer ${token}`,
-                },
-            })
+            try {
+                const token = getLocalStorageItem('jwtToken');
+                const response = await axios.get('/api/post', {
+                    headers: {
+                        Authorization: `Bearer ${token}`,
+                    },
+                })
 
-            const { status, data } = response.data;
+                const { status, data } = response.data;
 
-            console.log(data);
-            dispatch(setFeed(data))
+                if (!status) throw new Error();
+                
+                dispatch(setFeed(data))
+            } catch (error) {
+                toast.error('Error receiving the post', toast_error_option);
+            }
         }
 
         getFeed();
-    }, [dispatch,token])
+    }, [dispatch])
 
-    2
     return (
         <>
             <HomeLayout>

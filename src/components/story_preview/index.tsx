@@ -7,6 +7,7 @@ import { useCallback, useEffect, useRef, useState } from "react";
 import axios from "axios";
 import toast from "react-hot-toast";
 import { toast_error_option, toast_sucess_option } from "@/utils/toast";
+import { axiosInterceptor } from "@/utils/axois.config";
 
 export default function StoryPreview() {
     const dispatch = useAppDispatch();
@@ -30,8 +31,7 @@ export default function StoryPreview() {
     const prevRef = useRef<HTMLButtonElement>(null);
     const nextRef = useRef<HTMLButtonElement>(null);
 
-    const token = useAppSelector((state) => state.auth.token);
-
+    
     const closeModalCallback = useCallback(() => {
         dispatch(closeStoryModal())
         setindex(0)
@@ -82,10 +82,8 @@ export default function StoryPreview() {
     const onDeleteClick = async () => {
         try {
             setIsLoading(true);
-            const response = await axios.delete('/api/story', {
-                headers: {
-                    Authorization: `Bearer ${token}`,
-                },
+            const axiosInstance = axiosInterceptor();
+            const response = await axiosInstance.delete('/api/story', {
                 params: {
                     id: story.story_id, // or any other query parameter you want to send
                 },
@@ -119,7 +117,7 @@ export default function StoryPreview() {
             </button>
 
             <section ref={StoryModalRef} className="relative sm:w-[450px] min-h-[550px] h-[100%] sm:h-[95vh] border-neutral-80 backdrop-blur-[12px] rounded-8 overflow-hidden">
-                <div className="absolute top-0 left-0 right-0 z-10 flex justify-between header p-[12px]">
+                <div className="absolute top-0 left-0 right-0 z-50 flex justify-between header p-[12px]">
                     <div className="flex items-center gap-[8px]">
                         <figure className="rounded-full overflow-hidden border-primary-60">
                             <Image src={user.userImage} alt="user-2" width={40} height={40} />
@@ -152,7 +150,8 @@ export default function StoryPreview() {
                     </div>
                 </div>
 
-                <Image className="w-full h-full object-cover" src={story.story_image} alt={story.caption} width={500} height={0} />
+                <Image className="relative z-10 w-full h-full object-contain" src={story.story_image} alt={story.caption} width={500} height={0} />
+                <Image className="w-full h-full object-cover blur-[20px]" src={story.story_image} alt={story.caption} fill />
                 <div className={`${styles.liner_overlay} absolute top-0 bottom-0 left-0 right-0 z-4`}></div>
 
                 <div className={`${styles.caption} backdrop-blur-[4px] absolute bottom-0 left-0 right-0 text-center leading-[1.5] text-[16px] bg-black/20 rounded-8 p-[14px]`}>

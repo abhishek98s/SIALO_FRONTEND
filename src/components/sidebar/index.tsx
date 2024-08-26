@@ -3,12 +3,22 @@
 import Link from "next/link";
 
 import styles from './sidebar.module.scss';
-import { usePathname } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
+import { useAppDispatch } from "@/lib/hooks";
+import { logout } from "@/lib/features/auth.slice";
 
 export default function Sidebar() {
     const pathname = usePathname();
     const length = pathname.split('/').length;
     const currentPath = pathname.split('/')[length - 1];
+    const dispatch = useAppDispatch();
+    const router = useRouter();
+
+    const onLogout = () => {
+        dispatch(logout());
+        localStorage.clear();
+        router.push('/login');
+    }
 
     return (
         <div className={`${styles.sidebar_wrapper} sidebar h-[85px] fixed bottom-0 left-0 right-0 z-10 bg-neutral-90 border-neutral-86 px-[22px] pt-[12px] pb-[16px]`}>
@@ -50,7 +60,7 @@ export default function Sidebar() {
                     </li>
                 </Link>
 
-                <Link href={'/'}>
+                <button onClick={onLogout}>
                     <li className={`w-[60px]`}>
                         <div className="max-w-[40px] w-full h-[40px] flex-center mx-auto">
                             <svg width="18" height="24" viewBox="0 0 18 24" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -60,7 +70,7 @@ export default function Sidebar() {
 
                         <h6 className="text-center text-[14px] color-primary-10 leading-none">Log out</h6>
                     </li>
-                </Link>
+                </button>
             </ul>
         </div>
     )
