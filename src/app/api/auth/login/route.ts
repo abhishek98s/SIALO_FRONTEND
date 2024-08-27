@@ -1,5 +1,3 @@
-// app/api/route.js
-
 import axios from "axios";
 import { NextRequest, NextResponse } from "next/server";
 

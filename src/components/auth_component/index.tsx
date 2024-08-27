@@ -9,7 +9,7 @@ import { useEffect, useState } from "react";
 export const AuthComponent = ({ children }: { children: React.ReactNode }) => {
     const router = useRouter();
     const auth = useAppSelector((state) => state.auth);
-    const token = getLocalStorageItem('jwtToken');
+    const token = getLocalStorageItem('ACCESS_TOKEN');
     const { isAuthenticated } = auth;
 
     useEffect(() => {

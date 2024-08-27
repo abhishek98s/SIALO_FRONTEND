@@ -32,7 +32,7 @@ export default function IndexPage() {
                 const { status, data } = response.data;
 
                 if (!status) throw new Error();
-
+                
                 dispatch(setFeed(data))
             } catch (error) {
                 toast.error('Error receiving the post', toast_error_option);

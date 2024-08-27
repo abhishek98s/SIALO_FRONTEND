@@ -15,7 +15,7 @@ export default function RootLayout({
 }) {
   const router = useRouter();
   const user = useAppSelector((state) => state.auth);
-  const token = getLocalStorageItem('jwtToken');
+  const token = getLocalStorageItem('ACCESS_TOKEN');
   const { isAuthenticated } = user;
 
   useEffect(() => {

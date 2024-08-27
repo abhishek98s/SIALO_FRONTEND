@@ -5,7 +5,7 @@ import { NextRequest, NextResponse } from "next/server";
 export async function GET(req: NextRequest, res: NextResponse) {
     try {
         const token = req.headers.get('Authorization');
-        const response = await axios.get('https://sialo-backend-2.vercel.app/api/post', {
+        const response = await axios.get('https://sialo-backend-2.vercel.app/api/post/random', {
             headers: {
                 Authorization: token,
             },

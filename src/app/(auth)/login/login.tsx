@@ -46,10 +46,12 @@ export default function Login() {
 
             if (!status) throw new Error();
 
-            const token = data.token;
-            localStorage.setItem('jwtToken', token);
+            const { accessToken, refreshToken } = data;
+            
+            localStorage.setItem('ACCESS_TOKEN', accessToken);
+            localStorage.setItem('REFRESH_TOKEN', refreshToken);
 
-            const user = decodeToken(token)
+            const user = decodeToken(accessToken);
             const { id, image, name } = user;
 
             dispatch(setUser({ id, image, name }))
