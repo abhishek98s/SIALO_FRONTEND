@@ -109,7 +109,7 @@ export default function StoryPreview() {
         <div className="overlay fixed overflow-hidden z-[9999] flex items-center justify-center top-0 bottom-0 left-0 right-0 bg-black/60">
             <button ref={prevRef} onClick={onPrevClick} className="opacity-0 lg:opacity-100 -translate-y-1/2 absolute z-10 top-1/2 bottom-0 left-0 max-w-[80px] w-full flex-center h-[80%]">
                 <figure>
-                    <Image className="h-full object-contain" src="/icons/icon-left.svg" alt="icon-left" width={48} height={48} />
+                    <Image loading='lazy' className="h-full object-contain" src="/icons/icon-left.svg" alt="icon-left" width={48} height={48} />
                 </figure>
             </button>
 
@@ -117,7 +117,7 @@ export default function StoryPreview() {
                 <div className="absolute top-0 left-0 right-0 z-20 flex justify-between header p-[12px]">
                     <div className="flex items-center gap-[8px]">
                         <figure className="rounded-full overflow-hidden border-primary-60">
-                            <Image src={user.userImage} alt="user-2" width={40} height={40} />
+                            <Image loading='lazy' src={user.userImage} alt="user-2" width={40} height={40} />
                         </figure>
 
                         <div className="">
@@ -130,7 +130,7 @@ export default function StoryPreview() {
                         {userObjectId === user.userId &&
                             <div className="relative">
                                 <button onClick={toggleMoreMenu} className={`${styles.icon_button} w-[40px] h-[40px] rounded-full overflow-hidden flex-center`}>
-                                    <Image src="/icons/icon-more-menu.svg" alt="" width={24} height={24} />
+                                    <Image loading='lazy' src="/icons/icon-more-menu.svg" alt="" width={24} height={24} />
                                 </button>
 
                                 {isMenuOpen && <div className={`${styles.more_btn_wrapper} absolute top-full right-0 backdrop-blur-[12px] bg-black/30 border-neutral-40 p-[2px] rounded-8`}>
@@ -142,13 +142,13 @@ export default function StoryPreview() {
                         }
 
                         <button onClick={closeModalCallback} className={`${styles.icon_button} w-[40px] h-[40px] rounded-full overflow-hidden p-[12px] flex-center`}>
-                            <Image src="/icons/icon-close.svg" alt="icon-close" width={24} height={24} />
+                            <Image loading='lazy' src="/icons/icon-close.svg" alt="icon-close" width={24} height={24} />
                         </button>
                     </div>
                 </div>
 
-                <Image className="relative z-10 w-full h-auto object-contain content-center" src={story.story_image} alt={story.caption} width={500} height={0} />
-                <Image className="w-full h-full object-cover blur-[20px]" src={story.story_image} alt={story.caption} fill />
+                <Image loading='lazy' className="relative z-10 w-full h-auto object-contain content-center" src={story.story_image} alt={story.caption} width={500} height={0} />
+                <Image loading='lazy' className="w-full h-full object-cover blur-[20px]" src={story.story_image} alt={story.caption} fill />
                 <div className={`${styles.liner_overlay} absolute top-0 bottom-0 left-0 right-0 z-4`}></div>
 
                 <div className={`${styles.caption} backdrop-blur-[4px] absolute bottom-0 left-0 right-0 text-center leading-[1.5] text-[16px] bg-black/20 rounded-8 p-[14px]`}>
@@ -158,7 +158,7 @@ export default function StoryPreview() {
 
             <button ref={nextRef} onClick={onNextClick} className="opacity-0 lg:opacity-100 -translate-y-1/2 absolute z-10 top-1/2 bottom-0 right-0 max-w-[80px] w-full flex-center h-[80%]">
                 <figure>
-                    <Image className="h-full object-contain" src="/icons/icon-right.svg" alt="icon-right" width={48} height={48} />
+                    <Image loading='lazy' className="h-full object-contain" src="/icons/icon-right.svg" alt="icon-right" width={48} height={48} />
                 </figure>
             </button>
         </div>
