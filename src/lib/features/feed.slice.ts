@@ -10,7 +10,7 @@ export const feedSlice = createSlice({
     initialState,
     reducers: {
         setFeed: (state, action) => {
-            state.feed_list = [...action.payload]
+            state.feed_list = [...state.feed_list, ...action.payload]
         },
         deleteFeedById: (state, action) => {
             state.feed_list.filter(feed => feed.id !== action.payload)
