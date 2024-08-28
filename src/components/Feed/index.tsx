@@ -52,7 +52,7 @@ export const Feed: React.FC<FeedProps> = ({ feed_data }) => {
             <header className="mb-[12px]">
                 <div className="user-info flex items-center gap-[8px]">
                     <Link href={`/profile/${feed_data.userId}/feed`} className="block rounded-full focus-visible-primary-45">
-                        <Image src={feed_data.user_image} alt='user' width={40} height={40} priority className="max-w-[40px] h-[40px] w-full border-primary-60 rounded-full" />
+                        <Image loading="lazy" src={feed_data.user_image} alt='user' width={40} height={40} className="max-w-[40px] h-[40px] w-full border-primary-60 rounded-full" />
                     </Link>
                     <div className="info">
                         <Link href={`/profile/${feed_data.userId}/feed`} className=" txt-focus color-primary-60 text-[14px] font-bold leading-normal hover:underline underline-offset-1">{feed_data.name}</Link>
@@ -81,14 +81,14 @@ export const Feed: React.FC<FeedProps> = ({ feed_data }) => {
             <p className="text-[14px] mb-[12px]">{feed_data.caption}</p>
 
             <Gallery>
-                <figure className="feed-wrapper relative w-full h-auto border-neutral-86 mb-[16px]">
+                <figure className="feed-wrapper relative w-full h-auto min-h-[150px] bg-neutral-86 border-neutral-86 mb-[16px]">
                     <Item
                         original={feed_data.post_image}
                         thumbnail={feed_data.post_image}
                         width="1024"
                         height="768">
                         {({ ref, open }) => (
-                            <Image style={{ top: '100px' }} ref={ref} onClick={open} src={`${feed_data.post_image}`} alt='post-image'
+                            <Image loading="lazy" style={{ top: '100px' }} ref={ref} onClick={open} src={`${feed_data.post_image}`} alt='post-image'
                                 width={0} height={0} className="w-full rounded-4 h-auto" sizes="100vw" />
                         )}
                     </Item>
@@ -109,7 +109,7 @@ export const Feed: React.FC<FeedProps> = ({ feed_data }) => {
                     <button
                         onClick={submitComment}
                         type="submit" className={`${style.comment_post_btn} rounded-full w-[40px] h-[40px] flex-center absolute right-[6px] top-1/2 -translate-y-1/2`}>
-                        <Image src={`/icons/icon-send.svg`} alt="icon-comment" width={17} height={17} className="cursor-pointer" />
+                        <Image loading="lazy" src={`/icons/icon-send.svg`} alt="icon-comment" width={17} height={17} className="cursor-pointer" />
                     </button>
                 </form>
             </div>

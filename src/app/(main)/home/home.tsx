@@ -15,6 +15,7 @@ import StoryPreview from "@/components/story_preview";
 
 import { toast_error_option } from "@/utils/toast";
 import { axiosInterceptor } from "@/utils/axois.config";
+import FeedLoader from "@/components/feed_loader";
 
 
 export default function IndexPage() {
@@ -54,7 +55,7 @@ export default function IndexPage() {
                             dataLength={feed_list.length}
                             next={getFeed}
                             hasMore={true}
-                            loader={<h4>Loading...</h4>}
+                            loader={<FeedLoader />}
                             scrollThreshold={'80%'}
                         >
                             {feed_list.map((feed, index) => (
