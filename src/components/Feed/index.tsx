@@ -48,7 +48,7 @@ export const Feed: React.FC<FeedProps> = ({ feed_data }) => {
         toast.success('Comment Posted', toast_sucess_option);
     }
     return (
-        <article className={`${style.feed_wrapper} border-neutral-80 px-[8px] pt-[16px] pb-[8px] bg-neutral-90 rounded-8`}>
+        <article className={`${style.feed_wrapper} border-neutral-80 px-[8px] pt-[16px] pb-[16px] bg-neutral-90 rounded-8 mb-[20px]`}>
             <header className="mb-[12px]">
                 <div className="user-info flex items-center gap-[8px]">
                     <Link href={`/profile/${feed_data.userId}/feed`} className="block rounded-full focus-visible-primary-45">
@@ -113,16 +113,18 @@ export const Feed: React.FC<FeedProps> = ({ feed_data }) => {
                     </button>
                 </form>
             </div>
+            {feed_data.comments.length !== 0
+                &&
+                <div className="comment-wrapper mt-[32px]">
+                    <h3 className="color-primary-50 text-[14px] font-bold mb-[12px]">Comments</h3>
 
-            <div className="comment-wrapper mt-[32px]">
-                <h3 className="color-primary-50 text-[14px] font-bold mb-[12px]">Comments</h3>
-
-                <div className="comment-list">
-                    {feed_data.comments.map((comment, index) => (
-                        <Comment comment={comment} key={index} />
-                    ))}
+                    <div className="comment-list">
+                        {feed_data.comments.map((comment, index) => (
+                            <Comment comment={comment} key={index} />
+                        ))}
+                    </div>
                 </div>
-            </div>
+            }
         </article >
     )
 }
