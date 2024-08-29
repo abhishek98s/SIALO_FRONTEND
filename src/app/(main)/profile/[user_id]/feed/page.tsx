@@ -24,7 +24,7 @@ export default function ProfilePage() {
         <>
             <div role="feed_information" className="space-y-[12px]">
                 {user_feed_list.map((feed, index) => (
-                    <Feed feed_data={feed} key={index} />
+                    <Feed isHome={true} feed_data={feed} key={index} />
                 ))}
             </div>
             <ImageListPreview />

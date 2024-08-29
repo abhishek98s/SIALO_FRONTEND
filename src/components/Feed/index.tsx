@@ -15,9 +15,10 @@ import { Gallery, Item } from "react-photoswipe-gallery";
 
 type FeedProps = {
     feed_data: IFeed;
+    isHome?: boolean;
 }
 
-export const Feed: React.FC<FeedProps> = ({ feed_data }) => {
+export const Feed: React.FC<FeedProps> = ({ feed_data, isHome }) => {
 
     const [isLiked, setIsLiked] = useState(false);
     const [comment, setComment] = useState<string | null>(null);
@@ -59,23 +60,26 @@ export const Feed: React.FC<FeedProps> = ({ feed_data }) => {
                         <div className="color-primary-10 text-[12px]">{feed_data.createdAt}</div>
                     </div>
 
-                    <div className={`relative ml-auto w-[40px]`}>
-                        <button
-                            onClick={toggleMenu}
-                            className={`${style.more_menu} focus-visible-primary-45 rounded-4 flex-center max-w-[40px] w-full h-[40px] flex-center`}>
-                            <svg className={`transition-all`} width="16" height="4" viewBox="0 0 16 4" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                <rect x="0.5" y="0.5" width="3" height="3" rx="1.5" fill="#666666" />
-                                <rect x="6.5" y="0.5" width="3" height="3" rx="1.5" fill="#666666" />
-                                <rect x="12.5" y="0.5" width="3" height="3" rx="1.5" fill="#666666" />
-                            </svg>
-                        </button>
-                        {openDropdowns.includes('menu_box') &&
-                            <div className={`${style.menu_box_wrapper} absolute top-full right-0 bg-neutral-86 border-neutral-80 px-[4px] py-[8px] rounded-8`}>
-                                <ul className="w-[108px]">
-                                    <li><button className="w-full text-left text-[14px] p-[6px] rounded-4 color-primary-10 focus-visible-primary-45">Delete</button></li>
-                                </ul>
-                            </div>}
-                    </div>
+                    {isHome &&
+                        <div className={`relative ml-auto w-[40px]`}>
+                            <button
+                                onClick={toggleMenu}
+                                className={`${style.more_menu} focus-visible-primary-45 rounded-4 flex-center max-w-[40px] w-full h-[40px] flex-center`}>
+                                <svg className={`transition-all`} width="16" height="4" viewBox="0 0 16 4" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <rect x="0.5" y="0.5" width="3" height="3" rx="1.5" fill="#666666" />
+                                    <rect x="6.5" y="0.5" width="3" height="3" rx="1.5" fill="#666666" />
+                                    <rect x="12.5" y="0.5" width="3" height="3" rx="1.5" fill="#666666" />
+                                </svg>
+                            </button>
+                            {openDropdowns.includes('menu_box') &&
+                                <div className={`${style.menu_box_wrapper} absolute top-full right-0 bg-neutral-86 border-neutral-80 px-[4px] py-[8px] rounded-8`}>
+                                    <ul className="w-[108px]">
+                                        <li><button className="w-full text-left text-[14px] p-[6px] rounded-4 color-primary-10 focus-visible-primary-45">Delete</button></li>
+                                    </ul>
+                                </div>}
+                        </div>
+                    }
+
                 </div>
             </header>
             <p className="text-[14px] mb-[12px]">{feed_data.caption}</p>

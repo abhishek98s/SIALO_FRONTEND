@@ -1,10 +1,8 @@
 "use client";
-import { useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import Image from "next/image";
 
-// Dor Model
 import 'react-responsive-modal/styles.css';
-import { Modal } from 'react-responsive-modal';
 
 import { Splide, SplideSlide } from '@splidejs/react-splide';
 import toast, { Toaster } from 'react-hot-toast';
@@ -19,11 +17,10 @@ import styles from './story_list.module.scss';
 
 import { toast_error_option, toast_sucess_option } from "@/utils/toast";
 
-// for the gallary or pop up image
 import 'photoswipe/dist/photoswipe.css'
 import { Gallery, Item } from 'react-photoswipe-gallery'
-import axios from "axios";
 import { axiosInterceptor } from "@/utils/axois.config";
+import useFetchData from "@/custom_hook/fetchdata.hook";
 
 
 
@@ -35,24 +32,21 @@ export default function StoriesList() {
     const dispatch = useAppDispatch();
     const story_list = useAppSelector((state) => state.story.story_list)
 
-    useEffect(() => {
-        const getStories = async () => {
-            try {
-                const axiosInstace = axiosInterceptor();
-                const response = await axiosInstace.get('/api/story');
+    const { data: story_list_data, error, loading } = useFetchData('/api/story');
 
-                const { status, data } = response.data;
+    const getStories = useCallback(async () => {
+        try {
+            dispatch(setStory(story_list_data))
 
-                if (!status) throw new Error();
-
-                dispatch(setStory(data))
-
-            } catch (error) {
-                toast.error('Error fetching story', toast_error_option);
-            }
+        } catch (error) {
+            toast.error('Error fetching story', toast_error_option);
         }
+    }, [story_list_data, dispatch]);
+
+    useEffect(() => {
         getStories();
-    }, [])
+    }, [story_list_data, getStories])
+
 
     const clearImage = () => {
         setImage('')
@@ -64,7 +58,6 @@ export default function StoriesList() {
         setOpen(false);
         setImage('');
     }
-
 
     return (
         <>

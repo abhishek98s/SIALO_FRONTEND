@@ -35,7 +35,6 @@ export default function RegisterForm() {
             setIsLoading(true);
 
             const response = register_schema.safeParse(form_obj);
-            console.log(form_obj);
 
             if (!response.success) {
                 let errArr: IError[] = [];

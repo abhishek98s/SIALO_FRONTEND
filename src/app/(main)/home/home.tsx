@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect } from "react";
+import { useCallback, useEffect } from "react";
 import InfiniteScroll from 'react-infinite-scroll-component';
 import toast from "react-hot-toast";
 
@@ -14,33 +14,29 @@ import { Feed } from "@/components/feed";
 import StoryPreview from "@/components/story_preview";
 
 import { toast_error_option } from "@/utils/toast";
-import { axiosInterceptor } from "@/utils/axois.config";
 import FeedLoader from "@/components/feed_loader";
+import useFetchData from "@/custom_hook/fetchdata.hook";
 
 
 export default function IndexPage() {
     const feed_list: IFeed[] = useAppSelector((state) => state.feed.feed_list);
-    const dispatch = useAppDispatch();
     const isStoryModalOpen = useAppSelector((state) => state.story.isOpen);
+    const { data: post_list, error, loading } = useFetchData('/api/post');
+    const dispatch = useAppDispatch();
 
-    const getFeed = async () => {
+
+    const getFeed = useCallback(async () => {
         try {
-            const axiosInstace = axiosInterceptor();
-            const response = await axiosInstace.get('/api/post')
-
-            const { status, data } = response.data;
-
-            if (!status) throw new Error();
-
-            dispatch(setFeed(data))
+            dispatch(setFeed(post_list));
         } catch (error) {
             toast.error('Error receiving the post', toast_error_option);
         }
-    }
+    }, [post_list, dispatch]);
 
     useEffect(() => {
         getFeed();
-    }, [dispatch])
+    }, [post_list, getFeed])
+    
 
     return (
         <>
