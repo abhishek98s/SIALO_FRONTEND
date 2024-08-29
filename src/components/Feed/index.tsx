@@ -12,6 +12,7 @@ import { openDropdown, toggleDropdown } from "@/lib/features/dropdown.slice";
 import { IFeed } from "@/types/home.types.";
 import { Gallery, Item } from "react-photoswipe-gallery";
 import { axiosInterceptor } from "@/utils/axois.config";
+import { APP_BASE_URL } from "@/utils/app";
 
 
 type FeedProps = {
@@ -52,7 +53,7 @@ export const Feed: React.FC<FeedProps> = ({ feed_data, isHome }) => {
             }
 
             const axiosInstance = axiosInterceptor();
-            const response = await axiosInstance.patch(`https://sialo-backend-2.vercel.app/api/post/comment/${feed_data.id}`, { comment })
+            const response = await axiosInstance.patch(`${APP_BASE_URL}/post/comment/${feed_data.id}`, { comment })
 
             console.log(response.data)
 

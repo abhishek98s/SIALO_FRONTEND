@@ -40,7 +40,7 @@ export async function POST(req: NextRequest, res: NextResponse) {
         formDataToSend.append('caption', caption);
         formDataToSend.append('sialo_story_image', sialo_image);
 
-        const response = await axios.post('https://sialo-backend-2.vercel.app/api/story', formDataToSend, {
+        const response = await axios.post(`${APP_BASE_URL}/story`, formDataToSend, {
             headers: {
                 Authorization: token,
                 'Content-Type': 'multipart/form-data',
@@ -69,7 +69,7 @@ export async function DELETE(req: NextRequest, res: NextResponse) {
         const token = req.headers.get('Authorization');
         const story_id = req.nextUrl.searchParams.get('id');
 
-        const response = await axios.delete(`https://sialo-backend-2.vercel.app/api/story/${story_id}`, {
+        const response = await axios.delete(`${APP_BASE_URL}/story/${story_id}`, {
             headers: {
                 Authorization: token,
             },
