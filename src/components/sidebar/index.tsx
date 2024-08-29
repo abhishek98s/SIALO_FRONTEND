@@ -31,7 +31,7 @@ export default function Sidebar() {
                             </svg>
                         </div>
 
-                        <h6 className="text-center text-[14px] color-primary-10 leading-none">Home</h6>
+                        <h6 className="text-center text-[14px] leading-none">Home</h6>
                     </li>
                 </Link>
 
