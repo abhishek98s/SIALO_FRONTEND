@@ -1,3 +1,4 @@
+import { APP_BASE_URL } from "@/utils/app";
 import { handleErrorResponse } from "@/utils/error";
 import axios from "axios";
 import { NextRequest, NextResponse } from "next/server";
@@ -6,7 +7,7 @@ import { NextRequest, NextResponse } from "next/server";
 export async function GET(req: NextRequest, res: NextResponse) {
     try {
         const token = req.headers.get('Authorization');
-        const response = await axios.get('https://sialo-backend-2.vercel.app/api/post/random?noOfPosts=10', {
+        const response = await axios.get(`${APP_BASE_URL}/post/random?noOfPosts=10`, {
             headers: {
                 Authorization: token,
             },
@@ -42,7 +43,7 @@ export async function POST(req: NextRequest, res: NextResponse) {
 
         formDataToSend.append('caption', caption);
 
-        const response = await axios.post('https://sialo-backend-2.vercel.app/api/post', formDataToSend, {
+        const response = await axios.post(`${APP_BASE_URL}/post`, formDataToSend, {
             headers: {
                 Authorization: token,
                 'Content-Type': 'multipart/form-data',
