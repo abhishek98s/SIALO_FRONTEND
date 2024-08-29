@@ -27,6 +27,7 @@ export interface IFeed {
     caption: string,
     post_image: string,
     likes: string[],
+    isLiked: boolean,
     comments: IComment[],
     createdAt: 'string',
 }
