@@ -2,9 +2,7 @@
 import { useEffect, useRef, useState } from "react";
 import Image from "next/image";
 
-// Dor Model
 import 'react-responsive-modal/styles.css';
-import { Modal } from 'react-responsive-modal';
 
 import { Splide, SplideSlide } from '@splidejs/react-splide';
 import toast, { Toaster } from 'react-hot-toast';
@@ -19,11 +17,10 @@ import styles from './story_list.module.scss';
 
 import { toast_error_option, toast_sucess_option } from "@/utils/toast";
 
-// for the gallary or pop up image
 import 'photoswipe/dist/photoswipe.css'
 import { Gallery, Item } from 'react-photoswipe-gallery'
-import axios from "axios";
 import { axiosInterceptor } from "@/utils/axois.config";
+import useFetchData from "@/custom_hook/fetchdata.hook";
 
 
 
@@ -34,25 +31,22 @@ export default function StoriesList() {
 
     const dispatch = useAppDispatch();
     const story_list = useAppSelector((state) => state.story.story_list)
+    
+    const { data: story_list_data, error, loading } = useFetchData('/api/story');
 
     useEffect(() => {
         const getStories = async () => {
             try {
-                const axiosInstace = axiosInterceptor();
-                const response = await axiosInstace.get('/api/story');
+                console.log(story_list_data)
 
-                const { status, data } = response.data;
-
-                if (!status) throw new Error();
-
-                dispatch(setStory(data))
+                dispatch(setStory(story_list_data))
 
             } catch (error) {
                 toast.error('Error fetching story', toast_error_option);
             }
         }
         getStories();
-    }, [])
+    }, [story_list_data])
 
     const clearImage = () => {
         setImage('')
