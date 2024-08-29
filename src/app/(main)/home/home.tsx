@@ -18,6 +18,7 @@ import FeedLoader from "@/components/feed_loader";
 import useFetchData from "@/custom_hook/fetchdata.hook";
 import { axiosInterceptor } from "@/utils/axois.config";
 import { APP_BASE_URL } from "@/utils/app";
+import PeopleSuggestion from "@/components/people_suggestion";
 
 
 export default function IndexPage() {
@@ -66,6 +67,7 @@ export default function IndexPage() {
                         </InfiniteScroll>
                     </section>
                 </div>
+                <PeopleSuggestion />
             </HomeLayout>
         </>
     );
