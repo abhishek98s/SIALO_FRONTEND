@@ -1,5 +1,6 @@
 import axios, { AxiosInstance } from 'axios';
 import { clearLocalStorage, getLocalStorageItem, setLocalStorage } from './storage';
+import { APP_BASE_URL } from './app';
 
 export const axiosInterceptor = (): AxiosInstance => {
     const token = getLocalStorageItem('ACCESS_TOKEN');
@@ -24,7 +25,7 @@ export const axiosInterceptor = (): AxiosInstance => {
                 try {
                     const localRefreshToken = getLocalStorageItem('REFRESH_TOKEN');
                     const axiosInstance = axiosInterceptor();
-                    const response = await axiosInstance.post('https://sialo-backend-2.vercel.app/api/auth/refresh', { refreshToken: localRefreshToken });
+                    const response = await axiosInstance.post(`${APP_BASE_URL}/auth/refresh`, { refreshToken: localRefreshToken });
 
                     const { status, data } = response.data;
 

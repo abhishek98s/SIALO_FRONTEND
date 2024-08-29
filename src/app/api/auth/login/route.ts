@@ -1,3 +1,4 @@
+import { APP_BASE_URL } from "@/utils/app";
 import axios from "axios";
 import { NextRequest, NextResponse } from "next/server";
 
@@ -9,7 +10,7 @@ export async function POST(req: NextRequest, res: NextResponse) {
 
         const { email, password } = body;
 
-        const response = await axios.post('https://sialo-backend-2.vercel.app/api/auth/login', { email, password });
+        const response = await axios.post(`${APP_BASE_URL}/auth/login`, { email, password });
 
         const { status, data } = await response.data;
 

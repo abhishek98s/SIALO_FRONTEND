@@ -1,11 +1,12 @@
 import axios from "axios";
 import { NextRequest, NextResponse } from "next/server";
 import { NextApiRequest, NextApiResponse } from 'next';
+import { APP_BASE_URL } from "@/utils/app";
 
 export async function GET(req: NextRequest, res: NextResponse) {
     try {
         const token = req.headers.get('Authorization');
-        const response = await axios.get('https://sialo-backend-2.vercel.app/api/story', {
+        const response = await axios.get(`${APP_BASE_URL}/story`, {
             headers: {
                 Authorization: token,
             },
