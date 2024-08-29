@@ -1,5 +1,6 @@
 // app/api/route.js
 
+import { APP_BASE_URL } from "@/utils/app";
 import axios from "axios";
 import { NextRequest, NextResponse } from "next/server";
 
@@ -10,7 +11,7 @@ export async function POST(req: NextRequest, res: NextResponse) {
         const bodyClone = await req.clone();
         const body = await bodyClone.json();
 
-        const response = await axios.post('https://sialo-backend-2.vercel.app/api/auth/register', body);
+        const response = await axios.post(`${APP_BASE_URL}/auth/register`, body);
 
         if (!response.data) throw new Error();
 
