@@ -11,6 +11,7 @@ import { useDispatch } from "react-redux";
 import { openDropdown, toggleDropdown } from "@/lib/features/dropdown.slice";
 import { IFeed } from "@/types/home.types.";
 import { Gallery, Item } from "react-photoswipe-gallery";
+import { axiosInterceptor } from "@/utils/axois.config";
 
 
 type FeedProps = {
@@ -22,6 +23,7 @@ export const Feed: React.FC<FeedProps> = ({ feed_data, isHome }) => {
 
     const [isLiked, setIsLiked] = useState(false);
     const [comment, setComment] = useState<string | null>(null);
+    const [isLoading, setIsLoading] = useState(false);
 
     const openDropdowns = useAppSelector((state) => state.dropdown.openDropdowns)
     const dispatch = useDispatch();
@@ -39,15 +41,34 @@ export const Feed: React.FC<FeedProps> = ({ feed_data, isHome }) => {
         dispatch(toggleDropdown('menu_box'))
     }
 
-    const submitComment = (e: any) => {
-        e.preventDefault();
+    const submitComment = async (e: any) => {
+        try {
+            e.preventDefault();
+            setIsLoading(true);
 
-        if (!comment) {
-            toast.error('comment is rquired', toast_error_option);
-            return
+            if (!comment) {
+                toast.error('Comment is required', toast_error_option);
+                return
+            }
+
+            const axiosInstance = axiosInterceptor();
+            const response = await axiosInstance.patch(`https://sialo-backend-2.vercel.app/api/post/comment/${feed_data.id}`, { comment })
+
+            console.log(response.data)
+
+            const { status, data, message } = response.data;
+
+            if (!status) throw new Error();
+
+            setComment('');
+            toast.success('Comment Posted', toast_sucess_option);
+        } catch (error) {
+            toast.error('Error posting comment', toast_error_option);
+        } finally {
+            setIsLoading(false);
         }
-        toast.success('Comment Posted', toast_sucess_option);
     }
+
     return (
         <article className={`${style.feed_wrapper} border-neutral-80 px-[8px] pt-[16px] pb-[16px] bg-neutral-90 rounded-8 mb-[20px]`}>
             <header className="mb-[12px]">
@@ -108,6 +129,7 @@ export const Feed: React.FC<FeedProps> = ({ feed_data, isHome }) => {
 
                 <form className="comment-wrapper relative flex-grow" onSubmit={submitComment}>
                     <input type="text" placeholder="Have something to say"
+                        value={comment ?? ''}
                         onChange={handleChange}
                         className="bg-neutral-88 rounded-full border-neutral-86 h-[44px] w-full p-[12px] pl-[16px]" />
                     <button
