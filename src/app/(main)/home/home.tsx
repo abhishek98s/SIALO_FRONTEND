@@ -32,7 +32,6 @@ export default function IndexPage() {
             const axiosInstance = axiosInterceptor();
             const response = await axiosInstance.get(`${APP_BASE_URL}/post/random?noOfPosts=10`)
             const { status, data } = response.data;
-            console.log(data)
 
             dispatch(setFeed(data));
         } catch (error) {
