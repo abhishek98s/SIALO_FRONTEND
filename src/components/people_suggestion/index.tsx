@@ -28,7 +28,7 @@ const PeopleSuggestion = () => {
     }, [])
 
     return (
-        <div className="people-suggestion-wrapper max-w-[250px] w-full fixed top-[80px] right-[12px] border-neutral-80 rounded-8 px-[12px] pt-[20px] pb-[8px]">
+        <div className="people-suggestion-wrapper hidden lg:block max-w-[250px] w-full fixed top-[80px] right-[12px] border-neutral-80 rounded-8 px-[12px] pt-[20px] pb-[8px]">
             <div className="title-wrapper heading-line h-[24px] pb-[12px] mb-[32px] font-bold text-[16px] color-primary-10">People you may know</div>
 
             <ul className="people-list-wrapper mb-[12px] space-y-[12px]">
@@ -37,7 +37,7 @@ const PeopleSuggestion = () => {
                         <Link href={`/profile/${people._id}/feed`} className="focus-visible-primary-45 rounded-4">
                             <div className="flex items-center">
                                 <figure className="rounded-full mr-[12px]">
-                                    <Image src={people.img} alt={`user`} className="object-cover rounded-full border-primary-60" width={30} height={30} />
+                                    <Image src={people.img ? people.img : '/icons/icon-user.svg'} alt={`user`} className="object-cover rounded-full border-primary-60" width={30} height={30} />
                                 </figure>
 
                                 <span className="text-[16px] color-primary-10">{people.name}</span>
