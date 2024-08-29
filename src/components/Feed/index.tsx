@@ -2,7 +2,7 @@ import Image from "next/image";
 import Link from "next/link";
 
 import style from './feed.module.scss';
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Comment } from "../comment";
 import toast from "react-hot-toast";
 import { toast_error_option, toast_sucess_option } from "@/utils/toast";
@@ -28,9 +28,33 @@ export const Feed: React.FC<FeedProps> = ({ feed_data, isHome }) => {
 
     const openDropdowns = useAppSelector((state) => state.dropdown.openDropdowns)
     const dispatch = useDispatch();
+    const axiosInstance = axiosInterceptor();
 
-    function likePost() {
-        setIsLiked(!isLiked);
+
+    useEffect(() => {
+        if (feed_data.isLiked) {
+            setIsLiked(true);
+        }
+    }, [feed_data])
+
+    async function likePost() {
+        try {
+
+            setIsLiked(!isLiked);
+
+            const response = await axiosInstance.patch(`${APP_BASE_URL}/post/like?postId=${feed_data.id}`);
+
+            const { status, liked, totalLike, message } = response.data;
+
+            if (liked) {
+                setIsLiked(true);
+            } else {
+                setIsLiked(false);
+            }
+        } catch (error) {
+            toast.error('Error liking', toast_error_option);
+            setIsLiked(false);
+        }
     }
 
     const handleChange = (e: any) => {
@@ -52,7 +76,6 @@ export const Feed: React.FC<FeedProps> = ({ feed_data, isHome }) => {
                 return
             }
 
-            const axiosInstance = axiosInterceptor();
             const response = await axiosInstance.patch(`${APP_BASE_URL}/post/comment/${feed_data.id}`, { comment })
 
             console.log(response.data)

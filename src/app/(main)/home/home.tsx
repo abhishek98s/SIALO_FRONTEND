@@ -16,6 +16,8 @@ import StoryPreview from "@/components/story_preview";
 import { toast_error_option } from "@/utils/toast";
 import FeedLoader from "@/components/feed_loader";
 import useFetchData from "@/custom_hook/fetchdata.hook";
+import { axiosInterceptor } from "@/utils/axois.config";
+import { APP_BASE_URL } from "@/utils/app";
 
 
 export default function IndexPage() {
@@ -27,7 +29,12 @@ export default function IndexPage() {
 
     const getFeed = useCallback(async () => {
         try {
-            dispatch(setFeed(post_list));
+            const axiosInstance = axiosInterceptor();
+            const response = await axiosInstance.get(`${APP_BASE_URL}/post/random?noOfPosts=10`)
+            const { status, data } = response.data;
+            console.log(data)
+
+            dispatch(setFeed(data));
         } catch (error) {
             toast.error('Error receiving the post', toast_error_option);
         }
@@ -36,7 +43,7 @@ export default function IndexPage() {
     useEffect(() => {
         getFeed();
     }, [post_list, getFeed])
-    
+
 
     return (
         <>
