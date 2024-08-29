@@ -2,7 +2,7 @@ import { useEffect, useState } from "react"
 import { axiosInterceptor } from "@/utils/axois.config";
 
 const useFetchData = (url: string) => {
-    const [data, setData] = useState(null);
+    const [data, setData] = useState([]);
     const [error, setError] = useState<Error | null>(null);
     const [loading, setLoading] = useState(false);
 

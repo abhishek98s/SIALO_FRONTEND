@@ -1,5 +1,5 @@
 "use client";
-import { useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import Image from "next/image";
 
 import 'react-responsive-modal/styles.css';
@@ -31,22 +31,22 @@ export default function StoriesList() {
 
     const dispatch = useAppDispatch();
     const story_list = useAppSelector((state) => state.story.story_list)
-    
+
     const { data: story_list_data, error, loading } = useFetchData('/api/story');
 
-    useEffect(() => {
-        const getStories = async () => {
-            try {
-                console.log(story_list_data)
+    const getStories = useCallback(async () => {
+        try {
+            dispatch(setStory(story_list_data))
 
-                dispatch(setStory(story_list_data))
-
-            } catch (error) {
-                toast.error('Error fetching story', toast_error_option);
-            }
+        } catch (error) {
+            toast.error('Error fetching story', toast_error_option);
         }
+    }, [story_list_data, dispatch]);
+
+    useEffect(() => {
         getStories();
-    }, [story_list_data])
+    }, [story_list_data, getStories])
+
 
     const clearImage = () => {
         setImage('')
@@ -58,7 +58,6 @@ export default function StoriesList() {
         setOpen(false);
         setImage('');
     }
-
 
     return (
         <>
