@@ -72,7 +72,7 @@ export default function StoriesList() {
                     }}
                 />
 
-                <StoryModal open={open} onCloseModal={onCloseModal} storyRef={storyRef} image={image} clearImage={clearImage} setImage={setImage} />
+                <StoryModal getStories={getStories} open={open} onCloseModal={onCloseModal} storyRef={storyRef} image={image} clearImage={clearImage} setImage={setImage} />
 
                 <ul className="stories-list px-[12px] lg:px-[0px]">
                     <Splide
