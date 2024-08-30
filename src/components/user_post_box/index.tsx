@@ -41,6 +41,7 @@ export default function UserPostBox() {
 
     const [isCameraAccessGranted, setIsCameraAccessGranted] = useState<boolean>(false);
 
+    const auth_user_image = useAppSelector((state) => state.auth.user?.image);
 
     useEffect(() => {
         const handleCameraPermission = async () => {
@@ -181,7 +182,7 @@ export default function UserPostBox() {
                 onSubmit={onPostSubmit}
                 className={`${styles.user_post_wrapper} transition-4 order-neutral-86 bg-neutral-90 border-neutral-80 mb-[16px] px-[12px] pt-[20px] pb-[10px] rounded-4`}>
                 <div className="top flex gap-[12px] mb-[16px]">
-                    <Image src="/user.png" alt="user" width={40} height={40} className="rounded-full border-primary-60 max-w-[40px] w-full" />
+                    <Image src={auth_user_image!} alt="user" width={40} height={40} className="rounded-full border-primary-60 max-w-[40px] w-full" />
                     <input type="text" value={caption ?? ''} className="bg-neutral-88 border-neutral-86 px-[16px] py-[8px]" onChange={handleChange} name="input_caption" placeholder="Mind writing something?" />
                 </div>
 
