@@ -42,7 +42,7 @@ export function PeopleList() {
     
     return (
         <>
-            <h3 className="text-[20px] font-bold mb-[20px] color-primary-60">People you may know</h3>
+            <h3 className="text-[20px] font-bold mb-[12px] color-primary-60">People you may know</h3>
 
             <div className="people-list">
                 <Splide
