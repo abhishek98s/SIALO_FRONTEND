@@ -1,16 +1,58 @@
 import { APP_BASE_URL } from "@/utils/app";
 import { axiosInterceptor } from "@/utils/axois.config";
+import { toast_error_option, toast_sucess_option } from "@/utils/toast";
 import Image from "next/image";
 import Link from "next/link";
 import React, { useEffect, useState } from "react";
+import toast from "react-hot-toast";
 
 interface IRequestedPeople {
     id: string,
     name: string,
     image: string
+    fetchRequest?: () => void;
 }
 
-const ReuestedPeople: React.FC<IRequestedPeople> = ({ id, name, image }) => {
+const ReuestedPeople: React.FC<IRequestedPeople> = ({ id, name, image, fetchRequest }) => {
+    const axiosInstance = axiosInterceptor();
+    const [isLoading, setLoading] = useState(false);
+
+    const onAccept = async () => {
+        try {
+            setLoading(true)
+            const response = await axiosInstance.patch(`${APP_BASE_URL}/user/friend/accept/${id}`)
+
+            const { status, data, message } = response.data;
+
+            if (!status) throw new Error();
+
+            toast.success('Request Accepted', toast_sucess_option);
+        } catch (error) {
+            toast.error('Failed to accpet the request', toast_error_option);
+        } finally {
+            fetchRequest!();
+            setLoading(false)
+        }
+    }
+
+    const onReject = async () => {
+        try {
+            setLoading(true)
+            const response = await axiosInstance.patch(`${APP_BASE_URL}/user/friend/reject/${id}`)
+
+            const { status, data, message } = response.data;
+
+            if (!status) throw new Error();
+
+            toast.success('Request Rejected', toast_sucess_option);
+        } catch (error) {
+            toast.error('Failed to reject the request', toast_error_option);
+        } finally {
+            fetchRequest!();
+            setLoading(false)
+        }
+    }
+
     return (
         <>
             <li className="flex items-center border-neutral-80 rounded-8 p-[8px]">
@@ -24,11 +66,11 @@ const ReuestedPeople: React.FC<IRequestedPeople> = ({ id, name, image }) => {
                     </div>
                 </Link>
 
-                <button className="ms-auto m-w-[150px] px-[8px] py-[6px] text-[14px] primary-btn focus-visible-primary-45 rounded-8">
-                    Accept
+                <button onClick={onAccept} className="ms-auto m-w-[150px] px-[8px] py-[6px] text-[14px] primary-btn focus-visible-primary-45 rounded-8">
+                    {isLoading ? 'Accepting...' : 'Accept'}
                 </button>
-                <button className="ms-[4px] m-w-[150px] px-[8px] py-[6px] text-[14px] error-btn focus-visible-primary-45 rounded-8">
-                    Reject
+                <button onClick={onReject} className="ms-[4px] m-w-[150px] px-[8px] py-[6px] text-[14px] error-btn focus-visible-primary-45 rounded-8">
+                    {isLoading ? 'Rejecting...' : 'Reject'}
                 </button>
             </li>
         </>
@@ -39,13 +81,18 @@ const FriendRequestList = () => {
     const [friendRequestList, setFriendRequestList] = useState([]);
 
     const fetchFriendRequests = async () => {
-        const axiosInstance = axiosInterceptor();
-        const resposne = await axiosInstance.get(`${APP_BASE_URL}/user/friendRequests`)
+        try {
 
-        const { status, data } = resposne.data;
-        console.log(data)
+            const axiosInstance = axiosInterceptor();
+            const response = await axiosInstance.get(`${APP_BASE_URL}/user/friendRequests`)
 
-        setFriendRequestList(data);
+            const { status, data } = response.data;
+            console.log(data)
+
+            setFriendRequestList(data);
+        } catch (error) {
+            toast.error('Error fetching reques', toast_error_option);
+        }
     }
 
     useEffect(() => {
@@ -60,7 +107,7 @@ const FriendRequestList = () => {
 
                     <ul className="space-y-[8px]">
                         {friendRequestList.map((people: IRequestedPeople, index) => (
-                            <ReuestedPeople key={index} id={people.id} name={people.name} image={people.image} />
+                            <ReuestedPeople fetchRequest={fetchFriendRequests} key={index} id={people.id} name={people.name} image={people.image} />
                         ))}
                     </ul>
                 </section>

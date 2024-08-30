@@ -22,6 +22,7 @@ export const axiosInterceptor = (): AxiosInstance => {
         async (error) => {
             if (401 === error?.response?.status) {
                 error.config._retry = true;
+                console.log("errrrr")
                 try {
                     const localRefreshToken = getLocalStorageItem('REFRESH_TOKEN');
                     const axiosInstance = axiosInterceptor();
@@ -33,7 +34,7 @@ export const axiosInterceptor = (): AxiosInstance => {
 
                     const { accessToken, refreshToken } = data;
 
-                    setLocalStorage('JWT_TOKEN', accessToken);
+                    setLocalStorage('ACCESS_TOKEN', accessToken);
                     setLocalStorage('REFRESH_TOKEN', refreshToken);
 
                     error.config.headers['X-XSRF-TOKEN'] = accessToken;

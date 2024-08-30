@@ -19,9 +19,10 @@ type StoryModalProps = {
     onCloseModal: () => void;
     clearImage: () => void,
     setImage: any,
+    getStories: () => void,
 }
 
-export const StoryModal: React.FC<StoryModalProps> = ({ open, onCloseModal, storyRef, image, clearImage, setImage }) => {
+export const StoryModal: React.FC<StoryModalProps> = ({ open, onCloseModal, storyRef, image, clearImage, setImage, getStories }) => {
 
     const [file, setFile] = useState<File | null>(null);
     const [caption, setCaption] = useState<string>('');
@@ -67,6 +68,7 @@ export const StoryModal: React.FC<StoryModalProps> = ({ open, onCloseModal, stor
 
             if (!status) throw Error('Error posting the story');
             setIsLoading(false);
+            getStories!()
             toast.success('Story Posted', toast_sucess_option);
             onCloseModal();
             setImage('');

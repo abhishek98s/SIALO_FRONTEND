@@ -11,9 +11,10 @@ interface IPeople {
     _id: string,
     name: string,
     img: string,
+    fetchPeoplList?: () => void,
 }
 
-const People: React.FC<IPeople> = ({ _id, name, img }) => {
+const People: React.FC<IPeople> = ({ _id, name, img, fetchPeoplList }) => {
     const axiosInstance = axiosInterceptor();
 
     const sendFriendReques = async () => {
@@ -25,6 +26,7 @@ const People: React.FC<IPeople> = ({ _id, name, img }) => {
             if (!status) throw new Error();
 
             toast.success(message, toast_sucess_option);
+            fetchPeoplList!()
         } catch (error) {
             toast.error("Failed to send the request", toast_error_option);
         }
@@ -56,7 +58,7 @@ const PeopleSuggestion = () => {
     const [peopleList, setPeopleList] = useState<IPeople[]>([]);
     const axiosInstance = axiosInterceptor();
 
-    const getchPoeplList = async () => {
+    const fetchPeoplList = async () => {
         const response = await axiosInstance.get(`${APP_BASE_URL}/user/recommendation`);
 
         const { status, data } = response.data;
@@ -65,19 +67,19 @@ const PeopleSuggestion = () => {
     }
 
     useEffect(() => {
-        getchPoeplList();
+        fetchPeoplList();
         console.log(peopleList)
     }, [])
 
     return (
         <>
-            {peopleList.length &&
+            {
                 <div className="people-suggestion-wrapper hidden lg:block max-w-[250px] w-full fixed top-[80px] right-[12px] border-neutral-80 rounded-8 px-[12px] pt-[20px] pb-[8px]">
                     <div className="title-wrapper heading-line h-[24px] pb-[12px] mb-[32px] font-bold text-[16px] color-primary-10">People you may know</div>
 
                     <ul className="people-list-wrapper mb-[12px] space-y-[12px]">
                         {peopleList.map((people: IPeople, index) => (
-                            <People key={index} _id={people._id} name={people.name} img={people.img} />
+                            <People fetchPeoplList={fetchPeoplList} key={index} _id={people._id} name={people.name} img={people.img} />
                         ))}
 
                     </ul>
