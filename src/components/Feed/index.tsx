@@ -18,15 +18,17 @@ import { APP_BASE_URL } from "@/utils/app";
 type FeedProps = {
     feed_data: IFeed;
     isHome?: boolean;
+    getFeed?: () => void;
 }
 
-export const Feed: React.FC<FeedProps> = ({ feed_data, isHome }) => {
+export const Feed: React.FC<FeedProps> = ({ feed_data, isHome, getFeed }) => {
 
     const [isLiked, setIsLiked] = useState(false);
     const [comment, setComment] = useState<string | null>(null);
     const [isLoading, setIsLoading] = useState(false);
 
-    const openDropdowns = useAppSelector((state) => state.dropdown.openDropdowns)
+    const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+    // const openDropdowns = useAppSelector((state) => state.dropdown.openDropdowns)
     const dispatch = useDispatch();
     const axiosInstance = axiosInterceptor();
 
@@ -63,7 +65,31 @@ export const Feed: React.FC<FeedProps> = ({ feed_data, isHome }) => {
     }
 
     const toggleMenu = () => {
-        dispatch(toggleDropdown('menu_box'))
+        setIsDropdownOpen(!isDropdownOpen);
+    }
+
+    const onDeletePost = async () => {
+        try {
+            setIsLoading(true);
+
+            const response = await axiosInstance.delete(`${APP_BASE_URL}/post/${feed_data.id}`);
+
+            const { status, data, message } = response.data;
+
+            if (!status) throw new Error('Error deleting the post');
+
+            const successMessage = message ? message : 'Post deleted';
+
+            getFeed!();
+            toggleMenu();
+
+            toast.success(successMessage, toast_sucess_option);
+        } catch (error) {
+            const err = error as Error;
+            toast.error(err.message, toast_error_option);
+        } finally {
+            setIsLoading(false);
+        }
     }
 
     const submitComment = async (e: any) => {
@@ -78,13 +104,13 @@ export const Feed: React.FC<FeedProps> = ({ feed_data, isHome }) => {
 
             const response = await axiosInstance.patch(`${APP_BASE_URL}/post/comment/${feed_data.id}`, { comment })
 
-            console.log(response.data)
-
             const { status, data, message } = response.data;
 
             if (!status) throw new Error();
 
             setComment('');
+            toggleMenu();
+            getFeed!();
             toast.success('Comment Posted', toast_sucess_option);
         } catch (error) {
             toast.error('Error posting comment', toast_error_option);
@@ -116,10 +142,10 @@ export const Feed: React.FC<FeedProps> = ({ feed_data, isHome }) => {
                                     <rect x="12.5" y="0.5" width="3" height="3" rx="1.5" fill="#666666" />
                                 </svg>
                             </button>
-                            {openDropdowns.includes('menu_box') &&
+                            {isDropdownOpen &&
                                 <div className={`${style.menu_box_wrapper} absolute top-full right-0 bg-neutral-86 border-neutral-80 px-[4px] py-[8px] rounded-8`}>
                                     <ul className="w-[108px]">
-                                        <li><button className="w-full text-left text-[14px] p-[6px] rounded-4 color-primary-10 focus-visible-primary-45">Delete</button></li>
+                                        <li><button onClick={onDeletePost} className="w-full text-left text-[14px] p-[6px] rounded-4 color-primary-10 focus-visible-primary-45">{isLoading ? 'Deleting...' : 'Delete'}</button></li>
                                     </ul>
                                 </div>}
                         </div>

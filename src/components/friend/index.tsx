@@ -1,10 +1,11 @@
-import { IFriend } from "@/types/profile";
 import Image from "next/image";
 import Link from "next/link";
+import { useParams } from "next/navigation";
 import React from "react";
 
 type Friend_Props = {
     friend: {
+        id: string | number,
         name: string,
         image: string,
     }
@@ -12,8 +13,10 @@ type Friend_Props = {
 
 
 export const Friend: React.FC<Friend_Props> = ({ friend }) => {
+    const { user_id } = useParams();
+
     return (
-        <Link href={`/profile/${2}/feed`} className="rounded-4 block focus-visible-primary-45">
+        <Link href={`/profile/${friend.id}/feed`} className="rounded-4 block focus-visible-primary-45">
             <div className="min-w-[150px] p-[12px] lg:px-[4px] lg:pt-[24px] lg:pb-[16px] bg-neutral-90 border-neutral-86 rounded-4 flex lg:flex-col items-center gap-[12px]">
                 <figure className="relative rounded-full w-[40px] h-[40px] border-primary-45 object-cover">
                     <Image className="rounded-full" src={friend.image} fill={true} alt="friend" />

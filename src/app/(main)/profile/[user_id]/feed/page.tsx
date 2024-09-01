@@ -10,17 +10,18 @@ import { profile_feed_arr } from "@/seed_data/profile_feed.seed";
 import { axiosInterceptor } from "@/utils/axois.config";
 import { APP_BASE_URL } from "@/utils/app";
 import { useParams } from "next/navigation";
+import FeedLoader from "@/components/feed_loader";
 
 export default function ProfilePage() {
 
     const [userFeed, setUserFeed] = useState([]);
     const dispatch = useAppDispatch();
-    const axiosInstacce = axiosInterceptor();
+    const axiosInstance = axiosInterceptor();
 
     const { user_id } = useParams();
 
     const getFeed = async () => {
-        const response = await axiosInstacce.get(`${APP_BASE_URL}/post/${user_id}`);
+        const response = await axiosInstance.get(`${APP_BASE_URL}/post/${user_id}`);
 
         const { status, data } = response.data;
 
@@ -34,8 +35,9 @@ export default function ProfilePage() {
     return (
         <>
             <div role="feed_information" className="w-full space-y-[12px]">
+                {userFeed.length === 0 && <FeedLoader />}
                 {userFeed.map((feed, index) => (
-                    <Feed isHome={true} feed_data={feed} key={index} />
+                    <Feed getFeed={getFeed} isHome={true} feed_data={feed} key={index} />
                 ))}
             </div>
             <ImageListPreview />
