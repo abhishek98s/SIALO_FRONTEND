@@ -4,6 +4,7 @@ import { axiosInterceptor } from "@/utils/axois.config";
 import Image from "next/image";
 import Link from "next/link";
 import { useEffect, useState } from "react";
+import toast from "react-hot-toast";
 
 export default function ImageListPreview() {
     const [randomPhoto, setRandomPhoto] = useState<IFeed[]>([]);
@@ -11,10 +12,16 @@ export default function ImageListPreview() {
     const axiosInstance = axiosInterceptor();
 
     const getPhoto = async () => {
-        const response = await axiosInstance.get(`${APP_BASE_URL}/post/random?=noOfPosts=4`);
-        const { status, data } = response.data;
+        try {
+            const response = await axiosInstance.get(`${APP_BASE_URL}/post/random?=noOfPosts=4`);
+            const { status, data } = response.data;
 
-        setRandomPhoto(data);
+            if (!status) throw new Error();
+
+            setRandomPhoto(data);
+        } catch (error) {
+            toast.error('Erro fetching the image');
+        }
     }
 
     useEffect(() => {
