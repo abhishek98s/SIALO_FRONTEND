@@ -1,6 +1,7 @@
 'use client';
 
 import { UserPhoto } from "@/components/user_photo";
+import UserPhotoLoader from "@/components/user_photo_loader";
 import { setUserPhotos } from "@/lib/features/photos.slice";
 import { useAppDispatch, useAppSelector } from "@/lib/hooks";
 import { user_photo_arr } from "@/seed_data/photo.seed";
@@ -61,6 +62,7 @@ export default function PhotoPage() {
                             )}
                         </Item>
                     ))}
+                    {user_photo_list.length === 0 && <UserPhotoLoader />}
                 </Gallery>
             </section >
         </>
