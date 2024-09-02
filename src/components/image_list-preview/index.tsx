@@ -3,13 +3,17 @@ import { APP_BASE_URL } from "@/utils/app";
 import { axiosInterceptor } from "@/utils/axois.config";
 import Image from "next/image";
 import Link from "next/link";
+import { useParams } from "next/navigation";
 import { useEffect, useState } from "react";
 import toast from "react-hot-toast";
+import FeedImageLoader from "../image_list_loader";
 
 export default function ImageListPreview() {
     const [randomPhoto, setRandomPhoto] = useState<IFeed[]>([]);
 
     const axiosInstance = axiosInterceptor();
+
+    const { user_id } = useParams();
 
     const getPhoto = async () => {
         try {
@@ -38,9 +42,11 @@ export default function ImageListPreview() {
                         <Image className="w-full h-auto object-cover rounded-4 border-neutral-80" src={item.post_image} priority fill={true} alt="user" />
                     </figure>
                 ))}
+
+                {randomPhoto.length === 0 && <FeedImageLoader />}
             </div>
 
-            <Link href={`/profile/2/photos`} className="text-center txt-focus block text-[14px] mx-auto color-primary-60">view more</Link>
+            <Link href={`/profile/${user_id}/photos`} className="text-center txt-focus block text-[14px] mx-auto color-primary-60">view more</Link>
         </div>
     )
 }

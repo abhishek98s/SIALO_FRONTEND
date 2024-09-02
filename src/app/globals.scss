@@ -211,6 +211,7 @@ input {
 .loading-bg {
   background: $neutral-86;
   position: relative;
+  overflow: hidden;
 
   &::after {
     content: '';
