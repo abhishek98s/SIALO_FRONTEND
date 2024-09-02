@@ -1,7 +1,13 @@
 import { Splide, SplideSlide } from "@splidejs/react-splide";
 import { PeopleSearch } from "../people_search";
+import { useCallback, useEffect, useState } from "react";
+import { axiosInterceptor } from "@/utils/axois.config";
+import useFetchData from "@/custom_hook/fetchdata.hook";
+import { APP_BASE_URL } from "@/utils/app";
+import PeopleListLoader from "../people_list_loader";
 
 export function PeopleList() {
+    const axiosInstance = axiosInterceptor();
     const people_list = [
         {
             id: "1",
@@ -39,7 +45,9 @@ export function PeopleList() {
             imgUrl: "/user-5.png",
         },
     ];
-    
+    const { data, error, loading } = useFetchData(`${APP_BASE_URL}/user/recommendation`)
+
+
     return (
         <>
             <h3 className="text-[20px] font-bold mb-[12px] color-primary-60">People you may know</h3>
@@ -57,11 +65,12 @@ export function PeopleList() {
                         autoWidth: true,
                     }}
                 >
-                    {people_list.map((people, index) => (
+                    {data.map((people, index) => (
                         <SplideSlide key={index}>
                             <PeopleSearch people={people} />
                         </SplideSlide>
                     ))}
+                    {data.length == 0 && < PeopleListLoader />}
                 </Splide>
             </div>
         </>
