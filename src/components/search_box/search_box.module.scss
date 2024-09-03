@@ -1,0 +1,9 @@
+@import '../../styles/variables.scss';
+
+.user_wrapper {
+    border-bottom: 1px solid $neutral-80;
+
+    &:hover{
+        background: $neutral-86;
+    }
+}
