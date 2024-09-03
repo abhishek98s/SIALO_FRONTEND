@@ -37,7 +37,7 @@
 }
 
 *:focus-visible {
-  outline-color: 1px solid $primary-45;
+  outline: 1px solid $primary-45;
 }
 
 @media (prefers-color-scheme: dark) {
