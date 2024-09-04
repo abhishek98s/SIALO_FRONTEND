@@ -24,7 +24,6 @@ import PeopleSuggestion from "@/components/people_suggestion";
 export default function IndexPage() {
     const feed_list: IFeed[] = useAppSelector((state) => state.feed.feed_list);
     const isStoryModalOpen = useAppSelector((state) => state.story.isOpen);
-    const { data: post_list, error, loading } = useFetchData('/api/post');
     const dispatch = useAppDispatch();
 
 
@@ -38,11 +37,11 @@ export default function IndexPage() {
         } catch (error) {
             toast.error('Error receiving the post', toast_error_option);
         }
-    }, [post_list, dispatch]);
+    }, [dispatch]);
 
     useEffect(() => {
         getFeed();
-    }, [post_list, getFeed])
+    }, [getFeed])
 
 
     return (

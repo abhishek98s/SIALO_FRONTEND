@@ -2,7 +2,6 @@
 import { useCallback, useEffect, useRef, useState } from "react";
 import Image from "next/image";
 
-import 'react-responsive-modal/styles.css';
 
 import { Splide, SplideSlide } from '@splidejs/react-splide';
 import toast, { Toaster } from 'react-hot-toast';

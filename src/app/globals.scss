@@ -168,6 +168,14 @@ input {
   }
 }
 
+.scale_on_hover {
+  transition: .2s;
+
+  &:hover {
+    scale: 1.1;
+  }
+}
+
 .splide {
   padding: 0;
 

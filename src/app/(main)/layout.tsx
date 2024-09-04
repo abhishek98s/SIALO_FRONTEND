@@ -4,6 +4,8 @@ import Navbar from "@/components/navbar";
 import Sidebar from "@/components/sidebar";
 import { AuthComponent } from "@/components/auth_component";
 
+import 'react-responsive-modal/styles.css';
+
 export default function MainLayout({
   children,
 }: {

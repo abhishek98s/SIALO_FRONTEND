@@ -1,0 +1,14 @@
+@import '../../styles/variables.scss';
+
+.image_choose_wrapper {
+    border: 2px dashed $primary-70;
+    border-radius: 4px;
+
+    input {
+        &:focus-visible {
+            outline-offset: 4px;
+            outline: 1px solid $neutral-70;
+            border-radius: 4px;
+        }
+    }
+}

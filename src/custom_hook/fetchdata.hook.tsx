@@ -1,8 +1,9 @@
 import { useCallback, useEffect, useState } from "react"
 import { axiosInterceptor } from "@/utils/axois.config";
+import { object } from "zod";
 
-const useFetchData = (url: string, dependencies: string) => {
-    const [data, setData] = useState([]);
+const useFetchData = (url: string, dependencies?: any) => {
+    const [data, setData] = useState<any>([]);
     const [error, setError] = useState<Error | null>(null);
     const [loading, setLoading] = useState(false);
 
@@ -29,7 +30,11 @@ const useFetchData = (url: string, dependencies: string) => {
         fetchData();
     }, [dependencies, fetchData]);
 
-    return { data, error, loading };
+    const refetch = useCallback(() => {
+        fetchData(); // Call the fetchData function again
+    }, [fetchData]);
+
+    return { data, error, loading, refetch };
 }
 
 export default useFetchData;
