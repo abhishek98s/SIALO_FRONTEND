@@ -38,3 +38,10 @@ export interface IUserSuggest {
     user_image: string
 }
 
+export interface IProfileUser {
+    _id: string,
+    name: string,
+    img: string,
+    coverImg: string
+    isFriend: boolean,
+}

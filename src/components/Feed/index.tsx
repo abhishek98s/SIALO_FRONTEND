@@ -2,7 +2,7 @@ import Image from "next/image";
 import Link from "next/link";
 
 import style from './feed.module.scss';
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { Comment } from "../comment";
 import toast from "react-hot-toast";
 import { toast_error_option, toast_sucess_option } from "@/utils/toast";
@@ -13,6 +13,7 @@ import { IFeed } from "@/types/home.types.";
 import { Gallery, Item } from "react-photoswipe-gallery";
 import { axiosInterceptor } from "@/utils/axois.config";
 import { APP_BASE_URL } from "@/utils/app";
+import Modal from "react-responsive-modal";
 
 
 type FeedProps = {
@@ -119,6 +120,39 @@ export const Feed: React.FC<FeedProps> = ({ feed_data, isHome, getFeed }) => {
         }
     }
 
+
+
+    const captionRef = useRef(null);
+    const [open, setOpen] = useState(false);
+
+    const onOpenmodal = () => setOpen(true);
+
+    const onCloseModal = () => {
+        setOpen(false);
+        toggleMenu();
+    }
+
+    const [caption, setCaption] = useState();
+
+    const onInputChange = (e: any) => {
+        const value = e.target.value;
+        setCaption(value);
+    }
+
+    const onSubmitCaption = (e: any) => {
+        try {
+            e.preventDefault();
+
+            if (!caption) {
+                toast.error('Caption required', toast_error_option);
+            }
+
+            toast.success("Caption updated", toast_sucess_option);
+        } catch (error) {
+            toast.error("Error updating caption", toast_sucess_option);
+        }
+    }
+
     return (
         <article className={`${style.feed_wrapper} border-neutral-80 px-[8px] pt-[16px] pb-[16px] bg-neutral-90 rounded-8 mb-[20px]`}>
             <header className="mb-[12px]">
@@ -143,15 +177,37 @@ export const Feed: React.FC<FeedProps> = ({ feed_data, isHome, getFeed }) => {
                                 </svg>
                             </button>
                             {isDropdownOpen &&
-                                <div className={`${style.menu_box_wrapper} absolute top-full right-0 bg-neutral-86 border-neutral-80 px-[4px] py-[8px] rounded-8`}>
+                                <div className={`${style.menu_box_wrapper} absolute z-10 top-full right-0 bg-neutral-86 border-neutral-80 px-[4px] py-[8px] rounded-8`}>
                                     <ul className="w-[108px]">
                                         <li><button onClick={onDeletePost} className="w-full text-left text-[14px] p-[6px] rounded-4 color-primary-10 focus-visible-primary-45">{isLoading ? 'Deleting...' : 'Delete'}</button></li>
+                                        <li><button onClick={onOpenmodal} className="w-full text-left text-[14px] p-[6px] rounded-4 color-primary-10 focus-visible-primary-45">Edit</button></li>
                                     </ul>
                                 </div>}
                         </div>
                     }
 
                 </div>
+                <Modal open={open}
+                    onClose={onCloseModal}
+                    center
+                    container={captionRef.current}
+                    classNames={{
+                        modal: 'customModal',
+                    }}
+                >
+                    <form onSubmit={onSubmitCaption}>
+                        <h2 className="heading-line text-[16px] font-bold color-primary-10 mb-[36px]">{'Update Caption'}</h2>
+                        <input type="text"
+
+                            onChange={onInputChange}
+                            value={caption ?? ''}
+                            className="w-full h-[40px] mb-4 rounded-8 border-neutral-80 bg-neutral-86" />
+                        <div className="action-wrapper text-[14px]">
+                            <button type="submit" className="primary-btn rounded-4 bg-primary-60 color-primary-80 font-bold px-[20px] py-[6px] mr-[12px]" disabled={isLoading} onClick={onSubmitCaption}>{isLoading ? '...' : 'save'}</button>
+                            <button type="button" className="secondary-btn rounded-4 color-neutral-60 font-bold px-[20px] py-[6px]" onClick={onCloseModal}>Cancel</button>
+                        </div>
+                    </form>
+                </Modal>
             </header>
             <p className="text-[14px] mb-[12px]">{feed_data.caption}</p>
 
