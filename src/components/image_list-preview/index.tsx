@@ -17,7 +17,7 @@ export default function ImageListPreview() {
 
     const getPhoto = async () => {
         try {
-            const response = await axiosInstance.get(`${APP_BASE_URL}/post/random?=noOfPosts=4`);
+            const response = await axiosInstance.get(`${APP_BASE_URL}/post/random/${user_id}?=noOfPosts=4`);
             const { status, data } = response.data;
 
             if (!status) throw new Error();
