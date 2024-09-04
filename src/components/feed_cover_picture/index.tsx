@@ -54,7 +54,7 @@ const FeedCoverPicture: React.FC<{ isAuthUser: boolean, user: IProfileUser, refe
 
             const { status, data } = response.data;
 
-            if (!status) throw Error('Error posting the story');
+            if (!status) throw Error('Error posting the cover picture');
             setIsLoading(false);
             toast.success('Cover Picture Updated', toast_sucess_option);
             onCloseModal();
