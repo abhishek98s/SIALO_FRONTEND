@@ -18,11 +18,7 @@ const useFetchData = (url: string, dependencies?: any) => {
 
             if (!status) throw new Error();
 
-            if (data.length) {
-                setData((prevData: any) => [...prevData, ...data]);
-            } else {
-                setData(data);
-            }
+            setData(data);
 
         } catch (error) {
             setError(error as Error);

@@ -85,7 +85,7 @@ const UserProfileheader: React.FC<IUser> = ({ user, onFriendRequestSent, refetch
                 >
                     {({ ref, open }) => (
                         <div className="relative">
-                            <Image ref={ref} onClick={open} src={user?.img ? user?.img : '/icons/icon-user.svg'} width={60} height={60} alt={`user`} className="rounded-full border-primary-60" />
+                            <Image ref={ref} onClick={open} src={user?.img ? user?.img : '/icons/icon-user.svg'} width={60} height={60} alt={`user`} className="h-[60px] object-cover rounded-full border-primary-60" />
                             <button onClick={onOpenmodal} className="scale_on_hover absolute right-0 bottom-0 flex-center rounded-full focus-visible-primary-45 p-[12px] bg-neutral-90 translate-x-[10px] translate-y-[10px]">
                                 <Image src='/icons/icon-edit.svg' className="" alt="icon-edit" width={16} height={16} />
                             </button>

@@ -13,16 +13,19 @@ import FeedLoader from "@/components/feed_loader";
 import useFetchData from "@/custom_hook/fetchdata.hook";
 import { APP_BASE_URL } from "@/utils/app";
 import PeopleSuggestion from "@/components/people_suggestion";
+import { useEffect, useState } from 'react';
 
 
 export default function IndexPage() {
     const isStoryModalOpen = useAppSelector((state) => state.story.isOpen);
 
-    const { data: feed_list, error, loading, refetch } = useFetchData(`${APP_BASE_URL}/post/random?noOfPosts=3`);
+    const [feedList, setFeedList] = useState<IFeed[]>([]);
 
-    const getFeed = () => {
-        refetch();
-    };
+    const { data, error, loading, refetch } = useFetchData(`${APP_BASE_URL}/post/random?noOfPosts=3`);
+
+    useEffect(() => {
+        setFeedList((prev) => [...prev, ...data]);
+    }, [data])
 
 
     return (
@@ -35,13 +38,13 @@ export default function IndexPage() {
 
                     <section className="feed-list space-y-[16px]">
                         <InfiniteScroll
-                            dataLength={feed_list.length}
-                            next={getFeed}
+                            dataLength={feedList.length}
+                            next={refetch}
                             hasMore={true}
                             loader={<FeedLoader />}
                             scrollThreshold={'80%'}
                         >
-                            {feed_list.map((feed: IFeed, index: number) => (
+                            {feedList.map((feed: IFeed, index: number) => (
                                 <Feed feed_data={feed} key={index} />
                             ))}
                         </InfiniteScroll>
