@@ -7,27 +7,25 @@ import toast from "react-hot-toast";
 import { toast_error_option, toast_sucess_option } from "@/utils/toast";
 import { axiosInterceptor } from "@/utils/axois.config";
 import { APP_BASE_URL } from "@/utils/app";
+import { IProfileUser } from "@/types/home.types.";
 
 interface IUser {
     isAuthUser: boolean,
-    user: {
-        _id: string,
-        img: string,
-        name: string,
-        isFriend: boolean
-    },
-    onFriendRequestSent: () => void,
-    refetchUserData: () => void
+    user: IProfileUser,
+    refetchUserData: () => void,
+    user_id: string | string[]
 
 }
 
-const UserProfileheader: React.FC<IUser> = ({ user, onFriendRequestSent, refetchUserData, isAuthUser }) => {
+const UserProfileheader: React.FC<IUser> = ({ user, refetchUserData, user_id, isAuthUser }) => {
     const [file, setFile] = useState<File | null>(null);
 
     const [open, setOpen] = useState(false);
     const [isLoading, setIsLoading] = useState(false);
     const [image, setImage] = useState<string>('');
     const storyRef = useRef(null);
+    const axiosInstance = axiosInterceptor();
+
     const clearImage = () => {
         setImage('')
     }
@@ -73,6 +71,36 @@ const UserProfileheader: React.FC<IUser> = ({ user, onFriendRequestSent, refetch
         }
     }
 
+    const onFriendRequestSent = async () => {
+        try {
+            const response = await axiosInstance.patch(`${APP_BASE_URL}/user/friend/add/${user_id}`);
+
+            const { status, data, message } = response.data;
+
+            if (!status) throw new Error();
+
+            toast.success(message, toast_sucess_option);
+            refetchUserData();
+        } catch (error) {
+            toast.error('Error sending the friend request', toast_error_option);
+        }
+    }
+
+    const onDeleteFriend = async () => {
+        try {
+            const response = await axiosInstance.patch(`${APP_BASE_URL}/user/friend/reject/${user_id}`);
+
+            const { status, data, message } = response.data;
+
+            if (!status) throw new Error();
+
+            toast.success(message, toast_sucess_option);
+            refetchUserData();
+        } catch (error) {
+            toast.error('Error sending the friend request', toast_error_option);
+        }
+    }
+
     return (
         <div className="flex items-center gap-[20px]" role="header">
             <PictureModal isLoading={isLoading} setFile={setFile} title="Update profile picture" submitPhoto={onImageSubmit} refresh={refetchUserData} open={open} onCloseModal={onCloseModal} storyRef={storyRef} image={image} clearImage={clearImage} setImage={setImage} />
@@ -97,7 +125,9 @@ const UserProfileheader: React.FC<IUser> = ({ user, onFriendRequestSent, refetch
 
             <h2 className="text-[24px] font-bold color-primary-60">{user?.name}</h2>
 
-            {user.isFriend === false && <button onClick={onFriendRequestSent} className="primary-btn ml-auto max-w-[92px] w-full h-[32px] text-[14px] font-bold">Add Friend</button>}
+            {user.isFriend === false && user.isFriendRequestPending === false && <button onClick={onFriendRequestSent} className="primary-btn ml-auto max-w-[92px] w-full h-[32px] text-[14px] font-bold">Add Friend</button>}
+            {user.isFriend === true && user.isFriendRequestPending === false && <button onClick={onDeleteFriend} className="secondary-btn ml-auto max-w-[92px] w-full h-[32px] text-[14px] font-bold">Unfriend</button>}
+            {user.isFriend === false && user.isFriendRequestPending === true && <button onClick={onDeleteFriend} className="secondary-btn ml-auto max-w-[92px] w-full h-[32px] text-[14px] font-bold">Unsent</button>}
         </div>
     )
 };
