@@ -76,6 +76,10 @@ export default function StoryPreview() {
             setindex(index - 1);
         }
     }
+    
+    const toggleMoreMenu = () => {
+        setIsMenuOpen(!isMenuOpen);
+    }
 
     const onDeleteClick = async () => {
         try {
@@ -93,16 +97,13 @@ export default function StoryPreview() {
 
             toast.success('Story Deleted', toast_sucess_option);
             dispatch(closeStoryModal())
+            toggleMoreMenu()
             setIsLoading(false);
         } catch (error) {
             setIsLoading(false);
             toast.error('Error deleting story', toast_error_option);
         }
 
-    }
-
-    const toggleMoreMenu = () => {
-        setIsMenuOpen(!isMenuOpen);
     }
 
     return (
