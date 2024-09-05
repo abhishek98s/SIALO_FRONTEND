@@ -117,7 +117,7 @@ export default function StoryPreview() {
                 <div className="absolute top-0 left-0 right-0 z-20 flex justify-between header p-[12px]">
                     <div className="flex items-center gap-[8px]">
                         <figure className="rounded-full overflow-hidden border-primary-60">
-                            <Image loading='lazy' src={user.userImage} alt="user-2" width={40} height={40} />
+                            <Image loading='lazy' className="h-[40px]" src={user.userImage} alt="user-2" width={40} height={40} />
                         </figure>
 
                         <div className="">
