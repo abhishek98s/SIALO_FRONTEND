@@ -27,6 +27,8 @@ export const Feed: React.FC<FeedProps> = ({ feed_data, isHome, getFeed }) => {
     const [isLiked, setIsLiked] = useState(false);
     const [comment, setComment] = useState<string | null>(null);
     const [isLoading, setIsLoading] = useState(false);
+    const [caption, setCaption] = useState('');
+
 
     const [isDropdownOpen, setIsDropdownOpen] = useState(false);
     // const openDropdowns = useAppSelector((state) => state.dropdown.openDropdowns)
@@ -125,29 +127,38 @@ export const Feed: React.FC<FeedProps> = ({ feed_data, isHome, getFeed }) => {
     const captionRef = useRef(null);
     const [open, setOpen] = useState(false);
 
-    const onOpenmodal = () => setOpen(true);
+    const onOpenmodal = () => {
+        setOpen(true);
+        setCaption(feed_data.caption);
+    }
 
     const onCloseModal = () => {
         setOpen(false);
         toggleMenu();
     }
 
-    const [caption, setCaption] = useState();
 
     const onInputChange = (e: any) => {
         const value = e.target.value;
         setCaption(value);
     }
 
-    const onSubmitCaption = (e: any) => {
+    const onSubmitCaption = async (e: any) => {
         try {
             e.preventDefault();
 
             if (!caption) {
                 toast.error('Caption required', toast_error_option);
             }
+            const response = await axiosInstance.patch(`${APP_BASE_URL}/post/${feed_data.id}`, { caption: caption });
+            const { status, data, message } = response.data;
 
-            toast.success("Caption updated", toast_sucess_option);
+            if (!status) throw new Error('Error updating the post');
+            
+            onCloseModal();
+            getFeed!();
+
+            toast.success('Caption updated', toast_sucess_option);
         } catch (error) {
             toast.error("Error updating caption", toast_sucess_option);
         }
