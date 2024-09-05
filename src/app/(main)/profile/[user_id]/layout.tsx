@@ -44,28 +44,11 @@ export default function RootLayout({
 
     const { data, error, loading, refetch } = useFetchData(`${APP_BASE_URL}/user/${user_id}`, user_id);
 
-    const user: IProfileUser = {
-        _id: (data as IProfileUser)._id,
-        img: (data as IProfileUser).img,
-        name: (data as IProfileUser).name,
-        isFriend: (data as IProfileUser).isFriend,
-        coverImg: (data as IProfileUser).coverImg,
-    };
+    console.log(data)
 
-    const onFriendRequestSent = async () => {
-        try {
-            const response = await axiosInstance.patch(`${APP_BASE_URL}/user/friend/add/${user_id}`);
+    const user: IProfileUser = { ...data };
 
-            const { status, data, message } = response.data;
 
-            if (!status) throw new Error();
-
-            toast.success(message, toast_sucess_option);
-            refetch();
-        } catch (error) {
-            toast.error('Error sending the friend request', toast_error_option);
-        }
-    }
 
 
     return (
@@ -86,7 +69,7 @@ export default function RootLayout({
 
                     <div className="relative px-[0px] lg:px-[32px] -mt-[50px]">
                         <div className={`${styles.profile_header} mb-[10px] lg:mb-[20px] bg-neutral-90 border-neutral-86 rounded-[8px] px-[16px] pt-[20px]`}>
-                            <UserProfileheader isAuthUser={isAuthUser} refetchUserData={refetch} onFriendRequestSent={onFriendRequestSent} user={user} />
+                            <UserProfileheader user_id={user_id} isAuthUser={isAuthUser} refetchUserData={refetch} user={user} />
 
                             <div className="bg-neutral-86 h-[1px] w-full my-[20px]"></div>
 

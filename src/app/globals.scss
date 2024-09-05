@@ -123,13 +123,14 @@ input {
 }
 
 .secondary-btn {
-  background-color: transparent;
+  background-color: $neutral-88;
+  border-radius: 4px;
   transition: .4s;
-  color: $neutral-40;
+  color: $neutral-30;
   font-weight: 600;
 
   &:hover {
-    background-color: $neutral-86;
+    background-color: $neutral-80;
   }
 
   &:focus-visible {
