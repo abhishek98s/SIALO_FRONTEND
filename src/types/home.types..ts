@@ -44,4 +44,5 @@ export interface IProfileUser {
     img: string,
     coverImg: string
     isFriend: boolean,
+    isFriendRequestPending: boolean,
 }

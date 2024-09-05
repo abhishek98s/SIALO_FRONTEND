@@ -21,13 +21,12 @@ type PictureModalProps = {
     setImage: any,
     refresh: any,
     submitPhoto: any,
-    title: string
+    title: string,
+    isLoading: boolean,
+    setFile: React.Dispatch<React.SetStateAction<File | null>>
 }
 
-export const PictureModal: React.FC<PictureModalProps> = ({ open, onCloseModal, storyRef, image, clearImage, setImage, refresh, submitPhoto, title }) => {
-
-    const [file, setFile] = useState<File | null>(null);
-    const [isLoading, setIsLoading] = useState(false);
+export const PictureModal: React.FC<PictureModalProps> = ({ open, onCloseModal, storyRef, image, clearImage, setImage, refresh, setFile, submitPhoto, isLoading, title }) => {
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const value = e.target as HTMLInputElement;
