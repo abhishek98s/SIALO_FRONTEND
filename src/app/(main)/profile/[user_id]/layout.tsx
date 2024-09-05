@@ -17,6 +17,7 @@ import useFetchData from "@/custom_hook/fetchdata.hook";
 import FeedCoverPicture from "@/components/feed_cover_picture";
 import UserProfileheader from "@/components/user_profile_header";
 import { IProfileUser } from "@/types/home.types.";
+import { useAppSelector } from "@/lib/hooks";
 
 
 
@@ -30,8 +31,16 @@ export default function RootLayout({
     const pathname = usePathname();
     const length = pathname.split('/').length;
     const currentPath = pathname.split('/')[length - 1];
+    const authUserId = useAppSelector((state) => state.auth.user?.id);
 
     const { user_id } = useParams();
+    const [isAuthUser, setIsAuthUser] = useState(false);
+
+    useEffect(() => {
+        let isloggedInUser = (authUserId === user_id) ? true : false;
+
+        setIsAuthUser(isloggedInUser);
+    }, [authUserId, user_id])
 
     const { data, error, loading, refetch } = useFetchData(`${APP_BASE_URL}/user/${user_id}`, user_id);
 
@@ -73,11 +82,11 @@ export default function RootLayout({
                 />
                 <section className="search-page max-w-[910px] w-full mx-auto">
 
-                    <FeedCoverPicture user={user} refetchUserData={refetch} />
+                    <FeedCoverPicture isAuthUser={isAuthUser} user={user} refetchUserData={refetch} />
 
                     <div className="relative px-[0px] lg:px-[32px] -mt-[50px]">
                         <div className={`${styles.profile_header} mb-[10px] lg:mb-[20px] bg-neutral-90 border-neutral-86 rounded-[8px] px-[16px] pt-[20px]`}>
-                            <UserProfileheader refetchUserData={refetch} onFriendRequestSent={onFriendRequestSent} user={user} />
+                            <UserProfileheader isAuthUser={isAuthUser} refetchUserData={refetch} onFriendRequestSent={onFriendRequestSent} user={user} />
 
                             <div className="bg-neutral-86 h-[1px] w-full my-[20px]"></div>
 

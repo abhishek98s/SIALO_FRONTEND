@@ -14,7 +14,7 @@ import { IProfileUser } from "@/types/home.types.";
 
 
 
-const FeedCoverPicture: React.FC<{ user: IProfileUser, refetchUserData: () => void }> = ({ refetchUserData, user }) => {
+const FeedCoverPicture: React.FC<{ isAuthUser: boolean, user: IProfileUser, refetchUserData: () => void }> = ({ refetchUserData, user, isAuthUser }) => {
     const [file, setFile] = useState<File | null>(null);
 
     const [open, setOpen] = useState(false);
@@ -41,7 +41,7 @@ const FeedCoverPicture: React.FC<{ user: IProfileUser, refetchUserData: () => vo
 
             if (!file) {
                 setIsLoading(false);
-                toast.error('image and caption is required', toast_error_option);
+                toast.error('image is required', toast_error_option);
                 return;
             }
 
@@ -50,11 +50,11 @@ const FeedCoverPicture: React.FC<{ user: IProfileUser, refetchUserData: () => vo
 
 
             const axiosInstace = axiosInterceptor();
-            const response = await axiosInstace.post(`${APP_BASE_URL}/user/coverPicture`, form_data)
+            const response = await axiosInstace.patch(`${APP_BASE_URL}/user/coverPicture`, form_data)
 
             const { status, data } = response.data;
 
-            if (!status) throw Error('Error posting the story');
+            if (!status) throw Error('Error posting the cover picture');
             setIsLoading(false);
             toast.success('Cover Picture Updated', toast_sucess_option);
             onCloseModal();
@@ -72,12 +72,12 @@ const FeedCoverPicture: React.FC<{ user: IProfileUser, refetchUserData: () => vo
         <>
             <div className="relative">
                 <Image src={user.coverImg ? user.coverImg : `/banner.png`} width={900} height={250} alt={`banner`} className="w-full h-[200px] rounded-b-[12px] border-neutral-80 object-cover object-center" />
-                <button onClick={onOpenmodal} className="scale_on_hover absolute right-0 top-0 flex-center rounded-full focus-visible-primary-45 p-[12px] bg-neutral-90 -translate-x-[10px] translate-y-[10px]">
+                {isAuthUser && <button onClick={onOpenmodal} className="scale_on_hover absolute right-0 top-0 flex-center rounded-full focus-visible-primary-45 p-[12px] bg-neutral-90 -translate-x-[10px] translate-y-[10px]">
                     <Image src='/icons/icon-edit.svg' className="" alt="icon-edit" width={16} height={16} />
-                </button>
+                </button>}
             </div>
 
-            <PictureModal title='Update cover photo' submitPhoto={onImageSubmit} refresh={refetchUserData} open={open} onCloseModal={onCloseModal} storyRef={storyRef} image={image} clearImage={clearImage} setImage={setImage} />
+            <PictureModal setFile={setFile} title='Update cover photo' isLoading={isLoading} submitPhoto={onImageSubmit} refresh={refetchUserData} open={open} onCloseModal={onCloseModal} storyRef={storyRef} image={image} clearImage={clearImage} setImage={setImage} />
         </>
     )
 };

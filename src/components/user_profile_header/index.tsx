@@ -9,6 +9,7 @@ import { axiosInterceptor } from "@/utils/axois.config";
 import { APP_BASE_URL } from "@/utils/app";
 
 interface IUser {
+    isAuthUser: boolean,
     user: {
         _id: string,
         img: string,
@@ -20,7 +21,7 @@ interface IUser {
 
 }
 
-const UserProfileheader: React.FC<IUser> = ({ user, onFriendRequestSent, refetchUserData }) => {
+const UserProfileheader: React.FC<IUser> = ({ user, onFriendRequestSent, refetchUserData, isAuthUser }) => {
     const [file, setFile] = useState<File | null>(null);
 
     const [open, setOpen] = useState(false);
@@ -50,15 +51,15 @@ const UserProfileheader: React.FC<IUser> = ({ user, onFriendRequestSent, refetch
             }
 
             const form_data = new FormData();
-            form_data.append('sialo_cover_image', file!);
+            form_data.append('sialo_profile_image', file!);
 
 
             const axiosInstace = axiosInterceptor();
-            const response = await axiosInstace.post(`${APP_BASE_URL}/user/profilePicture`, form_data)
+            const response = await axiosInstace.patch(`${APP_BASE_URL}/user/profilePicture`, form_data)
 
             const { status, data } = response.data;
 
-            if (!status) throw Error('Error posting the story');
+            if (!status) throw Error('Error posting the profile picture');
             setIsLoading(false);
             toast.success('Profile Picture Updated', toast_sucess_option);
             onCloseModal();
@@ -74,7 +75,7 @@ const UserProfileheader: React.FC<IUser> = ({ user, onFriendRequestSent, refetch
 
     return (
         <div className="flex items-center gap-[20px]" role="header">
-            <PictureModal title="Update profile picture" submitPhoto={onImageSubmit} refresh={refetchUserData} open={open} onCloseModal={onCloseModal} storyRef={storyRef} image={image} clearImage={clearImage} setImage={setImage} />
+            <PictureModal isLoading={isLoading} setFile={setFile} title="Update profile picture" submitPhoto={onImageSubmit} refresh={refetchUserData} open={open} onCloseModal={onCloseModal} storyRef={storyRef} image={image} clearImage={clearImage} setImage={setImage} />
 
             <Gallery>
                 <Item
@@ -85,10 +86,10 @@ const UserProfileheader: React.FC<IUser> = ({ user, onFriendRequestSent, refetch
                 >
                     {({ ref, open }) => (
                         <div className="relative">
-                            <Image ref={ref} onClick={open} src={user?.img ? user?.img : '/icons/icon-user.svg'} width={60} height={60} alt={`user`} className="rounded-full border-primary-60" />
-                            <button onClick={onOpenmodal} className="scale_on_hover absolute right-0 bottom-0 flex-center rounded-full focus-visible-primary-45 p-[12px] bg-neutral-90 translate-x-[10px] translate-y-[10px]">
+                            <Image ref={ref} onClick={open} src={user?.img ? user?.img : '/icons/icon-user.svg'} width={60} height={60} alt={`user`} className="rounded-full h-[60px] object-cover border-primary-45" />
+                            {isAuthUser && <button onClick={onOpenmodal} className="scale_on_hover absolute right-0 bottom-0 flex-center rounded-full focus-visible-primary-45 p-[12px] bg-neutral-90 translate-x-[10px] translate-y-[10px]">
                                 <Image src='/icons/icon-edit.svg' className="" alt="icon-edit" width={16} height={16} />
-                            </button>
+                            </button>}
                         </div>
                     )}
                 </Item>
