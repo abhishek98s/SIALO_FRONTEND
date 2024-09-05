@@ -19,6 +19,7 @@ const useFetchData = (url: string, dependencies?: any) => {
             if (!status) throw new Error();
 
             setData(data);
+
         } catch (error) {
             setError(error as Error);
         } finally {
@@ -31,7 +32,7 @@ const useFetchData = (url: string, dependencies?: any) => {
     }, [dependencies, fetchData]);
 
     const refetch = useCallback(() => {
-        fetchData(); // Call the fetchData function again
+        fetchData();
     }, [fetchData]);
 
     return { data, error, loading, refetch };

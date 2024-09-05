@@ -8,7 +8,7 @@ export interface IFriend {
 export interface IUserPhoto {
     id: number,
     user_name: string,
-    image_url: string,
+    post_image: string,
 }
 
 export interface IFeedProfileUser {

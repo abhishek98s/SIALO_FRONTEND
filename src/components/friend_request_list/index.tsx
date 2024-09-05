@@ -1,3 +1,4 @@
+import useFetchData from "@/custom_hook/fetchdata.hook";
 import { APP_BASE_URL } from "@/utils/app";
 import { axiosInterceptor } from "@/utils/axois.config";
 import { toast_error_option, toast_sucess_option } from "@/utils/toast";
@@ -78,26 +79,7 @@ const ReuestedPeople: React.FC<IRequestedPeople> = ({ id, name, image, fetchRequ
 }
 
 const FriendRequestList = () => {
-    const [friendRequestList, setFriendRequestList] = useState([]);
-
-    const fetchFriendRequests = async () => {
-        try {
-
-            const axiosInstance = axiosInterceptor();
-            const response = await axiosInstance.get(`${APP_BASE_URL}/user/friendRequests`)
-
-            const { status, data } = response.data;
-            console.log(data)
-
-            setFriendRequestList(data);
-        } catch (error) {
-            toast.error('Error fetching reques', toast_error_option);
-        }
-    }
-
-    useEffect(() => {
-        fetchFriendRequests();
-    }, [])
+    const { data: friendRequestList, error, loading, refetch } = useFetchData(`${APP_BASE_URL}/user/friendRequests`);
 
     return (
         <>
@@ -106,8 +88,8 @@ const FriendRequestList = () => {
                     <h3 className="text-[20px] font-bold mb-[12px] color-primary-60">Friend Requests</h3>
 
                     <ul className="space-y-[8px]">
-                        {friendRequestList.map((people: IRequestedPeople, index) => (
-                            <ReuestedPeople fetchRequest={fetchFriendRequests} key={index} id={people.id} name={people.name} image={people.image} />
+                        {friendRequestList.map((people: IRequestedPeople, index: number) => (
+                            <ReuestedPeople fetchRequest={refetch} key={index} id={people.id} name={people.name} image={people.image} />
                         ))}
                     </ul>
                 </section>

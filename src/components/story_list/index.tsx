@@ -1,13 +1,10 @@
 "use client";
-import { useCallback, useEffect, useRef, useState } from "react";
+import { useRef, useState } from "react";
 import Image from "next/image";
 
 
 import { Splide, SplideSlide } from '@splidejs/react-splide';
-import toast, { Toaster } from 'react-hot-toast';
-
-import { useAppDispatch, useAppSelector } from "@/lib/hooks";
-import { setStory } from "@/lib/features/story.slice";
+import { Toaster } from 'react-hot-toast';
 
 import Story from "@/components/story";
 import { StoryModal } from "@/components/story_model";
@@ -18,8 +15,9 @@ import { toast_error_option, toast_sucess_option } from "@/utils/toast";
 
 import 'photoswipe/dist/photoswipe.css'
 import { Gallery, Item } from 'react-photoswipe-gallery'
-import { axiosInterceptor } from "@/utils/axois.config";
 import useFetchData from "@/custom_hook/fetchdata.hook";
+import { IStoryObject } from "@/types/home.types.";
+import { APP_BASE_URL } from "@/utils/app";
 
 
 
@@ -28,24 +26,7 @@ export default function StoriesList() {
     const [image, setImage] = useState<string>('');
     const storyRef = useRef(null);
 
-    const dispatch = useAppDispatch();
-    const story_list = useAppSelector((state) => state.story.story_list)
-
-    const { data: story_list_data, error, loading } = useFetchData('/api/story');
-
-    const getStories = useCallback(async () => {
-        try {
-            dispatch(setStory(story_list_data))
-
-        } catch (error) {
-            toast.error('Error fetching story', toast_error_option);
-        }
-    }, [story_list_data, dispatch]);
-
-    useEffect(() => {
-        getStories();
-    }, [story_list_data, getStories])
-
+    const { data: story_list_data, error, loading, refetch } = useFetchData(`${APP_BASE_URL}/story`);
 
     const clearImage = () => {
         setImage('')
@@ -71,7 +52,7 @@ export default function StoriesList() {
                     }}
                 />
 
-                <StoryModal getStories={getStories} open={open} onCloseModal={onCloseModal} storyRef={storyRef} image={image} clearImage={clearImage} setImage={setImage} />
+                <StoryModal getStories={refetch} open={open} onCloseModal={onCloseModal} storyRef={storyRef} image={image} clearImage={clearImage} setImage={setImage} />
 
                 <ul className="stories-list px-[12px] lg:px-[0px]">
                     <Splide
@@ -95,7 +76,7 @@ export default function StoriesList() {
                             </button>
                         </SplideSlide>
                         <Gallery>
-                            {story_list.map((story, index) => {
+                            {story_list_data.map((story: IStoryObject, index: number) => {
                                 return (
                                     <SplideSlide key={index}>
                                         <Item
@@ -113,7 +94,7 @@ export default function StoriesList() {
                         </Gallery>
                     </Splide>
                 </ul>
-            </section >
+            </section>
         </>
     );
 }

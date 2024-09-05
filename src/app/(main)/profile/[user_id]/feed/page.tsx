@@ -13,7 +13,6 @@ export default function ProfilePage() {
 
     const { data: userFeedList, error, loading, refetch } = useFetchData(`${APP_BASE_URL}/post/${user_id}`, user_id);
 
-
     return (
         <>
             <div role="feed_information" className="w-full space-y-[12px]">

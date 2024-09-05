@@ -7,6 +7,7 @@ import React, { useEffect, useState } from "react";
 import toast from "react-hot-toast";
 import { Props } from "react-infinite-scroll-component";
 import PeopleSuggestionLoader from "../people_suggestion_loader";
+import useFetchData from "@/custom_hook/fetchdata.hook";
 
 interface IPeople {
     _id: string,
@@ -56,20 +57,9 @@ const People: React.FC<IPeople> = ({ _id, name, img, fetchPeoplList }) => {
 
 
 const PeopleSuggestion = () => {
-    const [peopleList, setPeopleList] = useState<IPeople[]>([]);
-    const axiosInstance = axiosInterceptor();
 
-    const fetchPeoplList = async () => {
-        const response = await axiosInstance.get(`${APP_BASE_URL}/user/recommendation`);
+    const { data: peopleList, error, loading, refetch } = useFetchData(`${APP_BASE_URL}/user/recommendation`);
 
-        const { status, data } = response.data;
-
-        setPeopleList(data);
-    }
-
-    useEffect(() => {
-        fetchPeoplList();
-    }, [])
 
     return (
         <>
@@ -78,14 +68,11 @@ const PeopleSuggestion = () => {
                     <div className="title-wrapper heading-line h-[24px] pb-[12px] mb-[32px] font-bold text-[16px] color-primary-10">People you may know</div>
 
                     <ul className="people-list-wrapper mb-[12px] space-y-[12px]">
-                        {peopleList.map((people: IPeople, index) => (
-                            <People fetchPeoplList={fetchPeoplList} key={index} _id={people._id} name={people.name} img={people.img} />
+                        {peopleList.map((people: IPeople, index: number) => (
+                            <People fetchPeoplList={refetch} key={index} _id={people._id} name={people.name} img={people.img} />
                         ))}
 
-                        {peopleList.length === 0 &&
-                            <PeopleSuggestionLoader />
-                        }
-
+                        {loading && <PeopleSuggestionLoader />}
                     </ul>
 
                     <Link href="/search" className="block txt-focus color-primary-60 text-[14px] text-center">View more</Link>
