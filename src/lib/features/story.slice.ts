@@ -7,10 +7,14 @@ interface IUserProfile {
     userImage: string,
 }
 interface IStoriesArr {
+    user_id: string,
+    user_name: string,
+    user_image: string,
+    date: string,
+
     caption: string,
     story_image: string,
     story_id: string,
-    date?: string,
 }
 
 
@@ -29,11 +33,8 @@ export const storySlice = createSlice({
     name: 'story',
     initialState,
     reducers: {
-        setStory: (state, action) => {
+        setStoryList: (state, action) => {
             state.story_list = [...action.payload]
-        },
-        addStory: (state, action) => {
-            state.story_list.push(action.payload);
         },
         openStoryModal: (state) => {
             state.isOpen = true;
@@ -43,32 +44,27 @@ export const storySlice = createSlice({
             state.nextUserId = null;
             state.currentIndex = 0;
         },
-
-        populateUserProfile: (state, action: { payload: IUserProfile }) => {
-            state.userProfile = action.payload;
-        },
-
         populateStories: (state, action: { payload: IStoriesArr[] }) => {
             state.stories = action.payload;
         },
 
-        setCurrentIndex: (state) => {
-            state.story_list.findIndex((story) => story.user_id === state.nextUserId)
+        setCurrentIndex: (state, action: { payload: string }) => {
+            state.currentIndex = state.story_list.findIndex((story) => story.user_id === action.payload);
         },
         setNextUserId: (state, action: { payload: string }) => {
-            const currentIndex = state.story_list.findIndex((story) => story.user_id === action.payload);
-            if (currentIndex < state.story_list.length - 1) {
-                const index = state.story_list[currentIndex + 1].user_id;
-                state.nextUserId = index;
+
+            console.log(action.payload)
+
+            if (state.currentIndex < state.story_list.length - 1) {
+                state.nextUserId = state.story_list[state.currentIndex + 1].user_id;
+                state.currentIndex++;
+                console.log('slice ok', state.nextUserId)
             } else {
                 state.nextUserId = null;
             }
         },
-        clearCurrentIndex: (state) => {
-            state.currentIndex = 0;
-        },
     },
 })
 
-export const { setStory, addStory, openStoryModal, closeStoryModal, populateUserProfile, populateStories, setCurrentIndex, setNextUserId, clearCurrentIndex } = storySlice.actions
+export const { setStoryList, setCurrentIndex, openStoryModal, closeStoryModal, populateStories, setNextUserId } = storySlice.actions
 export default storySlice.reducer;
