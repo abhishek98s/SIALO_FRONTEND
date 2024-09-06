@@ -44,12 +44,7 @@ export default function RootLayout({
 
     const { data, error, loading, refetch } = useFetchData(`${APP_BASE_URL}/user/${user_id}`, user_id);
 
-    console.log(data)
-
     const user: IProfileUser = { ...data };
-
-
-
 
     return (
         <>

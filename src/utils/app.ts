@@ -1,4 +1,4 @@
-const isProd = !true;
+const isProd = true;
 
 const env = {
     prod: 'https://sialo-backend-2.vercel.app/api',

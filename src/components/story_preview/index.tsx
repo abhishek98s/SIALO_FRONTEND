@@ -2,7 +2,7 @@ import Image from "next/image";
 
 import styles from './story_preview.module.scss';
 import { useAppDispatch, useAppSelector } from "@/lib/hooks";
-import { closeStoryModal, populateStories, setNextUserId } from "@/lib/features/story.slice";
+import { closeStoryModal, populateStories, setNextUserId, setPreviousUserId } from "@/lib/features/story.slice";
 import { useCallback, useEffect, useRef, useState } from "react";
 import toast from "react-hot-toast";
 import { toast_error_option, toast_sucess_option } from "@/utils/toast";
@@ -21,6 +21,7 @@ export default function StoryPreview() {
 
     const userStories = useAppSelector((state) => state.story.stories);
     const nextUserId = useAppSelector((state) => state.story.nextUserId);
+    const previousUserId = useAppSelector((state) => state.story.previousUserId);
 
     const story = userStories[index];
 
@@ -57,17 +58,12 @@ export default function StoryPreview() {
 
         if (index < userStories.length - 1) {
             setindex(index + 1);
-            console.log('HasNext')
-
         } else if (!nextUserId) {
             setindex(0);
             closeModalCallback();
-            console.log('null')
-
         } else {
             try {
                 dispatch(setNextUserId(story.user_id))
-                console.log('has next user')
 
                 const axiosInstace = axiosInterceptor();
                 const response = await axiosInstace.get(`${APP_BASE_URL}/story/${nextUserId}`);
@@ -84,12 +80,33 @@ export default function StoryPreview() {
         }
     }
 
-    
-    const onPrevClick = () => {
+    const onPreviousClick = async (e: any) => {
+        e.stopPropagation();
+
         if (index > 0) {
             setindex(index - 1);
+        } else if (!previousUserId) {
+            setindex(0);
+            closeModalCallback();
+        } else {
+            try {                
+                const axiosInstace = axiosInterceptor();
+                const response = await axiosInstace.get(`${APP_BASE_URL}/story/${previousUserId}`);
+                
+                const { status, data } = response.data;
+                
+                if (!status) throw new Error();
+                
+                dispatch(setPreviousUserId(story.user_id))
+                dispatch(populateStories(data))
+                setindex(data.length - 1);
+
+            } catch (error) {
+                closeModalCallback();
+            }
         }
     }
+
 
     const toggleMoreMenu = () => {
         setIsMenuOpen(!isMenuOpen);
@@ -122,7 +139,7 @@ export default function StoryPreview() {
 
     return (
         <div className="overlay fixed overflow-hidden z-[9999] flex items-center justify-center top-0 bottom-0 left-0 right-0 bg-black/60">
-            <button ref={prevRef} onClick={onPrevClick} className="opacity-0 lg:opacity-100 -translate-y-1/2 absolute z-10 top-1/2 bottom-0 left-0 max-w-[80px] w-full flex-center h-[80%]">
+            <button ref={prevRef} onClick={onPreviousClick} className="opacity-0 lg:opacity-100 -translate-y-1/2 absolute z-10 top-1/2 bottom-0 left-0 max-w-[80px] w-full flex-center h-[80%]">
                 <figure>
                     <Image loading='lazy' className="h-full object-contain" src="/icons/icon-left.svg" alt="icon-left" width={48} height={48} />
                 </figure>

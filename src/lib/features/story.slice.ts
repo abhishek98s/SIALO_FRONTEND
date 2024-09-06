@@ -26,6 +26,7 @@ const initialState = {
     stories: <IStoriesArr[]>[],
     currentIndex: <number>0, // or a separate state variable for current story index
     nextUserId: <string | null>null, // for fetching next user stories
+    previousUserId: <string | null>null,
 
 };
 
@@ -52,19 +53,26 @@ export const storySlice = createSlice({
             state.currentIndex = state.story_list.findIndex((story) => story.user_id === action.payload);
         },
         setNextUserId: (state, action: { payload: string }) => {
-
-            console.log(action.payload)
-
             if (state.currentIndex < state.story_list.length - 1) {
                 state.nextUserId = state.story_list[state.currentIndex + 1].user_id;
-                state.currentIndex++;
+                
+                state.currentIndex = state.story_list.findIndex((story) => story.user_id === action.payload);
                 console.log('slice ok', state.nextUserId)
             } else {
                 state.nextUserId = null;
             }
         },
+        setPreviousUserId: (state, action: { payload: string }) => {
+            if (state.currentIndex > 0) {
+                state.previousUserId = state.story_list[state.currentIndex - 1].user_id;
+                state.currentIndex = state.story_list.findIndex((story) => story.user_id === action.payload);
+
+            } else {
+                state.previousUserId = null;
+            }
+        },
     },
 })
 
-export const { setStoryList, setCurrentIndex, openStoryModal, closeStoryModal, populateStories, setNextUserId } = storySlice.actions
+export const { setStoryList, setCurrentIndex, openStoryModal, closeStoryModal, populateStories, setNextUserId, setPreviousUserId } = storySlice.actions
 export default storySlice.reducer;
