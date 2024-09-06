@@ -1,5 +1,5 @@
 "use client";
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import Image from "next/image";
 
 
@@ -18,6 +18,8 @@ import { Gallery, Item } from 'react-photoswipe-gallery'
 import useFetchData from "@/custom_hook/fetchdata.hook";
 import { IStoryObject } from "@/types/home.types.";
 import { APP_BASE_URL } from "@/utils/app";
+import { populateStories, setStoryList } from "@/lib/features/story.slice";
+import { useAppDispatch } from "@/lib/hooks";
 
 
 
@@ -25,12 +27,18 @@ export default function StoriesList() {
     const [open, setOpen] = useState(false);
     const [image, setImage] = useState<string>('');
     const storyRef = useRef(null);
+    const dispatch = useAppDispatch();
 
     const { data: story_list_data, error, loading, refetch } = useFetchData(`${APP_BASE_URL}/story`);
 
     const clearImage = () => {
         setImage('')
     }
+
+    useEffect(() => {
+        dispatch(setStoryList(story_list_data))
+
+    }, [story_list_data, dispatch])
 
     const onOpenmodal = () => setOpen(true);
 

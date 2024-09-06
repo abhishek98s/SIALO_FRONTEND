@@ -2,16 +2,15 @@ import Image from "next/image";
 
 import styles from './story_preview.module.scss';
 import { useAppDispatch, useAppSelector } from "@/lib/hooks";
-import { clearCurrentIndex, closeStoryModal, populateStories, populateUserProfile, setNextUserId } from "@/lib/features/story.slice";
+import { closeStoryModal, populateStories, setNextUserId } from "@/lib/features/story.slice";
 import { useCallback, useEffect, useRef, useState } from "react";
 import toast from "react-hot-toast";
 import { toast_error_option, toast_sucess_option } from "@/utils/toast";
 import { axiosInterceptor } from "@/utils/axois.config";
+import { APP_BASE_URL } from "@/utils/app";
 
 export default function StoryPreview() {
     const dispatch = useAppDispatch();
-    const user = useAppSelector((state) => state.story.userProfile);
-    const story_list = useAppSelector((state) => state.story.story_list);
     const isOpen = useAppSelector((state) => state.story.isOpen);
 
     const userObjectId = useAppSelector((state) => state.auth.user?.id);
@@ -20,11 +19,10 @@ export default function StoryPreview() {
     const [isMenuOpen, setIsMenuOpen] = useState(false);
     const [isLoading, setIsLoading] = useState(false);
 
-    const userStoriesArr = useAppSelector((state) => state.story.stories);
+    const userStories = useAppSelector((state) => state.story.stories);
     const nextUserId = useAppSelector((state) => state.story.nextUserId);
-    const currentIndex = useAppSelector((state) => state.story.nextUserId);
 
-    const story = userStoriesArr[index];
+    const story = userStories[index];
 
     const StoryModalRef = useRef<HTMLElement>(null);
     const prevRef = useRef<HTMLButtonElement>(null);
@@ -53,28 +51,48 @@ export default function StoryPreview() {
         };
     }, [StoryModalRef, closeModalCallback, isOpen]);
 
-    const onNextClick = (e: any) => {
+    const onNextClick = async (e: any) => {
         e.stopPropagation();
-        dispatch(setNextUserId(user.userId))
 
-        if (index < userStoriesArr.length - 1) {
+
+        if (index < userStories.length - 1) {
             setindex(index + 1);
+            console.log('HasNext')
+
         } else if (!nextUserId) {
-            dispatch(closeStoryModal())
+            setindex(0);
+            closeModalCallback();
+            console.log('null')
+
         } else {
-            const newUserStory = story_list[1];
-            dispatch(populateUserProfile({
-                userId: newUserStory.user_id,
-                userName: newUserStory.user_name,
-                userImage: newUserStory.user_image,
-            }))
-            dispatch(populateStories(newUserStory.stories));
+            try {
+                dispatch(setNextUserId(story.user_id))
+                console.log('has next user')
+
+                const axiosInstace = axiosInterceptor();
+                const response = await axiosInstace.get(`${APP_BASE_URL}/story/${nextUserId}`);
+
+                const { status, data } = response.data;
+
+                if (!status) throw new Error();
+
+                dispatch(populateStories(data))
+                setindex(0);
+            } catch (error) {
+                closeModalCallback();
+            }
         }
     }
+
+    
     const onPrevClick = () => {
         if (index > 0) {
             setindex(index - 1);
         }
+    }
+
+    const toggleMoreMenu = () => {
+        setIsMenuOpen(!isMenuOpen);
     }
 
     const onDeleteClick = async () => {
@@ -93,16 +111,13 @@ export default function StoryPreview() {
 
             toast.success('Story Deleted', toast_sucess_option);
             dispatch(closeStoryModal())
+            toggleMoreMenu()
             setIsLoading(false);
         } catch (error) {
             setIsLoading(false);
             toast.error('Error deleting story', toast_error_option);
         }
 
-    }
-
-    const toggleMoreMenu = () => {
-        setIsMenuOpen(!isMenuOpen);
     }
 
     return (
@@ -117,17 +132,17 @@ export default function StoryPreview() {
                 <div className="absolute top-0 left-0 right-0 z-20 flex justify-between header p-[12px]">
                     <div className="flex items-center gap-[8px]">
                         <figure className="rounded-full overflow-hidden border-primary-60">
-                            <Image loading='lazy' className="h-[40px]" src={user.userImage} alt="user-2" width={40} height={40} />
+                            <Image loading='lazy' className="h-[40px]" src={story.user_image} alt="user-2" width={40} height={40} />
                         </figure>
 
                         <div className="">
-                            <div className="name text-[16px] font-bold">{user.userName}</div>
-                            <div className="date text-[12px]">May 10, 2024</div>
+                            <div className="name text-[16px] font-bold">{story.user_name}</div>
+                            <div className="date text-[12px]">{story.date}</div>
                         </div>
                     </div>
 
                     <div className="flex">
-                        {userObjectId === user.userId &&
+                        {userObjectId === story.user_id &&
                             <div className="relative">
                                 <button onClick={toggleMoreMenu} className={`${styles.icon_button} w-[40px] h-[40px] rounded-full overflow-hidden flex-center`}>
                                     <Image loading='lazy' src="/icons/icon-more-menu.svg" alt="" width={24} height={24} />

@@ -43,7 +43,7 @@ export default function Sidebar() {
                             </svg>
                         </div>
 
-                        <h6 className="text-center text-[14px] color-primary-10 leading-none">Search</h6>
+                        <h6 className="text-center text-[14px] leading-none">Search</h6>
                     </li>
                 </Link>
 
@@ -56,7 +56,7 @@ export default function Sidebar() {
                             </svg>
                         </div>
 
-                        <h6 className="text-center text-[14px] color-primary-10 leading-none">Settings</h6>
+                        <h6 className="text-center text-[14px] leading-none">Settings</h6>
                     </li>
                 </Link>
 
@@ -68,7 +68,7 @@ export default function Sidebar() {
                             </svg>
                         </div>
 
-                        <h6 className="text-center text-[14px] color-primary-10 leading-none">Log out</h6>
+                        <h6 className="text-center text-[14px] leading-none">Log out</h6>
                     </li>
                 </button>
             </ul>
