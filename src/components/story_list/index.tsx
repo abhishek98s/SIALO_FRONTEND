@@ -18,7 +18,7 @@ import { Gallery, Item } from 'react-photoswipe-gallery'
 import useFetchData from "@/custom_hook/fetchdata.hook";
 import { IStoryObject } from "@/types/home.types.";
 import { APP_BASE_URL } from "@/utils/app";
-import { populateStories, setStoryList } from "@/lib/features/story.slice";
+import { setStoryList } from "@/lib/features/story.slice";
 import { useAppDispatch } from "@/lib/hooks";
 
 
