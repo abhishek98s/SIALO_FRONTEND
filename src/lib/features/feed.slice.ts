@@ -1,4 +1,4 @@
-import { IComment, IFeed } from '@/types/home.types.';
+import { IFeed } from '@/types/home.types.';
 import { createSlice } from '@reduxjs/toolkit'
 
 const initialState = {

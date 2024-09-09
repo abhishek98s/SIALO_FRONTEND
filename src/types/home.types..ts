@@ -20,7 +20,7 @@ export interface IComment {
 }
 
 export interface IFeed {
-    id: number,
+    id?: number,
     userId: string
     name: string,
     user_image: string,
@@ -28,8 +28,8 @@ export interface IFeed {
     post_image: string,
     likes: string[],
     isLiked: boolean,
+    createdAt: string,
     comments: IComment[],
-    createdAt: 'string',
 }
 
 export interface IUserSuggest {
