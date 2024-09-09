@@ -11,6 +11,11 @@
         "functions": "never"
       }
     ],
-    "eol-last": "error"
+    "eol-last": "error",
+    "react/jsx-uses-react": "error",
+    "react/react-in-jsx-scope": "error",
+    "no-unused-vars": "error",
+    "no-undef": "error",
+    "react/prop-types": "error"
   }
 }

@@ -1,19 +1,19 @@
+import React, { useEffect, useRef, useState } from "react";
+
 import Image from "next/image";
 import Link from "next/link";
 
-import style from './feed.module.scss';
-import { useEffect, useRef, useState } from "react";
-import { Comment } from "../comment";
 import toast from "react-hot-toast";
-import { toast_error_option, toast_sucess_option } from "@/utils/toast";
-import { useAppSelector } from "@/lib/hooks";
-import { useDispatch } from "react-redux";
-import { openDropdown, toggleDropdown } from "@/lib/features/dropdown.slice";
-import { IFeed } from "@/types/home.types.";
-import { Gallery, Item } from "react-photoswipe-gallery";
-import { axiosInterceptor } from "@/utils/axois.config";
-import { APP_BASE_URL } from "@/utils/app";
 import Modal from "react-responsive-modal";
+
+import { IFeed } from "@/types/home.types.";
+import { APP_BASE_URL } from "@/utils/app";
+import { axiosInterceptor } from "@/utils/axois.config";
+import { Gallery, Item } from "react-photoswipe-gallery";
+import { toast_error_option, toast_sucess_option } from "@/utils/toast";
+
+import style from './feed.module.scss';
+import { Comment } from "../comment";
 
 
 type FeedProps = {
@@ -31,10 +31,7 @@ export const Feed: React.FC<FeedProps> = ({ feed_data, isHome, getFeed }) => {
 
 
     const [isDropdownOpen, setIsDropdownOpen] = useState(false);
-    // const openDropdowns = useAppSelector((state) => state.dropdown.openDropdowns)
-    const dispatch = useDispatch();
     const axiosInstance = axiosInterceptor();
-
 
     useEffect(() => {
         if (feed_data.isLiked) {
@@ -49,7 +46,7 @@ export const Feed: React.FC<FeedProps> = ({ feed_data, isHome, getFeed }) => {
 
             const response = await axiosInstance.patch(`${APP_BASE_URL}/post/like?postId=${feed_data.id}`);
 
-            const { status, liked, totalLike, message } = response.data;
+            const { liked } = response.data;
 
             if (liked) {
                 setIsLiked(true);
@@ -77,7 +74,7 @@ export const Feed: React.FC<FeedProps> = ({ feed_data, isHome, getFeed }) => {
 
             const response = await axiosInstance.delete(`${APP_BASE_URL}/post/${feed_data.id}`);
 
-            const { status, data, message } = response.data;
+            const { status, message } = response.data;
 
             if (!status) throw new Error('Error deleting the post');
 
@@ -107,7 +104,7 @@ export const Feed: React.FC<FeedProps> = ({ feed_data, isHome, getFeed }) => {
 
             const response = await axiosInstance.patch(`${APP_BASE_URL}/post/comment/${feed_data.id}`, { comment })
 
-            const { status, data, message } = response.data;
+            const { status } = response.data;
 
             if (!status) throw new Error();
 
@@ -151,10 +148,10 @@ export const Feed: React.FC<FeedProps> = ({ feed_data, isHome, getFeed }) => {
                 toast.error('Caption required', toast_error_option);
             }
             const response = await axiosInstance.patch(`${APP_BASE_URL}/post/${feed_data.id}`, { caption: caption });
-            const { status, data, message } = response.data;
+            const { status } = response.data;
 
             if (!status) throw new Error('Error updating the post');
-            
+
             onCloseModal();
             getFeed!();
 

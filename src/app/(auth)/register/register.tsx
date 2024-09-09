@@ -1,16 +1,18 @@
 "use client"
 
+import React from 'react';
 import { useState } from 'react';
+
 import Link from 'next/link';
 import Image from 'next/image';
-import router, { useRouter } from 'next/navigation'
+import { useRouter } from 'next/navigation'
 
+import axios from 'axios';
 import toast, { Toaster } from 'react-hot-toast';
-import { register_schema } from '@/utils/validation';
 
 import styles from './register.module.scss';
-import { toast_duration, toast_error_option, toast_sucess_option } from '@/utils/toast';
-import axios from 'axios';
+import { register_schema } from '@/utils/validation';
+import { toast_error_option, toast_sucess_option } from '@/utils/toast';
 
 interface IError {
     for: string | number,

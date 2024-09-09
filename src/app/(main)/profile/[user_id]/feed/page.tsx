@@ -1,17 +1,20 @@
 'use client';
 
+import React  from 'react';
+
+import { useParams } from "next/navigation";
+
+import { APP_BASE_URL } from "@/utils/app";
+import { IFeed } from "@/types/home.types.";
+import useFetchData from "@/custom_hook/fetchdata.hook";
 import ImageListPreview from "@/components/image_list-preview";
 import { Feed } from "@/components/feed";
-import { APP_BASE_URL } from "@/utils/app";
-import { useParams } from "next/navigation";
 import FeedLoader from "@/components/feed_loader";
-import useFetchData from "@/custom_hook/fetchdata.hook";
-import { IFeed } from "@/types/home.types.";
 
 export default function ProfilePage() {
     const { user_id } = useParams();
 
-    const { data: userFeedList, error, loading, refetch } = useFetchData(`${APP_BASE_URL}/post/${user_id}`, user_id);
+    const { data: userFeedList, loading, refetch } = useFetchData(`${APP_BASE_URL}/post/${user_id}`, user_id);
 
     return (
         <>

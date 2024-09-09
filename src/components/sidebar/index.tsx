@@ -1,11 +1,12 @@
 "use client";
 
+import React from 'react';
 import Link from "next/link";
-
-import styles from './sidebar.module.scss';
 import { usePathname, useRouter } from "next/navigation";
+
 import { useAppDispatch } from "@/lib/hooks";
 import { logout } from "@/lib/features/auth.slice";
+import styles from './sidebar.module.scss';
 
 export default function Sidebar() {
     const pathname = usePathname();

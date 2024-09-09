@@ -1,24 +1,18 @@
 'use client';
 
-import { useEffect, useRef, useState } from "react";
+import React, { useEffect, useState } from "react";
 import Image from "next/image";
 
-
-// --
-import toast, { Toaster } from 'react-hot-toast';
-
 import styles from './user_post_box.module.scss';
-import { toast_error_option, toast_info_option, toast_sucess_option } from "@/utils/toast";
+
 import { isImage } from "@/utils/file";
-import { CameraModel } from "../camera_model";
-import { ImagePreview } from "../image_preview";
-import axios from "axios";
 import { useAppSelector } from "@/lib/hooks";
 import { axiosInterceptor } from "@/utils/axois.config";
+import { toast_error_option, toast_info_option, toast_sucess_option } from "@/utils/toast";
 
-
-// --
-type AspectRatio = '3:4' | '1:1' | '9:16';
+import { CameraModel } from "../camera_model";
+import { ImagePreview } from "../image_preview";
+import toast from "react-hot-toast";
 
 export default function UserPostBox() {
 
@@ -148,7 +142,7 @@ export default function UserPostBox() {
             const axiosInstace = axiosInterceptor();
             const response = await axiosInstace.post('api/post', form_data);
 
-            const { status, data } = response.data;
+            const { status } = response.data;
 
             if (!status) {
                 setIsLoading(false);

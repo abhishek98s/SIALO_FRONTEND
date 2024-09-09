@@ -1,8 +1,9 @@
+import React from 'react';
 import Image from "next/image";
 
 import styles from './story_preview.module.scss';
 import { useAppDispatch, useAppSelector } from "@/lib/hooks";
-import { closeStoryModal, setCurrentUserId, setUsersId } from "@/lib/features/story.slice";
+import { closeStoryModal, setUsersId } from "@/lib/features/story.slice";
 import { useCallback, useEffect, useRef, useState } from "react";
 import toast from "react-hot-toast";
 import { toast_error_option, toast_sucess_option } from "@/utils/toast";
@@ -25,7 +26,7 @@ export default function StoryPreview() {
     const previousUserId = useAppSelector((state) => state.story.previousUserId);
     const currentUserId = useAppSelector((state) => state.story.currentUserId);
 
-    const { data: userStories, error, loading } = useFetchData(`${APP_BASE_URL}/story/${currentUserId}`, currentUserId);
+    const { data: userStories, loading } = useFetchData(`${APP_BASE_URL}/story/${currentUserId}`, currentUserId);
 
     const story = userStories[index];
 

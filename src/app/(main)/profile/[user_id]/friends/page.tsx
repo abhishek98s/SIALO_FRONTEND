@@ -1,16 +1,19 @@
 'use client';
 
+import React  from 'react';
+import { useParams } from "next/navigation";
+
+import { APP_BASE_URL } from "@/utils/app";
+import { IFriend } from "@/types/profiles.types";
+import useFetchData from "@/custom_hook/fetchdata.hook";
+
 import { Friend } from "@/components/friend";
 import FriendLoader from "@/components/friend_loader";
-import useFetchData from "@/custom_hook/fetchdata.hook";
-import { IFriend } from "@/types/profiles.types";
-import { APP_BASE_URL } from "@/utils/app";
-import { useParams } from "next/navigation";
 
 
 export default function Friends() {
     const { user_id } = useParams();
-    const { data: user_friends_list, loading, error } = useFetchData(`${APP_BASE_URL}/user/friends/${user_id}`)
+    const { data: user_friends_list, loading } = useFetchData(`${APP_BASE_URL}/user/friends/${user_id}`)
 
     return (
         <>

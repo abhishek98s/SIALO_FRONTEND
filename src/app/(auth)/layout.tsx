@@ -1,11 +1,13 @@
 'use client';
 
+import React, { useEffect } from "react";
+import { useRouter } from "next/navigation";
+
+import { Toaster } from "react-hot-toast"
+
 import { useAppSelector } from "@/lib/hooks";
 import { getLocalStorageItem } from "@/utils/storage";
 import { toast_error_option, toast_sucess_option } from "@/utils/toast"
-import { useRouter } from "next/navigation";
-import { useEffect } from "react";
-import { Toaster } from "react-hot-toast"
 
 
 export default function RootLayout({
@@ -23,7 +25,7 @@ export default function RootLayout({
       router.push('/')
     }
   }, [])
-  
+
   return (
     <>
       {!isAuthenticated &&

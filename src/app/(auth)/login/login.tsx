@@ -1,16 +1,18 @@
 "use client"
 
+import React, { useState } from "react";
+import { useRouter } from "next/navigation";
+
 import Link from "next/link";
 import Image from "next/image";
-import { useState } from "react";
+
+import toast from "react-hot-toast";
+import axios from "axios";
 
 import styles from './login.module.scss';
-import toast from "react-hot-toast";
 import { toast_error_option } from "@/utils/toast";
-import axios from "axios";
 import { useAppDispatch } from "@/lib/hooks";
 import { setUser } from "@/lib/features/auth.slice";
-import { useRouter } from "next/navigation";
 import { decodeToken } from "@/utils/auth";
 
 export default function Login() {
@@ -47,7 +49,7 @@ export default function Login() {
             if (!status) throw new Error();
 
             const { accessToken, refreshToken } = data;
-            
+
             localStorage.setItem('ACCESS_TOKEN', accessToken);
             localStorage.setItem('REFRESH_TOKEN', refreshToken);
 

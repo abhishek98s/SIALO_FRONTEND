@@ -1,26 +1,23 @@
 "use client";
-import { useEffect, useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import Image from "next/image";
-
-
-import { Splide, SplideSlide } from '@splidejs/react-splide';
-import { Toaster } from 'react-hot-toast';
-
-import Story from "@/components/story";
-import { StoryModal } from "@/components/story_model";
-
-import styles from './story_list.module.scss';
-
-import { toast_error_option, toast_sucess_option } from "@/utils/toast";
 
 import 'photoswipe/dist/photoswipe.css'
 import { Gallery, Item } from 'react-photoswipe-gallery'
-import useFetchData from "@/custom_hook/fetchdata.hook";
-import { IStoryObject } from "@/types/home.types.";
-import { APP_BASE_URL } from "@/utils/app";
-import { setStoryList } from "@/lib/features/story.slice";
-import { useAppDispatch } from "@/lib/hooks";
+import { Toaster } from 'react-hot-toast';
+import { Splide, SplideSlide } from '@splidejs/react-splide';
 
+import styles from './story_list.module.scss';
+
+import useFetchData from "@/custom_hook/fetchdata.hook";
+import { APP_BASE_URL } from "@/utils/app";
+import { toast_error_option, toast_sucess_option } from "@/utils/toast";
+import { useAppDispatch } from "@/lib/hooks";
+import { setStoryList } from "@/lib/features/story.slice";
+import { IStoryObject } from "@/types/home.types.";
+
+import Story from "@/components/story";
+import { StoryModal } from "@/components/story_model";
 
 
 export default function StoriesList() {
@@ -29,7 +26,7 @@ export default function StoriesList() {
     const storyRef = useRef(null);
     const dispatch = useAppDispatch();
 
-    const { data: story_list_data, error, loading, refetch } = useFetchData(`${APP_BASE_URL}/story`);
+    const { data: story_list_data, refetch } = useFetchData(`${APP_BASE_URL}/story`);
 
     const clearImage = () => {
         setImage('')

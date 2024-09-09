@@ -1,6 +1,6 @@
+import React from 'react';
 import { Metadata } from "next";
 import IndexPage from "./(main)/home/home";
-import MainLayout from "./(main)/layout";
 import Head from "next/head";
 import { AuthComponent } from "@/components/auth_component";
 

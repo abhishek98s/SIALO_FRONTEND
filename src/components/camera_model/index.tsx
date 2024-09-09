@@ -1,7 +1,9 @@
+import React from 'react';
+
 import Modal from "react-responsive-modal";
-import toast, { Toaster } from 'react-hot-toast';
-import { toast_error_option, toast_info_option, toast_sucess_option } from "@/utils/toast";
-import { Dispatch, SetStateAction, useEffect, useRef, useState } from "react";
+import toast from 'react-hot-toast';
+import { toast_info_option } from "@/utils/toast";
+import { Dispatch, SetStateAction, useRef, useState } from "react";
 
 import styles from './camera_model.module.scss';
 import { PhotoPreview } from "../photo_preview";
@@ -21,7 +23,7 @@ type Props = {
 
 type IAspectRatio = '3:4' | '1:1' | '9:16';
 
-export const CameraModel: React.FC<Props> = ({ user_inputted_image_url, setUser_inputted_image_url, isCameraModalopen, setIsCameraModalopen, mediaStream, setMediaStream, isCameraAccessGranted, setIsCameraAccessGranted }) => {
+export const CameraModel: React.FC<Props> = ({ user_inputted_image_url, setUser_inputted_image_url, isCameraModalopen, setIsCameraModalopen, mediaStream, setMediaStream }) => {
     const [aspectRatio, setAspectRatio] = useState<IAspectRatio | null>('3:4');
 
     const cameraModalRef = useRef(null);

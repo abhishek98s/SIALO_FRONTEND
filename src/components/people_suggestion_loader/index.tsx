@@ -1,3 +1,5 @@
+import React from 'react';
+
 const PeopleSuggestionLoader = () => {
     const suggestion_arr = [1, 2, 3];
     return (
@@ -17,6 +19,5 @@ const PeopleSuggestionLoader = () => {
         </>
     )
 };
-
 
 export default PeopleSuggestionLoader;

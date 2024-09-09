@@ -1,5 +1,7 @@
 'use client';
 
+import React, { useEffect, useState } from 'react';
+
 import InfiniteScroll from 'react-infinite-scroll-component';
 
 import StoriesList from "@/components/story_list";
@@ -13,7 +15,6 @@ import FeedLoader from "@/components/feed_loader";
 import useFetchData from "@/custom_hook/fetchdata.hook";
 import { APP_BASE_URL } from "@/utils/app";
 import PeopleSuggestion from "@/components/people_suggestion";
-import { useEffect, useState } from 'react';
 
 
 export default function IndexPage() {
@@ -21,7 +22,7 @@ export default function IndexPage() {
 
     const [feedList, setFeedList] = useState<IFeed[]>([]);
 
-    const { data, error, loading, refetch } = useFetchData(`${APP_BASE_URL}/post/random?noOfPosts=3`);
+    const { data, refetch } = useFetchData(`${APP_BASE_URL}/post/random?noOfPosts=3`);
 
     useEffect(() => {
         setFeedList((prev) => [...prev, ...data]);

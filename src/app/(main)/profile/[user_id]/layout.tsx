@@ -1,32 +1,27 @@
 'use client';
 
-import Image from "next/image";
+import React, { useEffect, useState } from "react";
 import Link from "next/link";
+import { useParams, usePathname } from 'next/navigation';
 
 import styles from './profile.module.scss';
-
-import { useParams, usePathname } from 'next/navigation';
+import { Toaster } from "react-hot-toast";
 import 'photoswipe/dist/photoswipe.css'
-import { Gallery, Item } from "react-photoswipe-gallery";
-import { useEffect, useState } from "react";
-import { axiosInterceptor } from "@/utils/axois.config";
+
+import { useAppSelector } from "@/lib/hooks";
+import { IProfileUser } from "@/types/home.types.";
 import { APP_BASE_URL } from "@/utils/app";
-import toast, { Toaster } from "react-hot-toast";
-import { toast_error_option, toast_sucess_option } from "@/utils/toast";
 import useFetchData from "@/custom_hook/fetchdata.hook";
+import { toast_error_option, toast_sucess_option } from "@/utils/toast";
+
 import FeedCoverPicture from "@/components/feed_cover_picture";
 import UserProfileheader from "@/components/user_profile_header";
-import { IProfileUser } from "@/types/home.types.";
-import { useAppSelector } from "@/lib/hooks";
-
-
 
 export default function RootLayout({
     children,
 }: {
     children: React.ReactNode
 }) {
-    const axiosInstance = axiosInterceptor();
 
     const pathname = usePathname();
     const length = pathname.split('/').length;
@@ -42,7 +37,7 @@ export default function RootLayout({
         setIsAuthUser(isloggedInUser);
     }, [authUserId, user_id])
 
-    const { data, error, loading, refetch } = useFetchData(`${APP_BASE_URL}/user/${user_id}`, user_id);
+    const { data, refetch } = useFetchData(`${APP_BASE_URL}/user/${user_id}`, user_id);
 
     const user: IProfileUser = { ...data };
 

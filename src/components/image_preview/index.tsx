@@ -1,8 +1,7 @@
+import React from 'react'
 import Image from 'next/image'
-import React, { Component } from 'react'
 
 import styles from './image_preview.module.scss';
-
 
 type ImageProps = {
     user_inputted_image_url: string;

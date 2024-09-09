@@ -1,5 +1,6 @@
-import style from './feed_loader.module.scss';
+import React from 'react';
 
+import style from './feed_loader.module.scss';
 
 const Loader = () => {
     return (
