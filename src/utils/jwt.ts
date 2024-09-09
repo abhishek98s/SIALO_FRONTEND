@@ -2,7 +2,6 @@ import jwt from 'jsonwebtoken';
 
 export const isTokenValid = (token: string) => {
     const secretKey = process.env.JWT_SECRET_KEY;
-    const tokenExpirationTime = 3600; // 1 hour in seconds
 
     try {
         const decodedToken: string | jwt.JwtPayload = jwt.verify(token, secretKey!);

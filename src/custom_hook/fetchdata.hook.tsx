@@ -1,6 +1,5 @@
 import { useCallback, useEffect, useState } from "react"
 import { axiosInterceptor } from "@/utils/axois.config";
-import { object } from "zod";
 
 const useFetchData = (url: string, dependencies?: any) => {
     const [data, setData] = useState<any>([]);

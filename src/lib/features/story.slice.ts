@@ -6,17 +6,6 @@ interface IUserProfile {
     userName: string,
     userImage: string,
 }
-interface IStoriesArr {
-    user_id: string,
-    user_name: string,
-    user_image: string,
-    date: string,
-
-    caption: string,
-    story_image: string,
-    story_id: string,
-}
-
 
 const initialState = {
     story_list: <IStoryObject[]>[],
