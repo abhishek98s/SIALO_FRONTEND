@@ -7,7 +7,7 @@ interface StoryLoaderPropes {
 
 const StoryLoader: React.FC<StoryLoaderPropes> = ({ closeModel, styles }) => {
     return (
-        <section className="flex-center fixed top-0 bottom-0 md:max-w-[450px] w-full min-h-[550px] h-[100%] sm:h-[95vh] border-neutral-80 bg-neutral-90 rounded-8 overflow-hidden">
+        <section className="flex-center fixed top-1/2 bottom-0 -translate-y-1/2 md:max-w-[450px] w-full min-h-[550px] h-[100%] sm:h-[95vh] border-neutral-80 bg-neutral-90 rounded-8 overflow-hidden">
             <div className="absolute top-0 left-0 right-0 z-20 flex justify-between items-center header p-[12px]">
                 <div className="flex items-center gap-[8px] flex-1">
                     <div className="loading-bg w-full max-w-[60px] h-[60px] rounded-full"></div>
