@@ -1,16 +1,16 @@
 'use client';
 
-import React, { MutableRefObject, useState } from "react"
-import Modal from "react-responsive-modal"
+import React, { MutableRefObject } from "react"
 import Image from "next/image";
 
 import styles from './picture_model.module.scss';
 
-import { ImagePreview } from "../image_preview";
-import { toast_error_option, toast_sucess_option } from "@/utils/toast";
-import { isImage } from "@/utils/file";
 import toast from "react-hot-toast";
-import { axiosInterceptor } from "@/utils/axois.config";
+import Modal from "react-responsive-modal"
+
+import { ImagePreview } from "../image_preview";
+import { toast_error_option } from "@/utils/toast";
+import { isImage } from "@/utils/file";
 
 type PictureModalProps = {
     open: boolean,
@@ -26,7 +26,7 @@ type PictureModalProps = {
     setFile: React.Dispatch<React.SetStateAction<File | null>>
 }
 
-export const PictureModal: React.FC<PictureModalProps> = ({ open, onCloseModal, storyRef, image, clearImage, setImage, refresh, setFile, submitPhoto, isLoading, title }) => {
+export const PictureModal: React.FC<PictureModalProps> = ({ open, onCloseModal, storyRef, image, clearImage, setImage, setFile, submitPhoto, isLoading, title }) => {
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const value = e.target as HTMLInputElement;
@@ -41,7 +41,6 @@ export const PictureModal: React.FC<PictureModalProps> = ({ open, onCloseModal, 
             setImage(fileURL);
         }
     }
-
 
     return (
         <>

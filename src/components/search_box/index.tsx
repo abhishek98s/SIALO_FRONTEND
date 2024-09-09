@@ -1,12 +1,11 @@
+import React, { useState } from "react";
 import Image from "next/image";
-import { useCallback, useEffect, useMemo, useState } from "react";
 
 import styles from './search_box.module.scss';
 import Link from "next/link";
 import useFetchData from "@/custom_hook/fetchdata.hook";
 import { APP_BASE_URL } from "@/utils/app";
 
-import debounce from 'lodash.debounce'
 import SearchFolder from "../search_loader";
 
 interface IPeople {
@@ -17,7 +16,7 @@ interface IPeople {
 
 const SearchBox = () => {
     const [search, setSearch] = useState('');
-    const { data, loading, error } = useFetchData(`${APP_BASE_URL}/user/search?=name=${encodeURIComponent(search)}`, search);
+    const { data, loading } = useFetchData(`${APP_BASE_URL}/user/search?=name=${encodeURIComponent(search)}`, search);
 
 
     const onInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -46,7 +45,7 @@ const SearchBox = () => {
                 <div className="absolute left-0 right-0 top-[100%] mt-4 rounded-8 z-10 bg-neutral-88 border-neutral-80 p-2">
                     {loading && <SearchFolder />}
 
-                    {!loading && data.map((people: IPeople, index) => (
+                    {!loading && data.map((people: IPeople, index: number) => (
                         <Link key={index} href={`/profile/${people._id}/feed`} className="block rounded-4 focus-visible-primary-45">
                             <div className={`${styles.user_wrapper} flex items-center gap-[16px] py-[12px] px-[20px]`}>
                                 <figure className="rounded-full max-w-[40px] h-[40px]">

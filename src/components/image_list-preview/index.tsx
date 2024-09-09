@@ -1,11 +1,12 @@
+import React from "react";
+
+import Link from "next/link";
+import Image from "next/image";
+import { useParams } from "next/navigation";
+
 import { IFeed } from "@/types/home.types.";
 import { APP_BASE_URL } from "@/utils/app";
-import { axiosInterceptor } from "@/utils/axois.config";
-import Image from "next/image";
-import Link from "next/link";
-import { useParams } from "next/navigation";
-import { useEffect, useState } from "react";
-import toast from "react-hot-toast";
+
 import FeedImageLoader from "../image_list_loader";
 import useFetchData from "@/custom_hook/fetchdata.hook";
 
@@ -13,7 +14,7 @@ export default function ImageListPreview() {
 
     const { user_id } = useParams();
 
-    const { data: randomPhotoList, error, loading } = useFetchData(`${APP_BASE_URL}/post/random?=noOfPosts=4`);
+    const { data: randomPhotoList, loading } = useFetchData(`${APP_BASE_URL}/post/random?=noOfPosts=4`);
 
     return (
         <div className="image-wrapper hidden lg:block max-w-[240px] w-full border-neutral-80 rounded-4 border-neutral-96 bg-neutral-90 p-[12px] pt-[20px] h-fit">

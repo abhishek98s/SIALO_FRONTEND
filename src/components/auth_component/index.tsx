@@ -3,7 +3,7 @@
 import { useAppSelector } from "@/lib/hooks";
 import { getLocalStorageItem } from "@/utils/storage";
 import { useRouter } from "next/navigation"
-import { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 
 
 export const AuthComponent = ({ children }: { children: React.ReactNode }) => {

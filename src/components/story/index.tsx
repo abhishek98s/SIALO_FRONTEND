@@ -1,12 +1,10 @@
+import React from 'react';
 import Image from "next/image";
-import Link from "next/link";
 
 import styles from './story.module.scss';
 import { IStoryObject } from "@/types/home.types.";
 import { useAppDispatch } from "@/lib/hooks";
 import { closeStoryModal, openStoryModal, setCurrentIndex, setUsersId } from "@/lib/features/story.slice";
-import { axiosInterceptor } from "@/utils/axois.config";
-import { APP_BASE_URL } from "@/utils/app";
 
 interface StoryProps {
     story: IStoryObject,
@@ -21,12 +19,12 @@ export default function Story({ story, img_ref, open }: StoryProps) {
     const openStory = async () => {
         try {
 
-            const { user_name: userName, user_id, user_image: userImage, stories } = story;
+            const { user_id } = story;
 
             dispatch(setCurrentIndex(user_id))
 
             dispatch(setUsersId(user_id));
-            
+
             dispatch(openStoryModal());
         } catch (error) {
             dispatch(closeStoryModal());

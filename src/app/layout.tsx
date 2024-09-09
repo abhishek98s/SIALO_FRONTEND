@@ -1,12 +1,11 @@
 'use client';
 
-import { Inter, Quicksand } from "next/font/google";
+import React from 'react';
+import { Quicksand } from "next/font/google";
 import "./globals.scss";
 
 import dynamic from 'next/dynamic';
 const Providers = dynamic(() => import('@/lib/store.provider'), { ssr: false });
-
-
 
 const quickSand = Quicksand({
   weight: ['400', '500', '600', '700'],
@@ -26,7 +25,7 @@ export default function RootLayout({
       <html className={quickSand.className}>
         <body>
           <Providers>
-              {children}
+            {children}
           </Providers>
         </body>
       </html>

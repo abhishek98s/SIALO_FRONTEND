@@ -1,4 +1,5 @@
-import { Dispatch, SetStateAction, useEffect, useRef, useState } from "react";
+
+import React, { Dispatch, SetStateAction, useEffect, useRef, useState } from "react";
 import styles from './camera_preview.module.scss';
 
 type IAspectRatio = '3:4' | '1:1' | '9:16';
@@ -83,24 +84,25 @@ export const Camera_Preview: React.FC<Camera_preview_props> = ({ mediaStream, as
                 const canvas = canvasRef.current;
                 const video = videoRef.current;
 
-                let desiredWidth, desiredHeight;
-                switch (aspectRatio) {
-                    case '9:16':
-                        desiredWidth = 500;
-                        desiredHeight = (desiredWidth * 9) / 16;
-                        break;
-                    case '3:4':
-                        desiredWidth = 500;
-                        desiredHeight = (desiredWidth * 3) / 4;
-                        break;
-                    case '1:1':
-                        desiredWidth = 500;
-                        desiredHeight = (desiredWidth * 1) / 1;
-                        break;
-                    default:
-                        desiredWidth = 500;
-                        desiredHeight = (desiredWidth * 9) / 16;
-                }
+                // let desiredWidth; 
+                // // let desiredHeight;
+                // switch (aspectRatio) {
+                //     case '9:16':
+                //         desiredWidth = 500;
+                //         // desiredHeight = (desiredWidth * 9) / 16;
+                //         break;
+                //     case '3:4':
+                //         desiredWidth = 500;
+                //         // desiredHeight = (desiredWidth * 3) / 4;
+                //         break;
+                //     case '1:1':
+                //         desiredWidth = 500;
+                //         // desiredHeight = (desiredWidth * 1) / 1;
+                //         break;
+                //     default:
+                //         desiredWidth = 500;
+                //         // desiredHeight = (desiredWidth * 9) / 16;
+                // }
                 canvas.width = video.width;
                 canvas.height = video.height;
 

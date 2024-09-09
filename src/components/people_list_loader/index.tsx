@@ -1,4 +1,7 @@
+import React from 'react';
+
 import { SplideSlide } from "@splidejs/react-splide";
+
 
 const PeopleListLoader = () => {
     const peopleArr = [1, 2, 3, 4]

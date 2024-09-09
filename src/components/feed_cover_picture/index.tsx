@@ -1,17 +1,14 @@
-import Image from "next/image";
-import Modal from "react-responsive-modal";
-
-import styles from './feed_cover_picture.module.scss';
-import { ImagePreview } from "../image_preview";
 import React, { useRef, useState } from "react";
-import { isImage } from "@/utils/file";
+import Image from "next/image";
+
 import toast from "react-hot-toast";
-import { toast_error_option, toast_sucess_option } from "@/utils/toast";
-import { axiosInterceptor } from "@/utils/axois.config";
-import { PictureModal } from "../picture_model";
+
 import { APP_BASE_URL } from "@/utils/app";
 import { IProfileUser } from "@/types/home.types.";
+import { axiosInterceptor } from "@/utils/axois.config";
+import { toast_error_option, toast_sucess_option } from "@/utils/toast";
 
+import { PictureModal } from "../picture_model";
 
 
 const FeedCoverPicture: React.FC<{ isAuthUser: boolean, user: IProfileUser, refetchUserData: () => void }> = ({ refetchUserData, user, isAuthUser }) => {
@@ -52,7 +49,7 @@ const FeedCoverPicture: React.FC<{ isAuthUser: boolean, user: IProfileUser, refe
             const axiosInstace = axiosInterceptor();
             const response = await axiosInstace.patch(`${APP_BASE_URL}/user/coverPicture`, form_data)
 
-            const { status, data } = response.data;
+            const { status } = response.data;
 
             if (!status) throw Error('Error posting the cover picture');
             setIsLoading(false);

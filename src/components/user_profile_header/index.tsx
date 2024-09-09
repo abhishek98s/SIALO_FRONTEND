@@ -1,14 +1,15 @@
-import Image from "next/image";
 import React, { useRef, useState } from "react";
-import { Gallery, Item } from "react-photoswipe-gallery";
-import { StoryModal } from "../story_model";
-import { PictureModal } from "../picture_model";
+import Image from "next/image";
+
 import toast from "react-hot-toast";
-import { toast_error_option, toast_sucess_option } from "@/utils/toast";
+import { Gallery, Item } from "react-photoswipe-gallery";
+
 import { axiosInterceptor } from "@/utils/axois.config";
 import { APP_BASE_URL } from "@/utils/app";
 import { IProfileUser } from "@/types/home.types.";
+import { toast_error_option, toast_sucess_option } from "@/utils/toast";
 
+import { PictureModal } from "../picture_model";
 interface IUser {
     isAuthUser: boolean,
     user: IProfileUser,
@@ -55,7 +56,7 @@ const UserProfileheader: React.FC<IUser> = ({ user, refetchUserData, user_id, is
             const axiosInstace = axiosInterceptor();
             const response = await axiosInstace.patch(`${APP_BASE_URL}/user/profilePicture`, form_data)
 
-            const { status, data } = response.data;
+            const { status } = response.data;
 
             if (!status) throw Error('Error posting the profile picture');
             setIsLoading(false);
@@ -75,7 +76,7 @@ const UserProfileheader: React.FC<IUser> = ({ user, refetchUserData, user_id, is
         try {
             const response = await axiosInstance.patch(`${APP_BASE_URL}/user/friend/add/${user_id}`);
 
-            const { status, data, message } = response.data;
+            const { status, message } = response.data;
 
             if (!status) throw new Error();
 
@@ -90,7 +91,7 @@ const UserProfileheader: React.FC<IUser> = ({ user, refetchUserData, user_id, is
         try {
             const response = await axiosInstance.patch(`${APP_BASE_URL}/user/friend/reject/${user_id}`);
 
-            const { status, data, message } = response.data;
+            const { status, message } = response.data;
 
             if (!status) throw new Error();
 

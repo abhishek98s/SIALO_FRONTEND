@@ -1,7 +1,8 @@
-import { IComment } from "@/types/home.types.";
+import React from "react";
 import Image from "next/image";
 import Link from "next/link";
-import React from "react";
+
+import { IComment } from "@/types/home.types.";
 
 type Comment_Propes = {
     comment: IComment,

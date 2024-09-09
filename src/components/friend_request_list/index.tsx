@@ -1,11 +1,13 @@
-import useFetchData from "@/custom_hook/fetchdata.hook";
+import React, { useState } from "react";
+import Image from "next/image";
+import Link from "next/link";
+
+import toast from "react-hot-toast";
+
 import { APP_BASE_URL } from "@/utils/app";
 import { axiosInterceptor } from "@/utils/axois.config";
 import { toast_error_option, toast_sucess_option } from "@/utils/toast";
-import Image from "next/image";
-import Link from "next/link";
-import React, { useEffect, useState } from "react";
-import toast from "react-hot-toast";
+import useFetchData from "@/custom_hook/fetchdata.hook";
 
 interface IRequestedPeople {
     id: string,
@@ -23,7 +25,7 @@ const ReuestedPeople: React.FC<IRequestedPeople> = ({ id, name, image, fetchRequ
             setLoading(true)
             const response = await axiosInstance.patch(`${APP_BASE_URL}/user/friend/accept/${id}`)
 
-            const { status, data, message } = response.data;
+            const { status } = response.data;
 
             if (!status) throw new Error();
 
@@ -41,7 +43,7 @@ const ReuestedPeople: React.FC<IRequestedPeople> = ({ id, name, image, fetchRequ
             setLoading(true)
             const response = await axiosInstance.patch(`${APP_BASE_URL}/user/friend/reject/${id}`)
 
-            const { status, data, message } = response.data;
+            const { status } = response.data;
 
             if (!status) throw new Error();
 
@@ -79,7 +81,7 @@ const ReuestedPeople: React.FC<IRequestedPeople> = ({ id, name, image, fetchRequ
 }
 
 const FriendRequestList = () => {
-    const { data: friendRequestList, error, loading, refetch } = useFetchData(`${APP_BASE_URL}/user/friendRequests`);
+    const { data: friendRequestList, refetch } = useFetchData(`${APP_BASE_URL}/user/friendRequests`);
 
     return (
         <>

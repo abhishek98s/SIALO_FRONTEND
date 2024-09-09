@@ -1,18 +1,17 @@
+import React from 'react';
 import Image from "next/image";
 import Link from "next/link";
 
-import styles from './people_search.module.scss';
-import { axiosInterceptor } from "@/utils/axois.config";
-import { APP_BASE_URL } from "@/utils/app";
 import toast from "react-hot-toast";
+import { APP_BASE_URL } from "@/utils/app";
+import { axiosInterceptor } from "@/utils/axois.config";
+
+import styles from './people_search.module.scss';
 import { toast_error_option, toast_sucess_option } from "@/utils/toast";
+import { ISearchPeople } from "@/types/search_people";
 
 type PeopleProps = {
-    people: {
-        _id: string,
-        name: string,
-        img: string,
-    }
+    people: ISearchPeople;
 }
 
 export const PeopleSearch: React.FC<PeopleProps> = ({ people }) => {
@@ -21,7 +20,7 @@ export const PeopleSearch: React.FC<PeopleProps> = ({ people }) => {
     const onFriendRequest = async () => {
         try {
             const response = await axiosInstace.patch(`${APP_BASE_URL}/user/friend/add/${people._id}`)
-            const { status, data, messasge } = response.data;
+            const { status, messasge } = response.data;
 
             if (!status) throw new Error();
 

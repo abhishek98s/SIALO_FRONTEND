@@ -1,4 +1,6 @@
+import React from 'react';
 import { Metadata } from 'next';
+
 import RegisterForm from './register';
 
 export const metadata: Metadata = {

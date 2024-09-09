@@ -1,13 +1,15 @@
+import React from "react";
+
+import Image from "next/image"
+import Link from "next/link"
+import toast from "react-hot-toast";
+
 import { APP_BASE_URL } from "@/utils/app";
 import { axiosInterceptor } from "@/utils/axois.config";
 import { toast_error_option, toast_sucess_option } from "@/utils/toast";
-import Image from "next/image"
-import Link from "next/link"
-import React, { useEffect, useState } from "react";
-import toast from "react-hot-toast";
-import { Props } from "react-infinite-scroll-component";
-import PeopleSuggestionLoader from "../people_suggestion_loader";
 import useFetchData from "@/custom_hook/fetchdata.hook";
+
+import PeopleSuggestionLoader from "../people_suggestion_loader";
 
 interface IPeople {
     _id: string,
@@ -58,7 +60,7 @@ const People: React.FC<IPeople> = ({ _id, name, img, fetchPeoplList }) => {
 
 const PeopleSuggestion = () => {
 
-    const { data: peopleList, error, loading, refetch } = useFetchData(`${APP_BASE_URL}/user/recommendation`);
+    const { data: peopleList, loading, refetch } = useFetchData(`${APP_BASE_URL}/user/recommendation`);
 
 
     return (

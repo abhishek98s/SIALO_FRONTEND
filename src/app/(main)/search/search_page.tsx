@@ -1,9 +1,10 @@
 'use client';
 
+import React from 'react';
+
 import FriendRequestList from "@/components/friend_request_list";
 import { PeopleList } from "@/components/people_list";
 import SearchBox from "@/components/search_box";
-import Image from "next/image";
 
 export default function SearchPage() {
 

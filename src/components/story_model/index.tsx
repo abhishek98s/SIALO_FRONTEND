@@ -1,15 +1,15 @@
 'use client';
 
 import React, { MutableRefObject, useState } from "react"
-import Modal from "react-responsive-modal"
 import Image from "next/image";
 
 import styles from './story_model.module.scss';
+import toast from "react-hot-toast";
+import Modal from "react-responsive-modal"
 
 import { ImagePreview } from "../image_preview";
 import { toast_error_option, toast_sucess_option } from "@/utils/toast";
 import { isImage } from "@/utils/file";
-import toast from "react-hot-toast";
 import { axiosInterceptor } from "@/utils/axois.config";
 
 type StoryModalProps = {
@@ -64,7 +64,7 @@ export const StoryModal: React.FC<StoryModalProps> = ({ open, onCloseModal, stor
             const axiosInstace = axiosInterceptor();
             const response = await axiosInstace.post('/api/story', form_data)
 
-            const { status, data } = response.data;
+            const { status } = response.data;
 
             if (!status) throw Error('Error posting the story');
             setIsLoading(false);
