@@ -23,7 +23,7 @@ const useFetchData = (url: string, dependencies?: any) => {
         } catch (error) {
             setError(error as Error);
         } finally {
-            setLoading(false);
+            setTimeout(() => setLoading(false), 2000)
         }
     }, [url]);
 

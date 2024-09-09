@@ -4,7 +4,7 @@ import Link from "next/link";
 import styles from './story.module.scss';
 import { IStoryObject } from "@/types/home.types.";
 import { useAppDispatch } from "@/lib/hooks";
-import { closeStoryModal, openStoryModal, populateStories, setCurrentIndex, setNextUserId } from "@/lib/features/story.slice";
+import { closeStoryModal, openStoryModal, setCurrentIndex, setUsersId } from "@/lib/features/story.slice";
 import { axiosInterceptor } from "@/utils/axois.config";
 import { APP_BASE_URL } from "@/utils/app";
 
@@ -23,22 +23,16 @@ export default function Story({ story, img_ref, open }: StoryProps) {
 
             const { user_name: userName, user_id, user_image: userImage, stories } = story;
 
-            const axiosInstace = axiosInterceptor();
-            const response = await axiosInstace.get(`${APP_BASE_URL}/story/${user_id}`);
-
-            const { status, data } = response.data;
-
-            if (!status) throw new Error();
             dispatch(setCurrentIndex(user_id))
-            dispatch(populateStories(data));
-            dispatch(setNextUserId(user_id));
+
+            dispatch(setUsersId(user_id));
+            
             dispatch(openStoryModal());
         } catch (error) {
             dispatch(closeStoryModal());
         }
     }
 
-    console.log(story.stories[0].story_image)
     return (
         <button onClick={openStory} className={`${styles.stories_wrapper} block w-full mb-1 mr-[12px]`}>
             <div className="story relative h-[120px] border-neutral-80 overflow-hidden rounded-4">
