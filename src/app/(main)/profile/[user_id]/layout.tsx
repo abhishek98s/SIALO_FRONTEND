@@ -16,6 +16,7 @@ import { toast_error_option, toast_sucess_option } from "@/utils/toast";
 
 import FeedCoverPicture from "@/components/feed_cover_picture";
 import UserProfileheader from "@/components/user_profile_header";
+import UserProfileheaderLoader from "@/components/user_profile_header_loader";
 
 export default function RootLayout({
     children,
@@ -37,7 +38,7 @@ export default function RootLayout({
         setIsAuthUser(isloggedInUser);
     }, [authUserId, user_id])
 
-    const { data, refetch } = useFetchData(`${APP_BASE_URL}/user/${user_id}`, user_id);
+    const { data, loading, refetch } = useFetchData(`${APP_BASE_URL}/user/${user_id}`, user_id);
 
     const user: IProfileUser = { ...data };
 
@@ -53,29 +54,33 @@ export default function RootLayout({
                         error: { ...toast_error_option },
                     }}
                 />
+                {loading && <UserProfileheaderLoader />}
                 <section className="search-page max-w-[910px] w-full mx-auto">
-
-                    <FeedCoverPicture isAuthUser={isAuthUser} user={user} refetchUserData={refetch} />
+                    {!loading &&
+                        <FeedCoverPicture isAuthUser={isAuthUser} user={user} refetchUserData={refetch} />
+                    }
 
                     <div className="relative px-[0px] lg:px-[32px] -mt-[50px]">
-                        <div className={`${styles.profile_header} mb-[10px] lg:mb-[20px] bg-neutral-90 border-neutral-86 rounded-[8px] px-[16px] pt-[20px]`}>
-                            <UserProfileheader user_id={user_id} isAuthUser={isAuthUser} refetchUserData={refetch} user={user} />
+                        {!loading &&
+                            <div className={`${styles.profile_header} mb-[10px] lg:mb-[20px] bg-neutral-90 border-neutral-86 rounded-[8px] px-[16px] pt-[20px]`}>
+                                <UserProfileheader user_id={user_id} isAuthUser={isAuthUser} refetchUserData={refetch} user={user} />
 
-                            <div className="bg-neutral-86 h-[1px] w-full my-[20px]"></div>
+                                <div className="bg-neutral-86 h-[1px] w-full my-[20px]"></div>
 
-                            <div className="nav-wrapper flex gap-[16px]">
-                                <Link href={`/profile/${user_id}/feed`} className={`${styles.nav} ${currentPath == 'feed' ? styles.active : ''} relative block text-[14px] text-center w-[60px] h-[34px]`}>Feed</Link>
-                                <Link href={`/profile/${user_id}/friends`} className={`${styles.nav} ${currentPath == 'friends' ? styles.active : ''} relative block text-[14px] text-center w-[60px] h-[34px]`}>Friends</Link>
-                                <Link href={`/profile/${user_id}/photos`} className={`${styles.nav} ${currentPath == 'photos' ? styles.active : ''} relative block text-[14px] text-center w-[60px] h-[34px]`}>Photos</Link>
+                                <div className="nav-wrapper flex gap-[16px]">
+                                    <Link href={`/profile/${user_id}/feed`} className={`${styles.nav} ${currentPath == 'feed' ? styles.active : ''} relative block text-[14px] text-center w-[60px] h-[34px]`}>Feed</Link>
+                                    <Link href={`/profile/${user_id}/friends`} className={`${styles.nav} ${currentPath == 'friends' ? styles.active : ''} relative block text-[14px] text-center w-[60px] h-[34px]`}>Friends</Link>
+                                    <Link href={`/profile/${user_id}/photos`} className={`${styles.nav} ${currentPath == 'photos' ? styles.active : ''} relative block text-[14px] text-center w-[60px] h-[34px]`}>Photos</Link>
+                                </div>
                             </div>
-                        </div>
+                        }
 
                         <div className="main-wrapper flex lg:flex-row gap-[12px]">
                             {children}
                         </div>
                     </div>
-                </section>
-            </div>
+                </section >
+            </div >
         </>
     )
 }

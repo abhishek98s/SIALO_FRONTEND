@@ -70,7 +70,7 @@ const PeopleSuggestion = () => {
                     <div className="title-wrapper heading-line h-[24px] pb-[12px] mb-[32px] font-bold text-[16px] color-primary-10">People you may know</div>
 
                     <ul className="people-list-wrapper mb-[12px] space-y-[12px]">
-                        {peopleList.map((people: IPeople, index: number) => (
+                        {!loading && peopleList.map((people: IPeople, index: number) => (
                             <People fetchPeoplList={refetch} key={index} _id={people._id} name={people.name} img={people.img} />
                         ))}
 
