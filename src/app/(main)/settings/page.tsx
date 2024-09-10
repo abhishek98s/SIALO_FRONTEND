@@ -3,29 +3,40 @@ import React from 'react';
 export default function SettingPage() {
     return (
         <>
-            <section className={`setting-wrapper px-[12px] lg:pl-[242px]`}>
-                <form className="mb-[56px] max-w-[400px]">
-                    <h3 className="my-[24px] text-[18px] font-bold color-primary-60">Settings</h3>
+            <section className={`setting-wrapper pt-[24px] px-[12px] max-w-[400px] w-full mx-auto`}>
+                <form className="mb-[40px] w-full">
+                    <h3 className="mb-[12px] text-[18px] font-bold color-primary-60">Change password</h3>
 
                     <div className="input-wrapper mb-[12px]">
-                        <label htmlFor="current_pass" className="mb-[8px] text-[14px] block">Current Password</label>
-                        <input id="current_pass" className="bg-neutral-88" />
+                        <label htmlFor="current_pass" className="mb-[8px] text-[14px] block color-neutral-30">Current Password</label>
+                        <input id="current_pass" className="bg-neutral-88 rounded-8" />
                     </div>
 
                     <div className="input-wrapper mb-[12px]">
-                        <label htmlFor="new_pass" className="mb-[8px] text-[14px] block">New Password</label>
-                        <input id="new_pass" className="bg-neutral-88" />
+                        <label htmlFor="new_pass" className="mb-[8px] text-[14px] block color-neutral-30">New Password</label>
+                        <input id="new_pass" className="bg-neutral-88 rounded-8" />
                     </div>
 
                     <div className="input-wrapper mb-[12px]">
-                        <label htmlFor="confirm_pass" className="mb-[8px] text-[14px] block">Confirm Password</label>
-                        <input id="confirm_pass" className="bg-neutral-88" />
+                        <label htmlFor="confirm_pass" className="mb-[8px] text-[14px] block color-neutral-30">Confirm Password</label>
+                        <input id="confirm_pass" className="bg-neutral-88 rounded-8" />
                     </div>
 
-                    <input type="submit" className="primary-btn" />
+                    <button type="submit" className="secondary-btn w-full">Change Password</button>
                 </form>
 
-                <article className="max-w-[400px]">
+                <form className="mb-[40px] w-full">
+                    <h3 className="mb-[12px] text-[18px] font-bold color-primary-60">Change Username</h3>
+
+                    <div className="input-wrapper mb-[12px]">
+                        <label htmlFor="current_pass" className="mb-[8px] text-[14px] block color-neutral-30">New username</label>
+                        <input id="current_pass" className="bg-neutral-88 rounded-8" />
+                    </div>
+
+                    <button type="submit" className="secondary-btn w-full">Change Username</button>
+                </form>
+
+                <article className="w-full">
                     <h3 className="mb-[4px] text-[18px] font-bold color-primary-60">Delete Account</h3>
 
                     <p className="text-[14px] color-neutral-40 leading-[1.5] mb-[24px]">Deleting the account will delete all the data from the platform and access to the services. Account Deletion is final. There is no way to restore the account.</p>
