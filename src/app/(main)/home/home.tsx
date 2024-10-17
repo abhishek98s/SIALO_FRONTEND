@@ -9,12 +9,12 @@ import UserPostBox from "@/components/user_post_box";
 import HomeLayout from "../layout";
 import { IFeed } from "@/types/home.types.";
 import { useAppSelector } from "@/lib/hooks";
-import { Feed } from "@/components/feed";
 import StoryPreview from "@/components/story_preview";
 import FeedLoader from "@/components/feed_loader";
 import useFetchData from "@/custom_hook/fetchdata.hook";
 import { APP_BASE_URL } from "@/utils/app";
 import PeopleSuggestion from "@/components/people_suggestion";
+import { Feed } from '@/components/feed';
 
 
 export default function IndexPage() {

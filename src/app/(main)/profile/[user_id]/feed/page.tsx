@@ -8,8 +8,8 @@ import { APP_BASE_URL } from "@/utils/app";
 import { IFeed } from "@/types/home.types.";
 import useFetchData from "@/custom_hook/fetchdata.hook";
 import ImageListPreview from "@/components/image_list-preview";
-import { Feed } from "@/components/feed";
 import FeedLoader from "@/components/feed_loader";
+import { Feed } from '@/components/feed';
 
 export default function ProfilePage() {
     const { user_id } = useParams();
