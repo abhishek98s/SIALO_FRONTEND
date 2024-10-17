@@ -14,7 +14,7 @@ import FeedLoader from "@/components/feed_loader";
 import useFetchData from "@/custom_hook/fetchdata.hook";
 import { APP_BASE_URL } from "@/utils/app";
 import PeopleSuggestion from "@/components/people_suggestion";
-import { Feed } from '@/components/feed';
+import { Feed } from '@/components/feedd';
 
 
 export default function IndexPage() {

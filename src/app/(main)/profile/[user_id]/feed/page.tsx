@@ -9,7 +9,7 @@ import { IFeed } from "@/types/home.types.";
 import useFetchData from "@/custom_hook/fetchdata.hook";
 import ImageListPreview from "@/components/image_list-preview";
 import FeedLoader from "@/components/feed_loader";
-import { Feed } from '@/components/feed';
+import { Feed } from '@/components/feedd';
 
 export default function ProfilePage() {
     const { user_id } = useParams();
