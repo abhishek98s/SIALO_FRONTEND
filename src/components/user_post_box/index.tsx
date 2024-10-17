@@ -49,6 +49,7 @@ export default function UserPostBox() {
         };
 
         const handleRequestPermission = async () => {
+            // @ts-expect-error
             navigator.permissions.query({ name: 'camera' })
                 .then(permission => {
                     if (permission.state === 'granted') {

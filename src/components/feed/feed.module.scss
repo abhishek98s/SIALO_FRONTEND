@@ -1,0 +1,68 @@
+@import '../../styles/variables.scss';
+
+.feed_wrapper {
+    svg {
+        transition: .4s;
+    }
+
+    .more_menu {
+
+        &:hover {
+            svg {
+                stroke: $neutral-60;
+            }
+        }
+    }
+
+    .like {
+        svg {
+            transition: .6s;
+        }
+
+        &:active {
+            scale: 1;
+        }
+
+        @keyframes big-small {
+            0% {
+                scale: 1;
+            }
+
+            50% {
+                scale: 1.5;
+            }
+
+            100% {
+                scale: 1;
+            }
+        }
+
+        &.active {
+            animation: big-small .5s;
+
+            svg {
+                fill: $primary-50;
+            }
+
+            path {
+                stroke: $primary-50;
+            }
+        }
+    }
+
+    .comment_post_btn {
+        transition: .2s;
+        outline: 1px solid transparent;
+
+        &:hover {
+            background-color: $neutral-80;
+            right: 2px;
+        }
+
+        &:focus-visible {
+            background-color: $neutral-80;
+            right: 2px;
+            outline: 1px solid $primary-70;
+        }
+    }
+}

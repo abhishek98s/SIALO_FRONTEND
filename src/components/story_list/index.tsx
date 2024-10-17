@@ -24,7 +24,7 @@ export default function StoriesList() {
     const [image, setImage] = useState<string>('');
     const storyRef = useRef(null);
 
-    const { user, isAuthenticated } = useSelector((state) => state.auth);
+    const { isAuthenticated } = useSelector((state:any) => state.auth);
     console.log(isAuthenticated)
 
 
