@@ -3,7 +3,7 @@
 import StoriesList from "@/components/story_list";
 import UserPostBox from "@/components/user_post_box";
 import HomeLayout from "../layout";
-import Feed from "@/components/feed";
+import Feed from "@/components/feedd";
 
 export default function IndexPage() {
     return (
