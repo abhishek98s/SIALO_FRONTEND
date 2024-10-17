@@ -59,7 +59,7 @@ export default function UserPostBox() {
                         setIsCameraAccessGranted(false);
                     }
                 })
-                .catch(error => {
+                .catch(function () {
                     setIsCameraAccessGranted(false);
                 });
         };
