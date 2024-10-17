@@ -4,7 +4,7 @@ import axios from "axios";
 import { NextRequest, NextResponse } from "next/server";
 
 
-export async function GET(req: NextRequest, res: NextResponse) {
+export async function GET(req: NextRequest) {
     try {
         const token = req.headers.get('Authorization');
         const response = await axios.get(`${APP_BASE_URL}/post/random?noOfPosts=10`, {
@@ -15,12 +15,12 @@ export async function GET(req: NextRequest, res: NextResponse) {
 
         return NextResponse.json({ ...response.data }, { status: 201 })
     } catch (error: any) {
-        return handleErrorResponse(error, res);
+        return handleErrorResponse(error);
     }
 }
 
 
-export async function POST(req: NextRequest, res: NextResponse) {
+export async function POST(req: NextRequest) {
     try {
         const { formData, token } = await getFormDataAndToken(req);
 
@@ -53,7 +53,7 @@ export async function POST(req: NextRequest, res: NextResponse) {
         const data = response.data.data;
         return NextResponse.json({ status: true, data }, { status: 201 });
     } catch (error: any) {
-        return handleErrorResponse(error, res);
+        return handleErrorResponse(error);
     }
 }
 

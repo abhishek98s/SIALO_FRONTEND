@@ -24,7 +24,7 @@ export default function RootLayout({
     if (token || isAuthenticated) {
       router.push('/')
     }
-  }, [])
+  }, [token, isAuthenticated, router])
 
   return (
     <>

@@ -19,7 +19,7 @@ export const AuthComponent = ({ children }: { children: React.ReactNode }) => {
             }
         }
         runInitialy()
-    }, [])
+    }, [isAuthenticated, token, router])
 
     return (
         <>

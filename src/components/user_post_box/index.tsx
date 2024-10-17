@@ -47,6 +47,7 @@ export default function UserPostBox() {
         };
 
         const handleRequestPermission = async () => {
+            // @ts-expect-error STFU
             navigator.permissions.query({ name: 'camera' })
                 .then(permission => {
                     if (permission.state === 'granted') {
@@ -56,7 +57,7 @@ export default function UserPostBox() {
                         setIsCameraAccessGranted(false);
                     }
                 })
-                .catch(error => {
+                .catch(function () {
                     setIsCameraAccessGranted(false);
                 });
         };

@@ -17,7 +17,7 @@ export const PhotoPreview: React.FC<PhotoPreviewProps> = ({
         <>
             <section className={`${styles.confirm_photo} confirm_photo absolute top-0 left-0 right-0 bottom-0 bg-neutral-90 h-full w-full`}>
                 <div>
-                    <img src={photoDataUrl} className="w-full opacity-10" />
+                    <img src={photoDataUrl} className="w-full opacity-10" alt="image"/>
                     <div className={`${styles.camera_actions} absolute left-0 bottom-0 right-0 py-[40px] px-[24px] flex gap-[12px]`}>
                         <button
                             onClick={onPhotoConfirmed}

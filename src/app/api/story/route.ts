@@ -1,9 +1,8 @@
 import axios from "axios";
 import { NextRequest, NextResponse } from "next/server";
-import { NextApiRequest, NextApiResponse } from 'next';
 import { APP_BASE_URL } from "@/utils/app";
 
-export async function GET(req: NextRequest, res: NextResponse) {
+export async function GET(req: NextRequest) {
     try {
         const token = req.headers.get('Authorization');
         const response = await axios.get(`${APP_BASE_URL}/story`, {
@@ -24,7 +23,7 @@ export async function GET(req: NextRequest, res: NextResponse) {
 }
 
 
-export async function POST(req: NextRequest, res: NextResponse) {
+export async function POST(req: NextRequest) {
     try {
         const fromData = await req.formData();
         const token = req.headers.get('Authorization');
@@ -63,7 +62,7 @@ export async function POST(req: NextRequest, res: NextResponse) {
 }
 
 
-export async function DELETE(req: NextRequest, res: NextResponse) {
+export async function DELETE(req: NextRequest) {
     try {
 
         const token = req.headers.get('Authorization');
