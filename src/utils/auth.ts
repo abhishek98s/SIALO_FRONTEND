@@ -1,6 +1,6 @@
-import * as jwt from 'jose';
+import * as jwt from "jose";
 
 export const decodeToken = (token: string) => {
-    const decoded = jwt.decodeJwt(token);
-    return decoded;
+  const decoded = jwt.decodeJwt(token);
+  return decoded;
 };

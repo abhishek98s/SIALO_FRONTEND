@@ -1,81 +1,81 @@
-@import '../../styles/variables.scss';
+@import "../../styles/variables.scss";
 
 .sidebar_wrapper {
-    z-index: 99.1;
-    border-top: 1px solid $neutral-80;
+  z-index: 99.1;
+  border-top: 1px solid $neutral-80;
 
-    li.active {
-        svg {
-            path[fill] {
-                fill: $primary-50;
-                /* or any other color/style */
-            }
+  li.active {
+    svg {
+      path[fill] {
+        fill: $primary-50;
+        /* or any other color/style */
+      }
 
-            path[stroke] {
-                stroke: $primary-50;
-                /* or any other color/style */
-            }
-        }
-
-        h6 {
-            color: $primary-50;
-            font-weight: 800;
-        }
+      path[stroke] {
+        stroke: $primary-50;
+        /* or any other color/style */
+      }
     }
 
-    h6{
-        color: $primary-10;
+    h6 {
+      color: $primary-50;
+      font-weight: 800;
     }
+  }
+
+  h6 {
+    color: $primary-10;
+  }
 }
 
 @media screen and (min-width: 800px) {
-    .sidebar_wrapper {
-        width: 50px;
-        height: auto;
-        top: 0;
-        left: 0;
-        padding: 0;
-        overflow: hidden;
-        right: unset;
-        bottom: unset;
-        padding-top: 90px;
-        background: transparent;
-        border: none;
+  .sidebar_wrapper {
+    width: 50px;
+    height: auto;
+    top: 0;
+    left: 0;
+    padding: 0;
+    overflow: hidden;
+    right: unset;
+    bottom: unset;
+    padding-top: 90px;
+    background: transparent;
+    border: none;
 
-        ul {
-            gap: 24px;
-            flex-direction: column;
+    ul {
+      gap: 24px;
+      flex-direction: column;
 
-            li {
-                width: 300px;
-                display: flex;
-                gap: 8px;
-                align-items: center;
-                transition: .4s;
+      li {
+        width: 300px;
+        display: flex;
+        gap: 8px;
+        align-items: center;
+        transition: 0.4s;
 
-                &:hover {
-                    background-color: $neutral-86;
-                }
-
-                div {
-                    max-width: 50px;
-                    height: 50px;
-                    margin: 0;
-                }
-            }
+        &:hover {
+          background-color: $neutral-86;
         }
+
+        div {
+          max-width: 50px;
+          height: 50px;
+          margin: 0;
+        }
+      }
     }
+  }
 }
 
 @media screen and (min-width: 1024px) {
-    .sidebar_wrapper {
-        width: 230px;
-        height: 100vh;
-        background: $neutral-90;
-        border-right: 1px solid $neutral-86;
+  .sidebar_wrapper {
+    width: 230px;
+    height: 100vh;
+    background: $neutral-90;
+    border-right: 1px solid $neutral-86;
 
-        ul {
-            gap: 8px;
-        }
+    ul {
+      gap: 8px;
     }
+  }
 }

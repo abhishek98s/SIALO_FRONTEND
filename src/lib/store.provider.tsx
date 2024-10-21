@@ -1,19 +1,19 @@
-'use client'; // 🔴 Read Quote below
+"use client"; // 🔴 Read Quote below
 
-import React from 'react';
+import React from "react";
 
-import { Provider } from 'react-redux';
-import { persistor, store } from './store';
-import { PersistGate } from 'redux-persist/integration/react'
+import { Provider } from "react-redux";
+import { persistor, store } from "./store";
+import { PersistGate } from "redux-persist/integration/react";
 
 export function Providers({ children }: { children: React.ReactNode }) {
-    return (
-        <Provider store={store}>
-            <PersistGate loading={null} persistor={persistor}>
-                {children}
-            </PersistGate>
-        </Provider>
-    )
+  return (
+    <Provider store={store}>
+      <PersistGate loading={null} persistor={persistor}>
+        {children}
+      </PersistGate>
+    </Provider>
+  );
 }
 
 export default Providers;

@@ -1,10 +1,10 @@
-import React from 'react';
-import { Setting } from './setting';
+import React from "react";
+import { Setting } from "./setting";
 
 export default function SettingPage() {
-    return (
-        <>
-            <Setting />
-        </>
-    )
+  return (
+    <>
+      <Setting />
+    </>
+  );
 }

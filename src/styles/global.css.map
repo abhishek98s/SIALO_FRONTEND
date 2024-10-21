@@ -1,1 +1,10 @@
-{"version":3,"sources":["global.scss","global.css"],"names":[],"mappings":"AAAA;EACI,sBAAA;ACCJ;;ADEA;EACI,aAAA;EACA,uBAAA;EACA,mBAAA;ACCJ","file":"global.css"}
+{
+  "version": 3,
+  "sources": [
+    "global.scss",
+    "global.css"
+  ],
+  "names": [],
+  "mappings": "AAAA;EACI,sBAAA;ACCJ;;ADEA;EACI,aAAA;EACA,uBAAA;EACA,mBAAA;ACCJ",
+  "file": "global.css"
+}

@@ -1,80 +1,86 @@
-$error-10: #FFEBEB;
-$error-50: #B03B3B;
-$error-42: #D35555;
-$error-80: #291D1D;
+$error-10: #ffebeb;
+$error-50: #b03b3b;
+$error-42: #d35555;
+$error-80: #291d1d;
 
-$primary-10: #E5F5D6;
-$primary-30: #C0FF85;
-$primary-45: #71A145;
-$primary-50: #9EE35F;
-$primary-60: #ABE774;
-$primary-65: #A6F65A;
-$primary-70: #4B7A1F;
-$primary-80: #19290A;
+$primary-10: #e5f5d6;
+$primary-30: #c0ff85;
+$primary-45: #71a145;
+$primary-50: #9ee35f;
+$primary-60: #abe774;
+$primary-65: #a6f65a;
+$primary-70: #4b7a1f;
+$primary-80: #19290a;
 
-$neutral-0: #FFFFFF;
-$neutral-10: #E6E6E6;
-$neutral-20: #CCCCCC;
-$neutral-30: #B3B3B3;
+$neutral-0: #ffffff;
+$neutral-10: #e6e6e6;
+$neutral-20: #cccccc;
+$neutral-30: #b3b3b3;
 $neutral-40: #999999;
 $neutral-50: #808080;
 $neutral-60: #666666;
-$neutral-70: #4D4D4D;
+$neutral-70: #4d4d4d;
 $neutral-80: #333333;
 $neutral-86: #242424;
-$neutral-88: #1F1F1F;
-$neutral-90: #1A1A1A;
+$neutral-88: #1f1f1f;
+$neutral-90: #1a1a1a;
 
 $colors-list: (
-    'error': ('10': $error-10,
-        '42':$error-42,
-        '50': $error-50,
-        '80': $error-80 ),
-    'primary': ('10': $primary-10,
-        '45': $primary-45,
-        '50': $primary-50,
-        '60': $primary-60,
-        '65': $primary-65,
-        '70': $primary-70,
-        '80': $primary-80 ),
-    'neutral': ('0': $neutral-0,
-        '10': $neutral-10,
-        '20': $neutral-20,
-        '30': $neutral-30,
-        '40': $neutral-40,
-        '50': $neutral-50,
-        '60': $neutral-60,
-        '70': $neutral-70,
-        '80': $neutral-80,
-        '86': $neutral-86,
-        '88': $neutral-88,
-        '90': $neutral-90 )
+  "error": (
+    "10": $error-10,
+    "42": $error-42,
+    "50": $error-50,
+    "80": $error-80,
+  ),
+  "primary": (
+    "10": $primary-10,
+    "45": $primary-45,
+    "50": $primary-50,
+    "60": $primary-60,
+    "65": $primary-65,
+    "70": $primary-70,
+    "80": $primary-80,
+  ),
+  "neutral": (
+    "0": $neutral-0,
+    "10": $neutral-10,
+    "20": $neutral-20,
+    "30": $neutral-30,
+    "40": $neutral-40,
+    "50": $neutral-50,
+    "60": $neutral-60,
+    "70": $neutral-70,
+    "80": $neutral-80,
+    "86": $neutral-86,
+    "88": $neutral-88,
+    "90": $neutral-90,
+  ),
 );
 
 $colors: $colors-list;
 
 @each $category, $shades in $colors {
-    @each $shade, $color in $shades {
-        .color-#{$category}-#{$shade} {
-            color: $color !important;
-        }
-
-        .border-#{$category}-#{$shade} {
-            border: 1px solid $color;
-        }
-
-        .bg-#{$category}-#{$shade} {
-            background-color: $color;
-        }
-
-        .focus-visible-#{$category}-#{$shade}:focus-visible {
-            outline-offset: 2px;
-            outline: 1px solid $color;
-        }
-
-        .focus-within-#{$category}-#{$shade}:focus-within {
-            outline-offset: 2px;
-            outline: 1px solid $color;
-        }
+  @each $shade, $color in $shades {
+    .color-#{$category}-#{$shade} {
+      color: $color !important;
     }
+
+    .border-#{$category}-#{$shade} {
+      border: 1px solid $color;
+    }
+
+    .bg-#{$category}-#{$shade} {
+      background-color: $color;
+    }
+
+    .focus-visible-#{$category}-#{$shade}:focus-visible {
+      outline-offset: 2px;
+      outline: 1px solid $color;
+    }
+
+    .focus-within-#{$category}-#{$shade}:focus-within {
+      outline-offset: 2px;
+      outline: 1px solid $color;
+    }
+  }
 }

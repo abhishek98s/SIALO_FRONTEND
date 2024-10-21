@@ -1,136 +1,138 @@
-@import './variables.scss';
+@import "./variables.scss";
 
 .flex-center {
-    display: flex;
-    justify-content: center;
-    align-items: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .position-center {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
 }
 
 .transition-4 {
-    transition: .4s;
+  transition: 0.4s;
 }
 
 .icon-box {
-    &-32 {
-        width: 32px;
-        height: 32px;
-    }
+  &-32 {
+    width: 32px;
+    height: 32px;
+  }
 
-    &-40 {
-        width: 40px;
-        height: 40px;
-    }
+  &-40 {
+    width: 40px;
+    height: 40px;
+  }
 }
 
 .shadow-soft {
-    box-shadow: 0px 12px 48px rgba(0, 0, 0, 0.1);
+  box-shadow: 0px 12px 48px rgba(0, 0, 0, 0.1);
 }
 
 .gradient-white {
-    background: linear-gradient(154.45deg, #494949 12.89%, #4949491a 52.29%, #49494966 91.69%);
+  background: linear-gradient(
+    154.45deg,
+    #494949 12.89%,
+    #4949491a 52.29%,
+    #49494966 91.69%
+  );
 }
 
 .rounded {
-    &-4 {
-        border-radius: 4px;
-    }
+  &-4 {
+    border-radius: 4px;
+  }
 
-    &-8 {
-        border-radius: 8px;
-    }
+  &-8 {
+    border-radius: 8px;
+  }
 }
 
 .react-responsive-modal-closeButton {
+  border-radius: 100px;
+
+  svg path {
+    fill: $error-50;
+  }
+
+  &:focus-visible {
+    outline: 1px solid $neutral-70;
+    outline-offset: 4px;
     border-radius: 100px;
-
-    svg path {
-        fill: $error-50;
-    }
-
-    &:focus-visible {
-        outline: 1px solid $neutral-70;
-        outline-offset: 4px;
-        border-radius: 100px;
-    }
+  }
 }
 
 .customModal {
-    background: $neutral-90 !important;
-    max-width: 300px !important;
-    width: 100%;
-    border-radius: 8px;
-    border: 1px solid $neutral-86 !important;
-    padding: 20px 12px !important;
-
+  background: $neutral-90 !important;
+  max-width: 300px !important;
+  width: 100%;
+  border-radius: 8px;
+  border: 1px solid $neutral-86 !important;
+  padding: 20px 12px !important;
 }
 
 .camera_model {
-    max-width: 500px !important;
-    width: fit-content;
-    height: calc(100vh - 100px);
-    margin: auto !important;
-    padding: 0 !important;
-    background: $neutral-90 !important;
+  max-width: 500px !important;
+  width: fit-content;
+  height: calc(100vh - 100px);
+  margin: auto !important;
+  padding: 0 !important;
+  background: $neutral-90 !important;
 
-    &.animate {
-        animation: bottom_to_top .4s !important;
-    }
+  &.animate {
+    animation: bottom_to_top 0.4s !important;
+  }
 }
 
 @keyframes bottom_to_top {
-    0% {
-        transform: translateY(100px);
-        opacity: 0;
-    }
+  0% {
+    transform: translateY(100px);
+    opacity: 0;
+  }
 
+  50% {
+    transform: translateY(0);
+    opacity: 0.5;
+  }
 
-    50% {
-        transform: translateY(0);
-        opacity: 0.5;
-    }
-
-    50% {
-        transform: translateY(0);
-        opacity: 1;
-    }
+  50% {
+    transform: translateY(0);
+    opacity: 1;
+  }
 }
 
 .heading-line {
-    position: relative;
+  position: relative;
 
-    &::before {
-        content: '';
-        position: absolute;
-        display: block;
-        width: 60px;
-        height: 2px;
-        border-radius: 4px;
-        background-color: $primary-60;
-        top: calc(100% + 12px);
-        left: 0;
-    }
+  &::before {
+    content: "";
+    position: absolute;
+    display: block;
+    width: 60px;
+    height: 2px;
+    border-radius: 4px;
+    background-color: $primary-60;
+    top: calc(100% + 12px);
+    left: 0;
+  }
 }
 
 .toast_notification {
-    z-index: 0;
-    position: relative;
+  z-index: 0;
+  position: relative;
 }
 
 .pswp__zoom-wrap {
-
-    .pswp__img {
-        object-fit: contain;
-        border-radius: 4px;
-    }
+  .pswp__img {
+    object-fit: contain;
+    border-radius: 4px;
+  }
 }
 
 .pswp__img.pswp__img--placeholder {
-    opacity: 0;
+  opacity: 0;
 }

@@ -1,39 +1,39 @@
-@import '../../../../styles/variables.scss';
+@import "../../../../styles/variables.scss";
 
 .profile_header {
-    .nav {
-        transition: .2s;
+  .nav {
+    transition: 0.2s;
 
-        &::before {
-            content: '';
-            position: absolute;
-            transition: .2s;
-            bottom: 0;
-            width: 0%;
-            height: 2px;
-            border-radius: 50px;
-            background-color: $primary-60;
-            left: 50%;
-            transform: translate(-50%);
-        }
-
-        &:hover,
-        &:focus-visible {
-            color: $primary-60;
-            outline: none;
-
-            &::before {
-                width: 100%;
-            }
-        }
-
-        &.active {
-            color: $primary-60;
-            font-weight: 800;
-
-            &::before {
-                width: 100%;
-            }
-        }
+    &::before {
+      content: "";
+      position: absolute;
+      transition: 0.2s;
+      bottom: 0;
+      width: 0%;
+      height: 2px;
+      border-radius: 50px;
+      background-color: $primary-60;
+      left: 50%;
+      transform: translate(-50%);
     }
+
+    &:hover,
+    &:focus-visible {
+      color: $primary-60;
+      outline: none;
+
+      &::before {
+        width: 100%;
+      }
+    }
+
+    &.active {
+      color: $primary-60;
+      font-weight: 800;
+
+      &::before {
+        width: 100%;
+      }
+    }
+  }
 }

@@ -2,13 +2,13 @@
 @tailwind components;
 @tailwind utilities;
 
-@import '@splidejs/react-splide/css';
-@import '@splidejs/react-splide/css/skyblue';
-@import '@splidejs/react-splide/css/sea-green';
-@import '@splidejs/react-splide/css/core';
+@import "@splidejs/react-splide/css";
+@import "@splidejs/react-splide/css/skyblue";
+@import "@splidejs/react-splide/css/sea-green";
+@import "@splidejs/react-splide/css/core";
 
-@import '../styles/variables.scss';
-@import '../styles/global.scss';
+@import "../styles/variables.scss";
+@import "../styles/global.scss";
 
 :root {
   --foreground-rgb: 0, 0, 0;
@@ -76,7 +76,7 @@ body {
 }
 
 input {
-  transition: .2s;
+  transition: 0.2s;
   outline: 1px solid $neutral-80;
   border: 1px solid transparent;
   color: $primary-10;
@@ -97,7 +97,7 @@ input {
 
 .primary-btn {
   background-color: $primary-50;
-  transition: .4s;
+  transition: 0.4s;
   outline-offset: 2px;
   outline: 1px solid transparent;
   border-radius: 4px;
@@ -125,7 +125,7 @@ input {
 .secondary-btn {
   background-color: $neutral-80;
   border-radius: 4px;
-  transition: .4s;
+  transition: 0.4s;
   color: $neutral-30;
   font-weight: 600;
   min-height: 40px;
@@ -155,7 +155,7 @@ input {
   justify-content: center;
   align-items: center;
   border-radius: 4px;
-  transition: .4s;
+  transition: 0.4s;
 
   &:hover {
     background-color: transparent;
@@ -173,7 +173,7 @@ input {
 }
 
 .scale_on_hover {
-  transition: .2s;
+  transition: 0.2s;
 
   &:hover {
     scale: 1.1;
@@ -186,7 +186,6 @@ input {
   &:active {
     cursor: grab;
   }
-
 }
 
 .stories-list {
@@ -226,14 +225,18 @@ input {
   overflow: hidden;
 
   &::after {
-    content: '';
+    content: "";
     position: absolute;
     top: 0;
     left: 0;
     right: 0;
     bottom: 0;
-    background: linear-gradient(to right, $neutral-86, $neutral-80,
-        $neutral-86);
+    background: linear-gradient(
+      to right,
+      $neutral-86,
+      $neutral-80,
+      $neutral-86
+    );
     animation: loader-animation 2.5s infinite;
   }
 }

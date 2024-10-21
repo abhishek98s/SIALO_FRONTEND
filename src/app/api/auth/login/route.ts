@@ -2,23 +2,25 @@ import { APP_BASE_URL } from "@/utils/app";
 import axios from "axios";
 import { NextRequest, NextResponse } from "next/server";
 
-
 export async function POST(req: NextRequest) {
-    try {
-        const bodyClone = await req.clone();
-        const body = await bodyClone.json();
+  try {
+    const bodyClone = await req.clone();
+    const body = await bodyClone.json();
 
-        const { email, password } = body;
+    const { email, password } = body;
 
-        const response = await axios.post(`${APP_BASE_URL}/auth/login`, { email, password });
+    const response = await axios.post(`${APP_BASE_URL}/auth/login`, {
+      email,
+      password,
+    });
 
-        const { status, data } = await response.data;
+    const { status, data } = await response.data;
 
-        if (!status) throw new Error();
+    if (!status) throw new Error();
 
-        return NextResponse.json({ status: true, data: data }, { status: 201 });
-    } catch (error) {
-        console.log((error as Error).message)
-        return NextResponse.json({ error: 'Registration failed' }, { status: 500 });
-    }
+    return NextResponse.json({ status: true, data: data }, { status: 201 });
+  } catch (error) {
+    console.log((error as Error).message);
+    return NextResponse.json({ error: "Registration failed" }, { status: 500 });
+  }
 }

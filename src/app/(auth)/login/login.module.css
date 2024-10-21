@@ -1,85 +1,85 @@
 .color-primary-10 {
-  color: #F5E3D6;
+  color: #f5e3d6;
 }
 
 .border-primary-10 {
-  border: 1px solid #F5E3D6;
+  border: 1px solid #f5e3d6;
 }
 
 .bg-primary-10 {
-  background-color: #F5E3D6;
+  background-color: #f5e3d6;
 }
 
 .color-primary-50 {
-  color: #CC8F33;
+  color: #cc8f33;
 }
 
 .border-primary-50 {
-  border: 1px solid #CC8F33;
+  border: 1px solid #cc8f33;
 }
 
 .bg-primary-50 {
-  background-color: #CC8F33;
+  background-color: #cc8f33;
 }
 
 .color-primary-80 {
-  color: #291D0A;
+  color: #291d0a;
 }
 
 .border-primary-80 {
-  border: 1px solid #291D0A;
+  border: 1px solid #291d0a;
 }
 
 .bg-primary-80 {
-  background-color: #291D0A;
+  background-color: #291d0a;
 }
 
 .color-neutral-0 {
-  color: #FFFFFF;
+  color: #ffffff;
 }
 
 .border-neutral-0 {
-  border: 1px solid #FFFFFF;
+  border: 1px solid #ffffff;
 }
 
 .bg-neutral-0 {
-  background-color: #FFFFFF;
+  background-color: #ffffff;
 }
 
 .color-neutral-10 {
-  color: #E6E6E6;
+  color: #e6e6e6;
 }
 
 .border-neutral-10 {
-  border: 1px solid #E6E6E6;
+  border: 1px solid #e6e6e6;
 }
 
 .bg-neutral-10 {
-  background-color: #E6E6E6;
+  background-color: #e6e6e6;
 }
 
 .color-neutral-20 {
-  color: #CCCCCC;
+  color: #cccccc;
 }
 
 .border-neutral-20 {
-  border: 1px solid #CCCCCC;
+  border: 1px solid #cccccc;
 }
 
 .bg-neutral-20 {
-  background-color: #CCCCCC;
+  background-color: #cccccc;
 }
 
 .color-neutral-30 {
-  color: #B3B3B3;
+  color: #b3b3b3;
 }
 
 .border-neutral-30 {
-  border: 1px solid #B3B3B3;
+  border: 1px solid #b3b3b3;
 }
 
 .bg-neutral-30 {
-  background-color: #B3B3B3;
+  background-color: #b3b3b3;
 }
 
 .color-neutral-40 {
@@ -119,15 +119,15 @@
 }
 
 .color-neutral-70 {
-  color: #4D4D4D;
+  color: #4d4d4d;
 }
 
 .border-neutral-70 {
-  border: 1px solid #4D4D4D;
+  border: 1px solid #4d4d4d;
 }
 
 .bg-neutral-70 {
-  background-color: #4D4D4D;
+  background-color: #4d4d4d;
 }
 
 .color-neutral-80 {
@@ -155,35 +155,35 @@
 }
 
 .color-neutral-88 {
-  color: #1F1F1F;
+  color: #1f1f1f;
 }
 
 .border-neutral-88 {
-  border: 1px solid #1F1F1F;
+  border: 1px solid #1f1f1f;
 }
 
 .bg-neutral-88 {
-  background-color: #1F1F1F;
+  background-color: #1f1f1f;
 }
 
 .color-neutral-90 {
-  color: #1A1A1A;
+  color: #1a1a1a;
 }
 
 .border-neutral-90 {
-  border: 1px solid #1A1A1A;
+  border: 1px solid #1a1a1a;
 }
 
 .bg-neutral-90 {
-  background-color: #1A1A1A;
+  background-color: #1a1a1a;
 }
 
-.form_wrapper button[type=submit] {
+.form_wrapper button[type="submit"] {
   transition: 0.4s;
 }
-.form_wrapper button[type=submit]:hover {
+.form_wrapper button[type="submit"]:hover {
   background-color: hsl(36, 60%, 53%);
 }
-.form_wrapper button[type=submit]:active {
+.form_wrapper button[type="submit"]:active {
   background-color: hsl(36, 60%, 46%);
-}/*# sourceMappingURL=login.module.css.map */
+} /*# sourceMappingURL=login.module.css.map */

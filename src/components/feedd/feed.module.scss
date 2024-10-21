@@ -1,76 +1,75 @@
-@import '../../styles/variables.scss';
+@import "../../styles/variables.scss";
 
 .feed_wrapper {
+  svg {
+    transition: 0.4s;
+  }
+
+  .more_menu {
+    &:hover {
+      svg {
+        stroke: $neutral-60;
+      }
+    }
+  }
+
+  .menu_box_wrapper li {
+    transition: 0.4s;
+
+    &:hover {
+      background-color: $neutral-80;
+    }
+  }
+
+  .like {
     svg {
-        transition: .4s;
+      transition: 0.6s;
     }
 
-    .more_menu {
-
-        &:hover {
-            svg {
-                stroke: $neutral-60;
-            }
-        }
+    &:active {
+      scale: 1;
     }
 
-    .menu_box_wrapper li {
-        transition: .4s;
+    @keyframes big-small {
+      0% {
+        scale: 1;
+      }
 
-        &:hover {
-            background-color: $neutral-80;
-        }
+      50% {
+        scale: 1.5;
+      }
+
+      100% {
+        scale: 1;
+      }
     }
 
-    .like {
-        svg {
-            transition: .6s;
-        }
+    &.active {
+      animation: big-small 0.5s;
 
-        &:active {
-            scale: 1;
-        }
+      svg {
+        fill: $primary-50;
+      }
 
-        @keyframes big-small {
-            0% {
-                scale: 1;
-            }
+      path {
+        stroke: $primary-50;
+      }
+    }
+  }
 
-            50% {
-                scale: 1.5;
-            }
+  .comment_post_btn {
+    transition: 0.2s;
+    outline: 1px solid transparent;
 
-            100% {
-                scale: 1;
-            }
-        }
-
-        &.active {
-            animation: big-small .5s;
-
-            svg {
-                fill: $primary-50;
-            }
-
-            path {
-                stroke: $primary-50;
-            }
-        }
+    &:hover {
+      background-color: $neutral-80;
+      right: 2px;
     }
 
-    .comment_post_btn {
-        transition: .2s;
-        outline: 1px solid transparent;
-
-        &:hover {
-            background-color: $neutral-80;
-            right: 2px;
-        }
-
-        &:focus-visible {
-            background-color: $neutral-80;
-            right: 2px;
-            outline: 1px solid $primary-70;
-        }
+    &:focus-visible {
+      background-color: $neutral-80;
+      right: 2px;
+      outline: 1px solid $primary-70;
     }
+  }
 }

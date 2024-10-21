@@ -1,4 +1,4 @@
-"use client"
+"use client";
 
 import React, { useState } from "react";
 import { useRouter } from "next/navigation";
@@ -9,97 +9,146 @@ import Image from "next/image";
 import toast from "react-hot-toast";
 import axios from "axios";
 
-import styles from './login.module.scss';
+import styles from "./login.module.scss";
 import { toast_error_option } from "@/utils/toast";
 import { useAppDispatch } from "@/lib/hooks";
 import { setUser } from "@/lib/features/auth.slice";
 import { decodeToken } from "@/utils/auth";
 
 export default function Login() {
-    const [is_password_shown, set_is_password_shown] = useState(false);
-    const [form_obj, set_form_obj] = useState({ email: '', password: '' })
-    const [isLoading, setIsLoading] = useState(false);
+  const [is_password_shown, set_is_password_shown] = useState(false);
+  const [form_obj, set_form_obj] = useState({ email: "", password: "" });
+  const [isLoading, setIsLoading] = useState(false);
 
-    const dispatch = useAppDispatch();
-    const router = useRouter();
+  const dispatch = useAppDispatch();
+  const router = useRouter();
 
-    function show_password() {
-        return set_is_password_shown(!is_password_shown);
+  function show_password() {
+    return set_is_password_shown(!is_password_shown);
+  }
+
+  function handleChange(e: React.ChangeEvent<HTMLInputElement>) {
+    set_form_obj((prev_form_obj) => ({
+      ...prev_form_obj,
+      [e.target.name]: e.target.value,
+    }));
+  }
+
+  async function onSubmit(e: React.FormEvent<HTMLFormElement>) {
+    try {
+      e.preventDefault();
+      setIsLoading(true);
+
+      if (!form_obj.email || !form_obj.password) {
+        setIsLoading(false);
+        toast.error("Email and password is required", toast_error_option);
+        return;
+      }
+
+      const response = await axios.post("/api/auth/login", form_obj);
+
+      const { status, data } = response.data;
+
+      if (!status) throw new Error();
+
+      const { accessToken, refreshToken } = data;
+
+      localStorage.setItem("ACCESS_TOKEN", accessToken);
+      localStorage.setItem("REFRESH_TOKEN", refreshToken);
+
+      const user = decodeToken(accessToken);
+      const { id, image, name } = user;
+
+      dispatch(setUser({ id, image, name }));
+
+      router.push("/");
+    } catch (error) {
+      toast.error("Invalid Credentials", toast_error_option);
+    } finally {
+      setIsLoading(false);
     }
+  }
 
-    function handleChange(e: React.ChangeEvent<HTMLInputElement>) {
-        set_form_obj((prev_form_obj) => ({ ...prev_form_obj, [e.target.name]: e.target.value }));
-    }
+  return (
+    <section
+      className={`${styles.form_wrapper} + w-full max-w-[400px] absolute top-[50%] left-[50%] translate-x-[-50%] translate-y-[-50%]`}
+    >
+      <header className="mb-[48px]">
+        <div className="mx-auto w-fit mb-[16px]">
+          <Image src="/logo.svg" width={100} height={24} alt="logo" />
+        </div>
+        <h2 className="color-primary-10 text-center text-[18px] flex-semi-bold">
+          Connect with the World and Share Your Story
+        </h2>
+      </header>
+      <form className="px-[12px] pt-[24px] pb-[16px]" onSubmit={onSubmit}>
+        <div className="form-group mb-[16px]">
+          <label
+            htmlFor="email"
+            className="color-primary-10 text-[14px] block mb-[4px]"
+          >
+            Email
+          </label>
+          <input
+            id="email"
+            type="text"
+            onChange={handleChange}
+            name="email"
+            className="w-full h-[40px] px-[12px] bg-transparent border-neutral-80 rounded-[4px] focus:outline-none"
+          ></input>
+        </div>
 
-    async function onSubmit(e: React.FormEvent<HTMLFormElement>) {
-        try {
-            e.preventDefault();
-            setIsLoading(true);
+        <div className="form-group mb-[32px]">
+          <label
+            htmlFor="password"
+            className="color-primary-10 text-[14px] block mb-[4px]"
+          >
+            Password
+          </label>
+          <div className="relative">
+            <input
+              id="password"
+              type={is_password_shown ? "text" : "password"}
+              onChange={handleChange}
+              name="password"
+              className="w-full h-[40px] px-[12px] bg-transparent border-neutral-80 rounded-[4px] focus:outline-none"
+            ></input>
+            <figure
+              onClick={() => show_password()}
+              className="flex-center absolute right-0 top-[50%] translate-y-[-50%] cursor-pointer w-[40px] h-[40px]"
+            >
+              <Image
+                className=""
+                src={
+                  is_password_shown
+                    ? "/icons/eye-show.svg"
+                    : "/icons/eye-close.svg"
+                }
+                width="20"
+                height="16"
+                alt="password-toggler"
+              ></Image>
+            </figure>
+          </div>
+        </div>
 
-            if (!form_obj.email || !form_obj.password) {
-                setIsLoading(false);
-                toast.error('Email and password is required', toast_error_option)
-                return;
-            }
+        <button
+          type="submit"
+          className="primary-btn mb-[32px] w-full h-[40px] text-[16px] font-bold bg-primary-50 color-primary-80 rounded-[4px] "
+        >
+          {isLoading ? "logging..." : "Log in"}
+        </button>
 
-            const response = await axios.post('/api/auth/login', form_obj)
-
-            const { status, data } = response.data;
-
-            if (!status) throw new Error();
-
-            const { accessToken, refreshToken } = data;
-
-            localStorage.setItem('ACCESS_TOKEN', accessToken);
-            localStorage.setItem('REFRESH_TOKEN', refreshToken);
-
-            const user = decodeToken(accessToken);
-            const { id, image, name } = user;
-
-            dispatch(setUser({ id, image, name }))
-
-            router.push('/')
-        } catch (error) {
-            toast.error('Invalid Credentials', toast_error_option);
-        } finally {
-            setIsLoading(false);
-        }
-    }
-
-    return (
-        <section className={`${styles.form_wrapper} + w-full max-w-[400px] absolute top-[50%] left-[50%] translate-x-[-50%] translate-y-[-50%]`}>
-            <header className="mb-[48px]">
-                <div className="mx-auto w-fit mb-[16px]">
-                    <Image src='/logo.svg' width={100} height={24} alt='logo' />
-                </div>
-                <h2 className="color-primary-10 text-center text-[18px] flex-semi-bold">Connect with the World and Share Your Story</h2>
-            </header>
-            <form className="px-[12px] pt-[24px] pb-[16px]" onSubmit={onSubmit}>
-                <div className="form-group mb-[16px]">
-                    <label htmlFor="email" className="color-primary-10 text-[14px] block mb-[4px]">Email</label>
-                    <input id="email" type="text"
-                        onChange={handleChange}
-                        name="email"
-                        className="w-full h-[40px] px-[12px] bg-transparent border-neutral-80 rounded-[4px] focus:outline-none"></input>
-                </div>
-
-                <div className="form-group mb-[32px]">
-                    <label htmlFor="password" className="color-primary-10 text-[14px] block mb-[4px]">Password</label>
-                    <div className="relative">
-                        <input id="password" type={is_password_shown ? "text" : "password"}
-                            onChange={handleChange}
-                            name="password"
-                            className="w-full h-[40px] px-[12px] bg-transparent border-neutral-80 rounded-[4px] focus:outline-none"></input>
-                        <figure onClick={() => show_password()} className="flex-center absolute right-0 top-[50%] translate-y-[-50%] cursor-pointer w-[40px] h-[40px]">
-                            <Image className="" src={is_password_shown ? "/icons/eye-show.svg" : "/icons/eye-close.svg"} width="20" height="16" alt="password-toggler"></Image>
-                        </figure>
-                    </div>
-                </div>
-
-                <button type="submit" className="primary-btn mb-[32px] w-full h-[40px] text-[16px] font-bold bg-primary-50 color-primary-80 rounded-[4px] ">{isLoading ? 'logging...' : 'Log in'}</button>
-
-                <div className="text-end">Don&apost have an account? <Link href="/register" className="color-primary-50 underline underline-offset-2">Register</Link></div>
-            </form>
-        </section>
-    )
+        <div className="text-end">
+          Don&apost have an account?{" "}
+          <Link
+            href="/register"
+            className="color-primary-50 underline underline-offset-2"
+          >
+            Register
+          </Link>
+        </div>
+      </form>
+    </section>
+  );
 }

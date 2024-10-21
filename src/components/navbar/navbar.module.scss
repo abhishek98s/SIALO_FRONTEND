@@ -1,11 +1,11 @@
-@import '../../styles/variables.scss';
+@import "../../styles/variables.scss";
 
 .navbar {
-    border-bottom: 1px solid $neutral-86;
+  border-bottom: 1px solid $neutral-86;
 
-    .user_profile {
-        &:hover {
-            background-color: $neutral-80;
-        }
+  .user_profile {
+    &:hover {
+      background-color: $neutral-80;
     }
+  }
 }

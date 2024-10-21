@@ -1,13 +1,11 @@
-import React from 'react';
-import { Metadata } from 'next';
+import React from "react";
+import { Metadata } from "next";
 
-import RegisterForm from './register';
+import RegisterForm from "./register";
 
 export const metadata: Metadata = {
-    title: 'Sialo | Register',
-}
+  title: "Sialo | Register",
+};
 export default function Register() {
-    return (
-        <RegisterForm />
-    )
+  return <RegisterForm />;
 }
